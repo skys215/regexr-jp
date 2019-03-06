@@ -1,2 +1,3 @@
 # Switch to PHP 7.x
-AddHandler phplatest-script .php
+#AddHandler phplatest-script .php
+AddHandler application/x-httpd-php .php
