@@ -71,7 +71,7 @@ export default class Account extends EventDispatcher {
 	_updateUI() {
 		let auth = this.authenticated;
 		$.toggleClass(this.tooltipEl, "authenticated", auth);
-		$.query(".label", this.signinBtn).innerText = auth ? "Sign Out" : "Sign In";
+		$.query(".label", this.signinBtn).innerText = auth ? "退出" : "登录";
 		if (auth) {
 			$.query(".username", this.signoutEl).innerText = this.username;
 			$.query(".type", this.signoutEl).innerText = this.type;

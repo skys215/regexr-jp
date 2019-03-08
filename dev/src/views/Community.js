@@ -42,7 +42,7 @@ export default class CommunityContent {
 		this._pattern = o;
 		$.query(".author", el).innerText = o.author ? "by "+o.author  : "";
 		$.query(".name.label", el).innerText = o.name;
-		$.query(".desc", el).innerText = o.description || "No description available.";
+		$.query(".desc", el).innerText = o.description || "无描述。";
 		this._updateRating();
 		this._updateFavorite();
 		this.example.example = [o.expression, o.text];

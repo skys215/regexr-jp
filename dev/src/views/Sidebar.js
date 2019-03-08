@@ -302,7 +302,7 @@ export default class Sidebar {
 		this._showListMsg();
 	}
 
-	_showListMsg(msg="Loading...") {
+	_showListMsg(msg="加载中……") {
 		this.listEl.innerHTML = "<li class='loading'>"+msg+"</li>";
 	}
 	
@@ -314,7 +314,7 @@ export default class Sidebar {
 	_showServerResults(data) {
 		this.menuList.data = data.results;
 		if (data.results.length === 0) {
-			this._showListMsg(this.curItem.id === "community" ? "No matches." : "No patterns created or favorited.");
+			this._showListMsg(this.curItem.id === "community" ? "没有匹配结果。" : "未创建或未添加至收藏夹。");
 		}
 	}
 	

@@ -131,12 +131,12 @@ export default class RegExr extends EventDispatcher {
 	}
 	
 	newDoc(warn=true) {
-		this.load({flavor: this.flavor.value, expression: ".", text:"Text"}, warn);
+		this.load({flavor: this.flavor.value, expression: ".", text:"文本"}, warn);
 		this.expression.selectAll();
 	}
 
 	load(state, warn=true) {
-		if (warn === true) { warn = "You have unsaved changes. Continue without saving?"; }
+		if (warn === true) { warn = "你有未保存的变动。是否放弃保存？"; }
 		if (warn && this.unsaved && !confirm(warn)) { return; }
 		this.state = Utils.clone(state);
 	}
