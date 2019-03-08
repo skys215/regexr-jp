@@ -249,7 +249,7 @@ abstract class AbstractAction {
 
         $errCount = count($errors);
         if ($errCount > 0) {
-            $returnError = array('message' => "$errCount value(s) not found:");
+            $returnError = array('message' => "$errCount 未找到值：");
             $returnError['errors'] = $errors;
             throw new APIError(ErrorCodes::API_MISSING_VALUES, $returnError);
         }
@@ -297,10 +297,10 @@ abstract class AbstractAction {
             $missingKeysString = "`$keys[0]`";
         } else if ($count > 1) {
             $lastKey = array_pop($keys);
-            $missingKeysString = "one of `" . implode('`, `', $keys) . "` or `$lastKey`";
+            $missingKeysString = implode('`, `', $keys) . "` 或 `$lastKey` 之一";
         }
 
-        return "You must set atleast $missingKeysString";
+        return "需要至少 $missingKeysString";
     }
 
     /**
