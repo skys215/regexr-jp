@@ -68,16 +68,16 @@ export default class Reference {
 	
 	getQuant(token) {
 		let min = token.min, max = token.max;
-		return min === max ? min : max === -1 ? min + " or more" : "between " + min + " and " + max;
+		return min === max ? min : max === -1 ? min + " 或更多" : "在 " + min + " 和 " + max + " 之间";
 	}
 	
 	getUniCat(token) {
-		return Reference.UNICODE_CATEGORIES[token.value] || "[Unrecognized]";
+		return Reference.UNICODE_CATEGORIES[token.value] || "[未识别]";
 	}
 
 	getModes(token) {
-		let str = (token.on ? " Enable \"<code>"+token.on+"</code>\"." : "")
-		if (token.off) { str += " Disable \"<code>"+token.off+"</code>\"."; }
+		let str = (token.on ? " 启用 \"<code>"+token.on+"</code>\"." : "")
+		if (token.off) { str += " 禁用 \"<code>"+token.off+"</code>\"."; }
 		return str;
 	}
 
@@ -86,11 +86,11 @@ export default class Reference {
 			let chr = String.fromCharCode(token.code);
 			if (chr.toLowerCase() === chr.toUpperCase()) { return ""; }
 		}
-		return token.modes ? `Case ${token.modes.i ? "in" : ""}sensitive.` : "";
+		return token.modes ? `大小写 ${token.modes.i ? "不" : ""}敏感.` : "";
 	}
 
 	getDotAll(token) {
-		return (token.modes.s ? "including" : "except") + " line breaks";
+		return (token.modes.s ? "包括" : "不包括") + " 换行";
 	}
 
 	getLabel(token) {
@@ -103,11 +103,11 @@ export default class Reference {
 	}
 
 	getLazy(token) {
-		return token.modes.U ? "greedy" : "lazy";
+		return token.modes.U ? "贪心" : "慵懒";
 	}
 
 	getLazyFew(token) {
-		return token.modes.U ? "many" : "few";
+		return token.modes.U ? "很多" : "很少";
 	}
 
 	getPHPVersion() {
@@ -199,7 +199,7 @@ export default class Reference {
 	
 	getError(error, token) {
 		let errId = error && error.id;
-		let str = this._content.errors[errId] || "no docs for error='" + errId + "'";
+		let str = this._content.errors[errId] || "无 error='" + errId + "' 的相关文档";
 		if (token) { str = this.fillTags(str, token, this, 20); }
 		return str;
 	}
@@ -210,8 +210,8 @@ export default class Reference {
 		let node = this.getNodeForToken(token), label, tip
 
 		if (token.error) {
-			if (token.error.warning) { label = "<span class='error warning'>WARNING: </span>"; }
-			else { label = "<span class='error'>ERROR: </span>"; }
+			if (token.error.warning) { label = "<span class='error warning'>警告: </span>"; }
+			else { label = "<span class='error'>错误: </span>"; }
 			tip = this.getError(token.error, token);
 		} else {
 			label = node ? node.label || node.id || "" : token.type;
@@ -220,8 +220,8 @@ export default class Reference {
 			if (token.type === "group") { label += " #" + token.num; }
 			label = "<b>" + label[0].toUpperCase() + label.substr(1) + ".</b> ";
 		}
-		
-		return tip ? label + tip :  "no docs for id='" + this.idForToken(token) + "'";
+
+		return tip ? label + tip :  "无 id='" + this.idForToken(token) + "' 的相关文档";
 	}
 	
 	getContent(id) {
@@ -233,14 +233,14 @@ export default class Reference {
 	tipForMatch(match, text) {
 		if (!match) { return null; }
 		let more = match.l > 150;
-		let str = "<b>match: </b>" + Utils.shorten(text.substr(match.i, match.l), 150, true, "i") +
-				  "<br/><b>range: </b><code>" + match.i + "-" + (match.i+match.l-1)+ "</code>";
-		
+		let str = "<b>匹配： </b>" + Utils.shorten(text.substr(match.i, match.l), 150, true, "i") +
+				  "<br/><b>范围： </b><code>" + match.i + "-" + (match.i+match.l-1)+ "</code>";
+
 		let groups = match.groups, l = groups && groups.length;
 		for (let i = 0; i < l; i++) {
 			if (i > 3 && l > 5) {
 				more = false;
-				str += "<br><span class='more'>see Details for "+(l-i)+" more</span>";
+				str += "<br><span class='more'>点 详情 查看剩余"+(l-i)+" 个</span>";
 				break;
 			}
 			let group = groups[i], s;
@@ -249,7 +249,7 @@ export default class Reference {
 			str += (i > 0) ? "<br>" : "<hr>";
 			str += "<b>group #" + (i+1) + ": </b>" + Utils.shorten(s, 50, true, "i");
 		}
-		if (more) { str += "<br><span class='more'>see Details for full matches</span>" }
+		if (more) { str += "<br><span class='more'>点 详情 查看所有匹配</span>" }
 		return str;
 	};
 	
@@ -333,42 +333,42 @@ Reference.NONPRINTING_CHARS = {
 
 Reference.UNICODE_CATEGORIES = {
 	// from: http://www.pcre.org/original/doc/html/pcrepattern.html
-	"C": "Other",
-	"Cc": "Control",
-	"Cf": "Format",
-	"Cn": "Unassigned",
-	"Co": "Private use",
-	"Cs": "Surrogate",
-	"L": "Letter",
-	"L&": "Any letter ",
-	"Ll": "Lower case letter",
-	"Lm": "Modifier letter",
-	"Lo": "Other letter",
-	"Lt": "Title case letter",
-	"Lu": "Upper case letter",
-	"M": "Mark",
-	"Mc": "Spacing mark",
-	"Me": "Enclosing mark",
-	"Mn": "Non-spacing mark",
-	"N": "Number",
-	"Nd": "Decimal number",
-	"Nl": "Letter number",
-	"No": "Other number",
-	"P": "Punctuation",
-	"Pc": "Connector punctuation",
-	"Pd": "Dash punctuation",
-	"Pe": "Close punctuation",
-	"Pf": "Final punctuation",
-	"Pi": "Initial punctuation",
-	"Po": "Other punctuation",
-	"Ps": "Open punctuation",
-	"S": "Symbol",
-	"Sc": "Currency symbol",
-	"Sk": "Modifier symbol",
-	"Sm": "Mathematical symbol",
-	"So": "Other symbol",
-	"Z": "Separator",
-	"Zl": "Line separator",
-	"Zp": "Paragraph separator",
-	"Zs": "Space separator"
+	"C": "其他",
+	"Cc": "控制符",
+	"Cf": "格式化字符",
+	"Cn": "未分配",
+	"Co": "私有",
+	"Cs": "代替",
+	"L": "字母",
+	"L&": "任何字母",
+	"Ll": "小写字母",
+	"Lm": "修饰字符",
+	"Lo": "其他字母",
+	"Lt": "标题大写字母",
+	"Lu": "大写字母",
+	"M": "标记",
+	"Mc": "空格标记",
+	"Me": "环绕标记",
+	"Mn": "非空格标记",
+	"N": "数字",
+	"Nd": "十进制数字",
+	"Nl": "字母数字",
+	"No": "其他数字",
+	"P": "标点",
+	"Pc": "连接符",
+	"Pd": "破折标点",
+	"Pe": "结束标点",
+	"Pf": "结尾标点",
+	"Pi": "起始标点",
+	"Po": "其他标点",
+	"Ps": "开始标点",
+	"S": "符号",
+	"Sc": "货币符号",
+	"Sk": "修饰符号",
+	"Sm": "数学符号",
+	"So": "其他符号",
+	"Z": "分割符",
+	"Zl": "行分隔符",
+	"Zp": "段落分隔符",
+	"Zs": "空格分隔符"
 };

@@ -23,12 +23,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 let reference_content = {}, o = reference_content;
 export default reference_content; 
 
-o.label = "RegEx Reference";
+o.label = "正则表达式 参考手册";
 o.id = "reference";
 o.search = true,
 o.desc = `Information on all of the tokens available to create regular expressions.
-	<p>Double-click an item in the list to insert it into your Expression.</p>
-	<p>Click the arrow beside an example to load it.</p>`;
+	<p>在列表中 双击 添加到你的正则表达式中。</p>
+	<p>点击旁边的箭头来载入示例。</p>`;
 
 o.kids = [
 	{
