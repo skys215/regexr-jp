@@ -21,63 +21,63 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // TODO: rewrite to use multiline template literals?
 
 let reference_content = {}, o = reference_content;
-export default reference_content; 
+export default reference_content;
 
 o.label = "正则表达式 参考手册";
 o.id = "reference";
 o.search = true,
-o.desc = `Information on all of the tokens available to create regular expressions.
+    o.desc = `用于创建正则表达式的元字符列表。
 	<p>在列表中 双击 添加到你的正则表达式中。</p>
 	<p>点击旁边的箭头来载入示例。</p>`;
 
 o.kids = [
 	{
-	label: "Character classes",
+	label: "字符类",
 	id: "charclasses",
-	desc: "Character classes match a character from a specific set. There are a number of predefined character classes and you can also define your own sets.",
+	desc: "字符类匹配特定集合中的字符。 有许多预定义的字符类，您也可以定义自己的字符集。",
 	kids: [
-		
+
 		{
 		id:"set",
-		label: "character set",
-		desc:"Match any character in the set.",
+		label: "字符集",
+		desc:"匹配集合中的任何字符。",
 		example:["[aeiou]","glib jocks vex dwarves!"],
 		token:"[ABC]"
 		},
 		{
 		id:"setnot",
-		label: "negated set",
-		desc:"Match any character that is not in the set.",
+		label: "非集",
+		desc:"匹配不在集合中的任何字符。",
 		example:["[^aeiou]","glib jocks vex dwarves!"],
 		token:"[^ABC]"
 		},
 		{
 		id:"range",
-		tip:"Matches a character in the range {{getChar(prev)}} to {{getChar(next)}} (char code {{prev.code}} to {{next.code}}). {{getInsensitive()}}",
+		tip:"匹配ASCII码从{{getChar(prev)}}到{{getChar(next)}}的字符 (char code {{prev.code}} to {{next.code}}). {{getInsensitive()}}",
 		example:["[g-s]","abcdefghijklmnopqrstuvwxyz"],
-		desc: "Matches a character having a character code between the two specified characters inclusive.",
+		desc: "匹配ASCII码在指定范围区间的字符。",
 		token:"[A-Z]"
 		},
 		{
 		id:"posixcharclass",
-		tip:"Matches any character in the '{{value}}' POSIX class.",
-		label:"POSIX class",
-		desc:"Matches any character in the specified POSIX class. Must be in a character set. For example, <code>[[:alnum:]$]</code> will match alphanumeric characters and <code>$</code>.",
-		ext:"<p>For a list of classes, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>",
+		tip:"匹配在'{{value}}' POSIX类中的任何字符.",
+		label:"POSIX类",
+		desc:"匹配指定POSIX类中的任何字符。必须存在于字符集中。例如, <code>[[:alnum:]$]</code>将匹配字母数字字符和<code>$</code>.",
+		ext:"<p>POSIX类列表，请见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE规范</a>.</p>",
 		token:"[:alnum:]"
 		},
 		{
 		id:"dot",
-		tip:"Matches any character {{getDotAll()}}.",
-		desc:"Matches any character except linebreaks.",
+		tip:"匹配任何字符{{getDotAll()}}.",
+		desc:"匹配除换行符之外的任何字符。",
 		ext:" Equivalent to <code>[^\\n\\r]</code>.",
 		example:[".", "glib jocks vex dwarves!"],
 		token:"."
 		},
 		{
-		label:"match any",
-		desc:"A character set that can be used to match any character, including line breaks, without the dotall flag (<code>s</code>)."+
-			"<p>An alternative is <code>[^]</code>, but it is not supported in all browsers.</p>",
+		label:"完全通配",
+		desc:"可以用来匹配所有字符，包括换行符，但是除了dotall标符(<code>s</code>)."+
+			"<p>另外一种形式是<code>[^]</code>, 但是它不被所有浏览器支持</p>",
 		example:["[\\s\\S]", "glib jocks vex dwarves!"],
 		token:"[\\s\\S]"
 		},
@@ -90,44 +90,44 @@ o.kids = [
 		},
 		{
 		id:"word",
-		desc:"Matches any word character (alphanumeric & underscore).",
+		desc:"匹配字母、数字、下划线。",
 		ext:" Only matches low-ascii characters (no accented or non-roman characters). Equivalent to <code>[A-Za-z0-9_]</code>",
 		example:["\\w","bonjour, mon fr\u00E8re"],
 		token:"\\w"
 		},
 		{
 		id:"notword",
-		label: "not word",
-		desc:"Matches any character that is not a word character (alphanumeric & underscore).",
+		label: "非词匹配",
+		desc:"匹配非字母、数字、下划线。",
 		ext:" Equivalent to <code>[^A-Za-z0-9_]</code>",
 		example:["\\W","bonjour, mon fr\u00E8re"],
 		token:"\\W"
 		},
 		{
 		id:"digit",
-		desc:"Matches any digit character (0-9).",
+		desc:"匹配任意数字 (0-9).",
 		ext:" Equivalent to <code>[0-9]</code>.",
 		example:["\\d","+1-(444)-555-1234"],
 		token:"\\d"
 		},
 		{
 		id:"notdigit",
-		label: "not digit",
-		desc:"Matches any character that is not a digit character (0-9).",
+		label: "非数字",
+		desc:"匹配任意非数字字符 (0-9).",
 		ext:" Equivalent to <code>[^0-9]</code>.",
 		example:["\\D","+1-(444)-555-1234"],
 		token:"\\D"
 		},
 		{
 		id:"whitespace",
-		desc:"Matches any whitespace character (spaces, tabs, line breaks).",
+		desc:"匹配任何空白字符。(空格, 制表符, 换行符)",
 		example:["\\s", "glib jocks vex dwarves!"],
 		token:"\\s"
 		},
 		{
 		id:"notwhitespace",
-		label: "not whitespace",
-		desc:"Matches any character that is not a whitespace character (spaces, tabs, line breaks).",
+		label: "非空白字符",
+		desc:"匹配任何非空白字符。(空格, 制表符, 换行符)",
 		example:["\\S", "glib jocks vex dwarves!"],
 		token:"\\S"
 		},
@@ -157,14 +157,14 @@ o.kids = [
 		},
 		{
 		id:"linebreak",
-		label:"line break",
-		desc:"Matches any line break character, including the CRLF pair, and CR / LF individually.",
+		label:"换行符",
+		desc:"匹配任意换行符, 包括CRLF对, 和单个CR / LF。",
 		token:"\\R"
 		},
 		{
 		id:"notlinebreak",
-		label:"not line break",
-		desc:"Matches any character that is not a line break.",
+		label:"非换行符",
+		desc:"匹配任意非换行符。",
 		ext:" Similar to dot (<code>.</code>) but is unaffected by the dotall flag (<code>s</code>).",
 		token:"\\N"
 		},
@@ -213,15 +213,15 @@ o.kids = [
 	kids:[
 		{
 		id:"bos",
-		label:"beginning of string",
-		desc:"Matches the beginning of the string.",
+		label:"字符串起始",
+		desc:"匹配字符串的开头",
 		ext:" Unlike <code>^</code>, this is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
 		token:"\\A"
 		},
 		{
 		id:"eos",
-		label:"end of string",
-		desc:"Matches the end of the string.",
+		label:"字符串结尾",
+		desc:"匹配字符串的结尾",
 		ext:" Unlike <code>$</code>, this is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
 		token:"\\Z"
 		},
@@ -234,40 +234,40 @@ o.kids = [
 		},
 		{
 		id:"bof",
-		label:"beginning",
-		desc:"Matches the beginning of the string, or the beginning of a line if the multiline flag (<code>m</code>) is enabled.",
+		label:"开头",
+		desc:"匹配字符串开头，或者当使用多行标志(<code>m</code>)时，匹配一行的开头。",
 		ext:" This matches a position, not a character.",
 		example:["^\\w+","she sells seashells"],
 		token:"^"
 		},
 		{
 		id:"eof",
-		label:"end",
-		desc:"Matches the end of the string, or the end of a line if the multiline flag (<code>m</code>) is enabled.",
+		label:"结尾",
+		desc:"匹配字符串结尾，或者当使用多行标志(<code>m</code>)时，匹配一行的结尾。",
 		ext:" This matches a position, not a character.",
 		example:["\\w+$","she sells seashells"],
 		token:"$"
 		},
 		{
 		id:"wordboundary",
-		label:"word boundary",
-		desc:"Matches a word boundary position between a word character and non-word character or position (start / end of string).",
+		label:"词边界",
+		desc:"匹配一个单词边界，也就是指单词和空格间的位置。",
 		ext:" See the word character class (<code>\w</code>) for more info.",
 		example:["s\\b","she sells seashells"],
 		token:"\\b"
 		},
 		{
 		id:"notwordboundary",
-		label: "not word boundary",
-		desc:"Matches any position that is not a word boundary.",
+		label: "非词边界",
+		desc:"匹配非单词边界。",
 		ext:" This matches a position, not a character.",
 		example:["s\\B","she sells seashells"],
 		token:"\\B"
 		},
 		{
 		id:"prevmatchend",
-		label: "previous match end",
-		desc:"Matches the end position of the previous match.",
+		label: "前匹配项结尾",
+		desc:"匹配前一个匹配的结束位置。",
 		ext:" This matches a position, not a character.",
 		token:"\\G"
 		}
@@ -275,9 +275,9 @@ o.kids = [
 	},
 	
 	{
-	label: "Escaped characters",
+	label: "转义字符",
 	id:"escchars",
-	desc: "Escape sequences can be used to insert reserved, special, and unicode characters. All escaped characters begin with the <code>\\</code> character.",
+	desc: "Escape sequences can be used to insert reserved, special, and unicode characters. 所有转义字符以<code>\\</code>为起始.",
 	kids: [
 		{
 		id:"reservedchar",
