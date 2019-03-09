@@ -86,7 +86,7 @@ export default class Reference {
 			let chr = String.fromCharCode(token.code);
 			if (chr.toLowerCase() === chr.toUpperCase()) { return ""; }
 		}
-		return token.modes ? `大小写 ${token.modes.i ? "不" : ""}敏感.` : "";
+		return token.modes ? `大小写 ${token.modes.i ? "不" : ""}敏感。` : "";
 	}
 
 	getDotAll(token) {
@@ -304,11 +304,11 @@ Reference.NONPRINTING_CHARS = {
 	"6": "ACK",
 	"7": "BELL",
 	"8": "BS",
-	"9": "TAB", //
-	"10": "LINE FEED", //
+	"9": "TAB制表符", //
+	"10": "LF换行符", //
 	"11": "VERTICAL TAB",
 	"12": "FORM FEED",
-	"13": "CARRIAGE RETURN", //
+	"13": "CR换行符", //
 	"14": "SO",
 	"15": "SI",
 	"16": "DLE",
@@ -327,7 +327,7 @@ Reference.NONPRINTING_CHARS = {
 	"29": "GS",
 	"30": "RS",
 	"31": "US",
-	"32": "SPACE", //
+	"32": "空格", //
 	"127": "DEL"
 };
 

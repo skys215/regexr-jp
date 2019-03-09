@@ -470,60 +470,60 @@ o.kids = [
 	},
 	
 	{
-	label: "Quantifiers & Alternation",
+	label: "量词 & 多选",
 	id:"quants",
-	desc: "Quantifiers indicate that the preceding token must be matched a certain number of times. By default, quantifiers are greedy, and will match as many characters as possible."+
-		"<hr/>Alternation acts like a boolean OR, matching one sequence or another.",
+	desc: "量词指定了前面的标记需要出现的次数。默认情况下，量词是贪婪的，会尽可能多地匹配字符。"+
+		"<hr/>多选表现起来像 逻辑与，匹配这个或那个序列。",
 	kids: [
 		{
 		id:"plus",
-		desc:"Matches 1 or more of the preceding token.",
+		desc:"匹配1个或更多前面的标记。",
 		example:["b\\w+","b be bee beer beers"],
 		token:"+"
 		},
 		{
 		id:"star",
-		desc:"Matches 0 or more of the preceding token.",
+		desc:"匹配0个或更多前面的标记。",
 		example:["b\\w*","b be bee beer beers"],
 		token:"*"
 		},
 		{
 		id:"quant",
 		label:"quantifier",
-		tip:"Match {{getQuant()}} of the preceding token.",
-		desc:"Matches the specified quantity of the previous token. "+
-			"<code>{1,3}</code> will match 1 to 3. "+
-			"<code>{3}</code> will match exactly 3. "+
-			"<code>{3,}</code> will match 3 or more. ",
+		tip:"匹配 {{getQuant()}} 个前面的标记。",
+		desc:"匹配指定数量个前面的标记。"+
+			"<code>{1,3}</code> 会匹配1个到3个。"+
+			"<code>{3}</code> 会匹配正好3个。"+
+			"<code>{3,}</code> 会匹配3个或更多。",
 		example:["b\\w{2,3}","b be bee beer beers"],
 		token:"{1,3}"
 		},
 		{
 		id:"opt",
 		label:"optional",
-		desc:"Matches 0 or 1 of the preceding token, effectively making it optional.",
+		desc:"匹配0个或1个前面的标记，用于标为可选项。",
 		example: ["colou?r", "color colour"],
 		token:"?"
 		},
 		{
 		id:"lazy",
-		tip:"Makes the preceding quantifier {{getLazy()}}, causing it to match as {{getLazyFew()}} characters as possible.",
-		desc:"Makes the preceding quantifier lazy, causing it to match as few characters as possible.",
-		ext:" By default, quantifiers are greedy, and will match as many characters as possible.",
+		tip:"令前面的标记 {{getLazy()}}, 让其尽可能 {{getLazyFew()}} 地匹配字符。",
+		desc:"令前面的标记变慵懒，让其尽可能少地匹配字符。",
+		ext:"默认情况下，量词是贪婪的会尽可能多地匹配字符。",
 		example:["b\\w+?","b be bee beer beers"],
 		token:"?"
 		},
 		{
 		id:"possessive",
 		desc:"Makes the preceding quantifier possessive. It will match as many characters as possible, and will not release them to match subsequent tokens.",
-		ext:"<p>For example <code>/.*a/</code> would match <code>aaa</code>, but <code>/.*+a/</code> would not, because the repeating dot would match and not release the last character to match <code>a</code>.</p>",
+		ext:"<p>例如 <code>/.*a/</code> 会匹配到 <code>aaa</code>, 但 <code>/.*+a/</code> 则不会。because the repeating dot would match and not release the last character to match <code>a</code>.</p>",
 		token:"+"
 		},
 		{
 		id:"alt",
 		label:"alternation",
-		desc:"Acts like a boolean OR. Matches the expression before or after the <code>|</code>.",
-		ext:"<p>It can operate within a group, or on a whole expression. The patterns will be tested in order.</p>",
+		desc:"多选表现起来像 逻辑与。匹配<code>|</code>前面的或后面的表达式。",
+		ext:"<p>它可以用在分组里面，或在整个表达式中使用。会按顺序尝试匹配。</p>",
 		example:["b(a|e|i)d","bad bud bod bed bid"],
 		token:"|"
 		}
@@ -531,102 +531,102 @@ o.kids = [
 	},
 	
 	{
-	label: "Special",
+	label: "特殊",
 	id:"other",
-	desc: "Tokens that don't quite fit anywhere else.",
+	desc: "其他未分类标记（tokens）。",
 	kids: [
 		{
 		id:"comment",
-		desc:"Allows you to insert a comment into your expression that is ignored when finding a match.",
+		desc:"允许你在正则表达式中插入注释，匹配时候会被忽略。",
 		token:"(?#foo)"
 		},
 		{
 		id:"conditional",
-		desc:"Conditionally matches one of two options based on whether a lookaround is matched.",
-		ext:"<p>For example, <code>/(?(?=a)ab|..)/</code> will match <code>ab</code> and <code>zx</code> but not <code>ax</code>, because if the first character matches the condition <code>a</code> then it evaluates the pattern <code>ab</code>.</p>"+
-			"<p>Any lookaround can be used as the condition. A lookahead will start the subsequent match at the start of the condition, a lookbehind will start it after.</p>",
+		desc:"当满足前瞻条件后，从两个选项中选择一个匹配。Conditionally matches one of two options based on whether a lookaround is matched.",
+		ext:"<p>例如, <code>/(?(?=a)ab|..)/</code> 会匹配 <code>ab</code> 和 <code>zx</code> 但不会匹配到 <code>ax</code>, 因为如果第一个字符满足条件 <code>a</code> 那么它就尝试匹配表达式 <code>ab</code>。</p>"+
+			"<p>任何前瞻都可以用在这个条件上。前瞻会在条件开始的位置启动子序列的匹配过程。后顾则会在结束的位置启动。A lookahead will start the subsequent match at the start of the condition, a lookbehind will start it after.</p>",
 		token:"(?(?=A)B|C)"
 		},
 		{
 		id:"conditionalgroup",
 		label:"group conditional",
-		desc:"Conditionally matches one of two options based on whether group '{{name}}' matched.",
-		ext:"<p>For example, <code>/(z)?(?(1)a|b)/</code> will match <code>za</code> because the first capture group matches <code>z</code> successfully, which causes the conditional to match the first option <code>a</code>.</p>"+
-			"<p>The same pattern will also match <code>b</code> on its own, because group 1 doesn't match, so it instead tries to match the second option <code>b</code>.</p>"+
-			"<p>You can reference a group by name, number, or relative position (ex. <code>-1</code>).</p>",
+		desc:"当匹配到'{{name}}'分组后，从两个选项中选择一个匹配。",
+		ext:"<p>例如，<code>/(z)?(?(1)a|b)/</code> 会匹配到 <code>za</code>。因为第一个分组能成功匹配到 <code>z</code>， 这会让条件分支去选择第一个选项 <code>a</code>。</p>"+
+			"<p>相同的表达式会同时匹配到 <code>b</code> on its own。因为第1个分组没有匹配到，所以他会尝试匹配第二个选项 <code>b</code>。</p>"+
+			"<p>你可以用分组名称引用分组、数字或相对位置 (ex. <code>-1</code>)。</p>",
 		token:"(?(1)B|C)"
 		},
 		{
 		id:"recursion",
-		desc:"Attempts to match the full expression again at the current position.",
-		ext:"<p>For example, <code>/a(?R)?b/</code> will match any number of <code>a</code> followed by the same number of <code>z</code>: the full text of <code>az</code> or <code>aaaazzzz</code>, but not <code>azzz</code>.</p>"+
-			"<p>There are multiple syntaxes for this feature:</p><p><code>(?R)</code> <code>(?0)</code> <code>\\g<0></code> <code>\\g'0'</code></p>",
+		desc:"在相同位置尝试匹配整个表达式。",
+		ext:"<p>例如， <code>/a(?R)?z/</code> 会匹配到任意数量的 <code>a</code> 紧跟相同数量的 <code>z</code>: 匹配 <code>az</code> 单词或 <code>aaaazzzz</code>, 但不会匹配<code>azzz</code>。</p>"+
+			"<p>可以用不同语法使用这个特性：</p><p><code>(?R)</code> <code>(?0)</code> <code>\\g<0></code> <code>\\g'0'</code></p>",
 		token:"(?R)"
 		},
 		{
 		id:"mode",
 		label:"mode modifier",
 		tip:"{{~getDesc()}}{{~getModes()}}",
-		desc:"Enables or disables modes for the remainder of the expression.",
-		ext:"Matching modes generally map to expression flags. For example <code>(?i)</code> would enable case insensitivity for the remainder of the expression."+
-			"<p>Multiple modifiers can be specified, and any modifiers that follow <code>-</code> are disabled. For example <code>(?im-s)</code> would enable case insensitivity &amp; multiline modes, and disable dotall.</p>"+
-			"<p>Supported modifiers are: <code>i</code> - case insensitive, <code>s</code> - dotall, <code>m</code> - multiline, <code>x</code> - free spacing, <code>J</code> - allow duplicate names, <code>U</code> - ungreedy.</p>",
+		desc:"对正则的余下部分启用或禁用模式。",
+		ext:"模式对应于正则表达式的标识。 例如 <code>(?i)</code> 会对余下的正则启用大小写不敏感（即禁用大小写敏感）。"+
+			"<p>可以定义多个修饰符，修饰符后面跟<code>-</code>会禁用该修饰符。例如，<code>(?im-s)</code> 会启用 大小写不敏感 和 多行模式，禁用dotall。</p>"+
+			"<p>支持的修饰符有： <code>i</code> - 大小写不敏感、<code>s</code> - dotall、<code>m</code> - 多行、<code>x</code> - 无间隔、 <code>J</code> - 允许重复分组子正则、<code>U</code> - 非贪婪。</p>",
 		token:"(?i)"
 		}
 	]
 	},
 
 	{
-	label: "Substitution",
-	desc: "These tokens are used in a substitution string to insert different parts of the match.",
+	label: "替换",
+	desc: "这些标记（tokens）用来替换字符串，插入到匹配结果的其他部分。",
 	target: "subst",
 	id:"subst",
 	kids: [
 		{
 		id:"subst_$&match",
 		label: "match",
-		desc:"Inserts the matched text.",
+		desc:"插入匹配到的文本。",
 		token:"$&"
 		},
 		{
 		id:"subst_0match",
 		label: "match",
-		desc:"Inserts the matched text.",
-		ext:"<p>There are multiple syntaxes for this feature:</p><p><code>$0</code> <code>\\0</code> <code>\\{0}</code></p>",
+		desc:"插入匹配到的文本。",
+		ext:"<p>可以用不同语法使用这个特性：</p><p><code>$0</code> <code>\\0</code> <code>\\{0}</code></p>",
 		token:"$0"
 		},
 		{
 		id:"subst_group",
 		label: "capture group",
-		tip:"Inserts the results of capture group #{{group.num}}.",
-		desc:"Inserts the results of the specified capture group. For example, <code>$3</code> would insert the third capture group.",
+		tip:"插入匹配到的分组 #{{group.num}}。",
+		desc:"插入匹配到的指定分组。例如，<code>$3</code> 会插入匹配到第3个分组。",
 		// NOTE: javascript profile overrides this:
-		ext:"<p>There are multiple syntaxes for this feature:</p><p><code>$1</code> <code>\\1</code> <code>\\{1}</code></p>",
+		ext:"<p>可以用不同的语法使用这个特性：</p><p><code>$1</code> <code>\\1</code> <code>\\{1}</code></p>",
 		token:"$1"
 		},
 		{
 		id:"subst_$before",
 		label: "before match",
-		desc:"Inserts the portion of the source string that precedes the match.",
+		desc:"插入匹配到的文本之前的字符串。",
 		token:"$`"
 		},
 		{
 		id:"subst_$after",
 		label: "after match",
-		desc:"Inserts the portion of the source string that follows the match.",
+		desc:"插入匹配到的文本之后的字符串。",
 		token:"$'"
 		},
 		{
 		id:"subst_$esc",
 		label: "escaped $",
-		desc:"Inserts a dollar sign character ($).",
+		desc:"插入美元符号（$）",
 		token:"$$"
 		},
 		{
 		id: "subst_esc",
 		label: "escaped characters",
 		token: "\\n",
-		desc: "For convenience, these escaped characters are supported in the Replace string in RegExr: <code>\\n</code>, <code>\\r</code>, <code>\\t</code>, <code>\\\\</code>, and unicode escapes <code>\\uFFFF</code>. This may vary in your deploy environment."
+		desc: "方便起见，RegExr支持替换以下转义字符： <code>\\n</code>, <code>\\r</code>, <code>\\t</code>, <code>\\\\</code>, 以及 unicode转义字符 <code>\\uFFFF</code>。这会因你的部署环境而异。"
 		}
 	]
 	},
@@ -634,60 +634,60 @@ o.kids = [
 	{
 	id:"flags",
 	label:"Flags",
-	tooltip:"Expression flags change how the expression is interpreted. Click to edit.",
-	desc:"Expression flags change how the expression is interpreted. Flags follow the closing forward slash of the expression (ex. <code>/.+/igm</code> ).",
+	tooltip:"标识可以改变表达式的解析方式。点击以编辑。",
+	desc:"标识可以改变表达式的解析方式。标识会在表达式末尾斜杠后(例如. <code>/.+/igm</code> )。",
 	target:"flags",
 	kids: [
 		{
 		id:"caseinsensitive",
 		label: "ignore case",
-		desc:"Makes the whole expression case-insensitive.",
-		ext:" For example, <code>/aBc/i</code> would match <code>AbC</code>.",
+		desc:"让整个表达式对大小写不敏感。",
+		ext:" 例如，<code>/aBc/i</code> 会匹配到 <code>AbC</code>。",
 		token:"i"
 		},
 		{
 		id:"global",
 		label: "global search",
-		tip: "Retain the index of the last match, allowing iterative searches.",
-		desc:"Retain the index of the last match, allowing subsequent searches to start from the end of the previous match."+
-			"<p>Without the global flag, subsequent searches will return the same match.</p><hr/>"+
-			"RegExr only searches for a single match when the global flag is disabled to avoid infinite match errors.",
+		tip: "保留上次匹配结果的位置，允许递归搜索。",
+		desc:"保留上次匹配结果的位置，允许子序列从上次匹配的结果继续搜索。"+
+			"<p>如果没有全局(<code>g</code>)标识, 后面的查询会返回相同的结果。</p><hr/>"+
+			"在禁用全局标识的时候，会RegExr会为了避免无穷个匹配结果而只返回第一个结果。",
 		token:"g"
 		},
 		{
 		id:"multiline",
-		tip:"Beginning/end anchors (<b>^</b>/<b>$</b>) will match the start/end of a line.",
-		desc:"When the multiline flag is enabled, beginning and end anchors (<code>^</code> and <code>$</code>) will match the start and end of a line, instead of the start and end of the whole string."+
-			"<p>Note that patterns such as <code>/^[\\s\\S]+$/m</code> may return matches that span multiple lines because the anchors will match the start/end of <b>any</b> line.</p>",
+		tip:"使用起始/结尾锚（<b>^</b>/<b>$</b>）会匹配到行首和行尾。",
+		desc:"当启用 multiline标识时，使用起始和结尾锚（<b>^</b> 和 <b>$</b>）会匹配到行首和行尾, 而不是整个字符串的头部和尾部。"+
+			"<p>需要注意的是类似<code>/^[\\s\\S]+$/m</code>的正则可能会匹配到含有换行符的字符串。因为锚会匹配到<b>任意</b>行的起始/结束位置。</p>",
 		token:"m"
 		},
 		{
 		id:"unicode",
-		tip:"Enables <code>\\x{FFFFF}</code> unicode escapes.",
-		desc:"When the unicode flag is enabled, you can use extended unicode escapes in the form <code>\\x{FFFFF}</code>."+
-			"<p>It also makes other escapes stricter, causing unrecognized escapes (ex. <code>\\j</code>) to throw an error.</p>",
+		tip:"启用<code>\\x{FFFFF}</code>Unicode转义。",
+		desc:"当启用Unicode标识时，你可以按<code>\\x{FFFFF}</code>格式转义unicode字符。"+
+			"<p>这会使转义更严格，会对不能识别的转义字符 (例如 <code>\\j</code>) 报错。</p>",
 		token:"u"
 		},
 		{
 		id:"sticky",
-		desc:"The expression will only match from its lastIndex position and ignores the global (<code>g</code>) flag if set.",
-		ext:" Because each search in RegExr is discrete, this flag has no further impact on the displayed results.",
+		desc:"只会从lastIndex位置开始匹配，且如果设置了全局标识(<code>g</code>）的话会被忽略。",
+		ext:" 因为在RegExr的每次解析是独立的，该标识对已显示的内容没有任何影响。",
 		token:"y"
 		},
 		{
 		id:"dotall",
-		desc:"Dot (<code>.</code>) will match any character, including newline.",
+		desc:"点（<code>.</code>）会匹配任何字符，包括换行符。",
 		token:"s"
 		},
 		{
 		id:"extended",
-		desc:"Literal whitespace characters are ignored, except in character sets.",
+		desc:"除了在字符集中定义的空白字符外，Literal 的空白字符会被忽略。",
 		token:"x"
 		},
 		{
 		id:"ungreedy",
-		tip:"Makes quantifiers ungreedy (lazy) by default.",
-		desc:"Makes quantifiers ungreedy (lazy) by default. Quantifiers followed by <code>?</code> will become greedy.",
+		tip:"默认非贪婪（慵懒）匹配。",
+		desc:"默认非贪婪（慵懒）匹配。会贪婪匹配带有<code>?</code>的量词。",
 		token:"U"
 		}
 	]
@@ -700,7 +700,7 @@ o.misc = {
 		{
 		id:"ignorews",
 		label:"ignored whitespace",
-		tip:"Whitespace character ignored due to the e<b>x</b>tended flag or mode."
+		tip:"因已启用<b>x</b>扩展 模式，空白字符已被忽略。"
 		},
 		{
 		id:"extnumref", // alternative syntaxes.
@@ -709,24 +709,24 @@ o.misc = {
 		{
 		id:"char",
 		label:"character",
-		tip:"Matches a {{getChar()}} character (char code {{code}}). {{getInsensitive()}}"
+		tip:"匹配 {{getChar()}} 字母 (字符编码 {{code}})。 {{getInsensitive()}}"
 		},
 		{
 		id:"escchar",
 		label:"escaped character",
-		tip:"Matches a {{getChar()}} character (char code {{code}})."
+		tip:"匹配 {{getChar()}} (字符编码 {{code}})."
 		},
 		{
 		id:"open",
-		tip:"Indicates the start of a regular expression."
+		tip:"标记正则表达式起始位置。"
 		},
 		{
 		id:"close",
-		tip:"Indicates the end of a regular expression and the start of expression flags."
+		tip:"标记正则表达式的结束位置和标识的起始位置。"
 		},
 		{
 		id:"condition",
-		tip:"The lookaround to match in resolving the enclosing conditional statement. See 'conditional' in the Reference for info."
+		tip:"The lookaround to match in resolving the enclosing conditional statement. 详情见参考手册中”条件“部分。"
 		},
 		{
 		id:"conditionalelse",
@@ -735,58 +735,58 @@ o.misc = {
 		},
 		{
 		id:"ERROR",
-		tip:"Errors in the expression are underlined in red. Roll over errors for more info."
+		tip:"错误已在正则表达式中用红线标出。滚动滚轮以查看详情。"
 		},
 		{
 		id:"PREG_INTERNAL_ERROR",
-		tip:"Internal PCRE error"
+		tip:"PCRE内部错误"
 		},
 		{
 		id:"PREG_BACKTRACK_LIMIT_ERROR",
-		tip:"Backtrack limit was exhausted."
+		tip:"反向引用个数超出限制。"
 		},
 		{
 		id:"PREG_RECURSION_LIMIT_ERROR",
-		tip:"Recursion limit was exhausted"
+		tip:"递归层数超出限制。"
 		},
 		{
 		id:"PREG_BAD_UTF8_ERROR",
-		tip:"Malformed UTF-8 data"
+		tip:"不合法的UTF-8数据。"
 		},
 		{
 		id:"PREG_BAD_UTF8_OFFSET_ERROR",
-		tip:"Malformed UTF-8 data"
+		tip:"不合法的UTF-8数据。"
 		}
 	]
 };
 
 o.errors = {
-	groupopen:"Unmatched opening parenthesis.",
-	groupclose:"Unmatched closing parenthesis.",
-	setopen:"Unmatched opening square bracket.",
-	rangerev:"Range values reversed. Start char code is greater than end char code.",
-	quanttarg:"Invalid target for quantifier.",
-	quantrev:"Quantifier minimum is greater than maximum.",
-	esccharopen:"Dangling backslash.",
-	esccharbad:"Unrecognized or malformed escape character.",
-	unicodebad:"Unrecognized unicode category or script.",
-	posixcharclassbad:"Unrecognized POSIX character class.",
-	posixcharclassnoset:"POSIX character class must be in a character set.",
-	notsupported:"The \"{{~getLabel()}}\" feature is not supported in this flavor of RegEx.",
-	fwdslash:"Unescaped forward slash. This may cause issues if copying/pasting this expression into code.",
-	esccharbad:"Invalid escape sequence.",
-	servercomm:"An error occurred while communicating with the server.",
-	extraelse:"Extra else in conditional group.",
-	unmatchedref:"Reference to non-existent group \"{{name}}\".",
-	modebad:"Unrecognized mode flag \"<code>{{errmode}}</code>\".",
-	badname:"Group name can not start with a digit.",
-	dupname:"Duplicate group name.",
-	branchreseterr:"<b>Branch Reset.</b> Results will be ok, but RegExr's parser does not number branch reset groups correctly. Coming soon!",
-	timeout:"The expression took longer than 250ms to execute.", // TODO: can we couple this to the help content somehow?
+	groupopen:"缺少右括号。",
+	groupclose:"缺少左括号。",
+	setopen:"缺少右中括号。",
+	rangerev:"起始值和结束值相反。起始值大于结束值。",
+	quanttarg:"无效的量词。",
+	quantrev:"量词的起始值大于结束值。",
+	esccharopen:"缺少待转义字符。",
+	esccharbad:"不存在的转义字符或转义格式错误。",
+	unicodebad:"未能识别的UNICODE类别或脚本。",
+	posixcharclassbad:"未能识别的POSIX字符类。",
+	posixcharclassnoset:"POSIX字符类必须在字符集中。",
+	notsupported:"不支持\"{{~getLabel()}}\" 特性。",
+	fwdslash:"未转义的斜杠。直接把本正则表达式粘贴到代码可能会导致问题。",
+	esccharbad:"无效的转义序列。",
+	servercomm:"通信错误。",
+	extraelse:"条件组中含有额外的else分支。",
+	unmatchedref:"引用了一个不存在的分组 \"{{name}}\"。",
+	modebad:"未能识别的标识 \"<code>{{errmode}}</code>\".",
+	badname:"分组名称不能以数字开头。",
+	dupname:"分组名称不能重复。",
+	branchreseterr:"<b>分支重置。</b> 结果是正确的，但是RegExr解析器还不能正确地给新分组编号。敬请期待！",
+	timeout:"解析超时！", // TODO: can we couple this to the help content somehow?
 
 	// warnings:
-	jsfuture:"The \"{{~getLabel()}}\" feature may not be supported in all browsers.",
-	infinite:"The expression can return empty matches, and may match infinitely in some use cases.", // TODO: can we couple this to the help content somehow?
+	jsfuture:"\"{{~getLabel()}}\" 功能可能不支持所有浏览器。",
+	infinite:"该正则可能会返回空结果，且在个别测试用例上可能会返回无穷个结果。", // TODO: can we couple this to the help content somehow?
 };
 
 /*
