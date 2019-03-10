@@ -174,7 +174,7 @@ o.kids = [
 		label:"unicode category",
 		desc:"Matches a character in the specified unicode category. For example, <code>\\p{Ll}</code> will match any lowercase letter.",
 		ext:"<p>For a list of categories, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
-			"<p>There are multiple syntaxes for this feature:</p><p><code>\\p{L}</code> <code>\\pL</code></p>",
+			"<p>可以用不同语法使用这个特性：</p><p><code>\\p{L}</code> <code>\\pL</code></p>",
 		token:"\\p{L}"
 		},
 		{
@@ -183,7 +183,7 @@ o.kids = [
 		label:"not unicode category",
 		desc:"Matches any character that is not in the specified unicode category.",
 		ext:"<p>For a list of categories, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
-			"<p>There are multiple syntaxes for this feature:</p><p><code>\\P{L}</code> <code>\\p{^L}</code> <code>\\PL</code></p>",
+			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{L}</code> <code>\\p{^L}</code> <code>\\PL</code></p>",
 		token:"\\P{L}"
 		},
 		{
@@ -200,7 +200,7 @@ o.kids = [
 		label:"not unicode script",
 		desc:"Matches any character that is not in the specified unicode script.",
 		ext:"<p>For a list of scripts, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
-			"<p>There are multiple syntaxes for this feature:</p><p><code>\\P{Han}</code> <code>\\p{^Han}</code>",
+			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{Han}</code> <code>\\p{^Han}</code>",
 		token:"\\P{Han}"
 		}
 	]
@@ -343,85 +343,85 @@ o.kids = [
 	},
 	
 	{
-	label: "Groups & References",
+	label: "分组 & 引用",
 	id:"groups",
-	desc: "Groups allow you to combine a sequence of tokens to operate on them together. Capture groups can be referenced by a backreference and accessed separately in the results.",
+	desc: "分组允许你把一系列的标记一起处理。捕获分组可以用反向引用单独地在结果中使用。",
 	kids: [
 		{
 		id:"group",
-		label: "capturing group",
-		desc: "Groups multiple tokens together and creates a capture group for extracting a substring or using a backreference.",
+		label: "捕获分组",
+		desc: "把多个标记分在同一组并创建一个捕获分组，用来创建子串或引用。",
 		example:["(ha)+","hahaha haa hah!"],
 		token:"(ABC)"
 		},
 		{
 		id:"namedgroup",
-		label: "named capturing group",
-		tip:"Creates a capturing group named '{{name}}'.",
-		desc:"Creates a capturing group that can be referenced via the specified name.",
-		ext:"<p>There are multiple syntaxes for this feature:</p><p><code>(?'name'ABC)</code> <code>(?P&lt;name>ABC)</code> <code>(?&lt;name>ABC)</code></p>",
+		label: "命名捕获分组",
+		tip:"创建一个名为'{{name}}'的捕获分组。",
+		desc:"创建一个可以通过指定名称引用的捕获分组。",
+		ext:"<p>可以用不同语法使用这个特性：</p><p><code>(?'name'ABC)</code> <code>(?P&lt;name>ABC)</code> <code>(?&lt;name>ABC)</code></p>",
 		token:"(?'name'ABC)"
 		},
 		{
 		id:"namedref",
-		label:"named reference",
-		tip:"Matches the results of the capture group named '{{group.name}}'.",
-		desc:"Matches the results of a named capture group.",
-		ext:"<p>There are multiple syntaxes for this feature:</p><p><code>\\k'name'</code> <code>\\k&lt;name></code> <code>\\k{name}</code> <code>\\g{name}</code> <code>(?P=name)</code></p>",
+		label:"命名引用",
+		tip:"匹配名为'{{group.name}}'的捕获分组的结果。",
+		desc:"匹配命名捕获分组的结果。",
+		ext:"<p>可以用不同语法使用这个特性：</p><p><code>\\k'name'</code> <code>\\k&lt;name></code> <code>\\k{name}</code> <code>\\g{name}</code> <code>(?P=name)</code></p>",
 		token:"\\k'name'"
 		},
 		{
 		id:"numref",
-		label:"numeric reference",
-		tip:"Matches the results of capture group #{{group.num}}.",
-		desc:"Matches the results of a capture group. For example <code>\\1</code> matches the results of the first capture group & <code>\\3</code> matches the third.",
+		label:"数字引用",
+		tip:"匹配#{{group.num}}号捕获分组的结果。",
+		desc:"匹配捕获分组的结果。例如，<code>\\1</code> 匹配第一个捕获分组的结果，<code>\\3</code> 则匹配第三个结果。",
 		// PCRE adds relative and alternate syntaxes in ext
 		example:["(\\w)a\\1","hah dad bad dab gag gab"],
 		token:"\\1"
 		},
 		{
 		id:"branchreset",
-		label: "branch reset group",
-		desc:"Define alternative groups that share the same group numbers.",
-		ext: "<p>For example, in <code>(?|(a)|(b))</code> both groups (a and b) would be counted as group #1.",
+		label: "分支重置分组",
+		desc:"定义一个拥有相同序号的分组。",
+		ext: "<p>例如，在 <code>(?|(a)|(b))</code> 中，两个分组（a 和 b）会被算作分组#1。",
 		token:"(?|(a)|(b))"
 		},
 		{
 		id:"noncapgroup",
-		label: "non-capturing group",
-		desc:"Groups multiple tokens together without creating a capture group.",
+		label: "非捕获分组",
+		desc:"在不创建捕获分组的情况下，把数个标记组在一起。",
 		example:["(?:ha)+","hahaha haa hah!"],
 		token:"(?:ABC)"
 		},
 		{
 		id:"atomic",
-		label:"atomic group",
-		desc:"Non-capturing group that discards backtracking positions once matched.",
-		ext:"<p>For example, <code>/(?>ab|a)b/</code> will match <code>abb</code> but not <code>ab</code> because once the <code>ab</code> option has matched, the atomic group prevents backtracking to retry with the <code>a</code> option.</p>",
+		label:"原子组",
+		desc:"原子组是一个在匹配时，会抛弃反向引用位置的非捕获分组。",
+		ext:"<p>例如，<code>/(?>ab|a)b/</code> 会匹配 <code>abb</code> 但不会匹配 <code>ab</code> 。因为一旦匹配到 <code>ab</code> 时，原子组会阻止反向引用去重试 <code>a</code>选项。</p>",
 		token:"(?>ABC)"
 		},
 		{
 		id:"define",
-		desc:"Used to define named groups for use as subroutines without including them in the match.",
+		desc:"用来在不被匹配的情况下定义一个命名分组用作子过程。",
 		ext:"<p>For example, <code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code> will match <code>ABZ</code>, because the define group is ignored in the match except to define the <code>foo</code> subroutine that is referenced later with <code>\\g'foo'</code>.</p>",
 		token:"(?(DEFINE)(?'foo'ABC))"
 		},
 		{
 		id:"numsubroutine",
-		label:"numeric subroutine",
+		label:"数字子过程",
 		tip:"Matches the expression in capture group #{{group.num}}.",
-		desc:"Matches the expression in a capture group. Compare this to a reference, that matches the result."+
-			" For example <code>/(a|b)\\g'1'/</code> can match <code>ab</code>, because the expression <code>a|b</code> is evaluated again.",
-		ext:"<p>There are multiple syntaxes for this feature: <code>\\g&lt;1></code> <code>\\g'1'</code> <code>(?1)</code>.</p>"+
+		desc:"匹配捕获分组中的表达式。不同于匹配结果的”引用“。"+
+			" 例如，<code>/(a|b)\\g'1'/</code> 可以匹配 <code>ab</code>，因为 <code>a|b</code> 表达式再一次被匹配了。",
+		ext:"<p>可以用不同语法使用这个特性： <code>\\g&lt;1></code> <code>\\g'1'</code> <code>(?1)</code>。</p>"+
 			"<p>Relative values preceded by <code>+</code> or <code>-</code> are also supported. For example <code>\\g<-1></code> would match the group preceding the reference.</p>",
 		token:"\\g'1'"
 		},
 		{
 		id:"namedsubroutine",
-		label:"named subroutine",
-		tip:"Matches the expression in the capture group named '{{group.name}}'.",
-		desc:"Matches the expression in a capture group. Compare this to a reference, that matches the result.",
-		ext:"<p>There are multiple syntaxes for this feature: <code>\\g&lt;name></code> <code>\\g'name'</code> <code>(?&name)</code> <code>(?P>name)</code>.</p>",
+		label:"命名子过程",
+		tip:"匹配捕获分组中名为'{{group.name}}'的表达式。",
+		desc:"匹配捕获分组中的表达式。不同于匹配结果的”引用“。",
+		ext:"<p>可以用不同语法使用这个特性： <code>\\g&lt;name></code> <code>\\g'name'</code> <code>(?&name)</code> <code>(?P>name)</code>.</p>",
 		token:"\\g'name'"
 		}
 	]
@@ -489,7 +489,7 @@ o.kids = [
 		},
 		{
 		id:"quant",
-		label:"quantifier",
+		label:"量词",
 		tip:"匹配 {{getQuant()}} 个前面的标记。",
 		desc:"匹配指定数量个前面的标记。"+
 			"<code>{1,3}</code> 会匹配1个到3个。"+
@@ -500,7 +500,7 @@ o.kids = [
 		},
 		{
 		id:"opt",
-		label:"optional",
+		label:"可选项",
 		desc:"匹配0个或1个前面的标记，用于标为可选项。",
 		example: ["colou?r", "color colour"],
 		token:"?"
@@ -633,7 +633,7 @@ o.kids = [
 	
 	{
 	id:"flags",
-	label:"Flags",
+	label:"标识",
 	tooltip:"标识可以改变表达式的解析方式。点击以编辑。",
 	desc:"标识可以改变表达式的解析方式。标识会在表达式末尾斜杠后(例如. <code>/.+/igm</code> )。",
 	target:"flags",
