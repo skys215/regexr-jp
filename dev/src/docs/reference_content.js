@@ -227,8 +227,8 @@ o.kids = [
 		},
 		{
 		id:"abseos",
-		label:"strict end of string",
-		desc:"Matches the end of the string. Unlike <code>$</code> or <code>\\Z</code>, it does not allow for a trailing newline.",
+		label:"严格的字符串结尾",
+		desc:"匹配字符串结尾. 不像 <code>$</code> 或 <code>\\Z</code>, 它不允许尾随换行符。",
 		ext:" This is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
 		token:"\\z"
 		},
@@ -277,44 +277,44 @@ o.kids = [
 	{
 	label: "转义字符",
 	id:"escchars",
-	desc: "Escape sequences can be used to insert reserved, special, and unicode characters. 所有转义字符以<code>\\</code>为起始.",
+	desc: "转义序列可用于插入保留字符，特殊字符和Unicode字符。所有转义字符以<code>\\</code>为起始.",
 	kids: [
 		{
 		id:"reservedchar",
-		label:"reserved characters",
-		desc:"The following character have special meaning, and should be preceded by a <code>\\</code> (backslash) to represent a literal character:"+
+		label:"保留字符",
+		desc:"以下字符含有特殊含义, 应该以<code>\\</code>(反斜杠)为开头，以表示文字字符："+
 			"<p><code>{{getEscChars()}}</code></p>"+
-			"<p>Within a character set, only <code>\\</code>, <code>-</code>, and <code>]</code> need to be escaped.</p>",
+			"<p>在一个字符集中, 只有 <code>\\</code>, <code>-</code>, 和 <code>]</code> 需要被转义。</p>",
 		example:["\\+","1 + 1 = 2"],
 		token:"\\+",
 		show:true
 		},
 		{
 		id:"escoctal",
-		label:"octal escape",
-		desc:"Octal escaped character in the form <code>\\000</code>.",
-		ext:" Value must be less than 255 (<code>\\377</code>).", // PCRE profile adds to ext.
+		label:"八进制转义",
+		desc:"八进制转义以<code>\\000</code>为开头。",
+		ext:"数字值必须小于255(<code>\\377</code>)。", // PCRE profile adds to ext.
 		example:["\\251","RegExr is \u00A92014"],
 		token:"\\000"
 		},
 		{
 		id:"eschexadecimal",
-		label:"hexadecimal escape",
-		desc:"Hexadecimal escaped character in the form <code>\\xFF</code>.",
+		label:"十六进制转义",
+		desc:"十六进制转义的形式为<code>\\xFF</code>",
 		example:["\\xA9","RegExr is \u00A92014"],
 		token:"\\xFF"
 		},
 		{
 		id:"escunicodeu",
-		label:"unicode escape",
-		desc:"Unicode escaped character in the form <code>\\uFFFF</code>",
+		label:"unicode转义",
+		desc:"Unicode转义的形式为<code>\\uFFFF</code>",
 		example:["\\u00A9","RegExr is \u00A92014"],
 		token:"\\uFFFF"
 		},
 		{
 		id:"escunicodeub",
-		label:"extended unicode escape",
-		desc:"Unicode escaped character in the form <code>\\u{FFFF}</code>.",
+		label:"扩展的unicode转义",
+		desc:"Unicode转义的形式为<code>\\u{FFFF}</code>",
 		ext:" Supports a full range of unicode point escapes with any number of hex digits. <p>Requires the unicode flag (<code>u</code>).</p>",
 		token:"\\u{FFFF}"
 		},
@@ -333,9 +333,9 @@ o.kids = [
 		},
 		{
 		id:"escsequence",
-		label:"escape sequence",
-		tip: "Matches the literal string '{{value}}'.",
-		desc:"All characters between the <code>\\Q</code> and the <code>\\E</code> are interpreted as a literal string. If <code>\\E</code> is omitted, it continues to the end of the expression.",
+		label:"转义序列",
+		tip: "匹配文字字符串 '{{value}}'.",
+		desc:"所有在<code>\\Q</code>和<code>\\E</code>之间的字符为文字字符串。如果<code>\\E</code>被省略, 它将继续到表达式结尾。",
 		ext:" For example, the expression <code>/\\Q(?.)\\E/</code> will match the string <code>(?.)</code>.",
 		token:"\\Q...\\E"
 		}
