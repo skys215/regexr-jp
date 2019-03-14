@@ -83,9 +83,9 @@ o.kids = [
 		},
 		{
 		id:"unicodegrapheme",
-		label:"unicode grapheme",
-		desc:"Matches any single unicode grapheme (ie. character).",
-		ext:" This includes line breaks (regardless of the dotall mode) and graphemes encoded as multiple code points.",
+		label:"unicode字素",
+		desc:"匹配任意单个Unicode字素（例如，字符）。",
+		ext:"这包括换行符（在dotall标识启用下）和被编码成多码点的字素。",
 		token:"\\X"
 		},
 		{
@@ -300,35 +300,35 @@ o.kids = [
 		{
 		id:"eschexadecimal",
 		label:"十六进制转义",
-		desc:"十六进制转义的形式为<code>\\xFF</code>",
+		desc:"十六进制转义的形式为<code>\\xFF</code>。",
 		example:["\\xA9","RegExr is \u00A92014"],
 		token:"\\xFF"
 		},
 		{
 		id:"escunicodeu",
 		label:"unicode转义",
-		desc:"Unicode转义的形式为<code>\\uFFFF</code>",
+		desc:"Unicode转义的形式为<code>\\uFFFF</code>。",
 		example:["\\u00A9","RegExr is \u00A92014"],
 		token:"\\uFFFF"
 		},
 		{
 		id:"escunicodeub",
 		label:"扩展的unicode转义",
-		desc:"Unicode转义的形式为<code>\\u{FFFF}</code>",
-		ext:" Supports a full range of unicode point escapes with any number of hex digits. <p>Requires the unicode flag (<code>u</code>).</p>",
+		desc:"Unicode转义的形式为<code>\\u{FFFF}</code>。",
+		ext:"支持用任意长度十六进制转义的全范围Unicode码点。<p>需要启用Unicode标识（<code>u</code>）。</p>",
 		token:"\\u{FFFF}"
 		},
 		{
 		id:"escunicodexb",
-		label:"unicode escape",
-		desc:"Unicode escaped character in the form <code>\\x{FF}</code>.",
+		label:"Unicode转义",
+		desc:"以<code>\\x{FF}</code>格式转义的Unicode字符。",
 		token:"\\x{FF}"
 		},
 		{
 		id:"esccontrolchar",
-		label:"control character escape",
-		desc:"Escaped control character in the form <code>\\cZ</code>.",
-		ext:" This can range from <code>\\cA</code> (SOH, char code 1) to <code>\\cZ</code> (SUB, char code 26). <h1>Example:</h1><code>\\cI</code> matches TAB (char code 9).",
+		label:"转义控制字符",
+		desc:"以<code>\\cZ</code>格式转义的Unicode控制字符。",
+		ext:"范围从<code>\\cA</code> (SOH, 字符码 1) 至 <code>\\cZ</code> (SUB, 字符码 26)。 <h1>例如：</h1><code>\\cI</code> 匹配（字符码 9）。",
 		token:"\\cI"
 		},
 		{
@@ -403,17 +403,17 @@ o.kids = [
 		{
 		id:"define",
 		desc:"用来在不被匹配的情况下定义一个命名分组用作子过程。",
-		ext:"<p>For example, <code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code> will match <code>ABZ</code>, because the define group is ignored in the match except to define the <code>foo</code> subroutine that is referenced later with <code>\\g'foo'</code>.</p>",
+		ext:"<p>例如，<code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code> 会匹配到 <code>ABZ</code>，因为定义组在匹配中被忽略了，除非在子过程定义<code>foo</code>子过程，即例子中后方的<code>\\g'foo'</code>。 ",
 		token:"(?(DEFINE)(?'foo'ABC))"
 		},
 		{
 		id:"numsubroutine",
 		label:"数字子过程",
-		tip:"Matches the expression in capture group #{{group.num}}.",
-		desc:"匹配捕获分组中的表达式。不同于匹配结果的”引用“。"+
+		tip:"匹配捕获组#{{group.num}}中的表达式。",
+		desc:"匹配捕获分组中的表达式。不同于匹配结果的“引用”。"+
 			" 例如，<code>/(a|b)\\g'1'/</code> 可以匹配 <code>ab</code>，因为 <code>a|b</code> 表达式再一次被匹配了。",
 		ext:"<p>可以用不同语法使用这个特性： <code>\\g&lt;1></code> <code>\\g'1'</code> <code>(?1)</code>。</p>"+
-			"<p>Relative values preceded by <code>+</code> or <code>-</code> are also supported. For example <code>\\g<-1></code> would match the group preceding the reference.</p>",
+			"<p>同时支持以<code>+</code>或<code>-</code>开头的相对值。例如， <code>\\g<-1></code> 会匹配相对引用的分组。</p>",
 		token:"\\g'1'"
 		},
 		{
@@ -515,13 +515,13 @@ o.kids = [
 		},
 		{
 		id:"possessive",
-		desc:"Makes the preceding quantifier possessive. It will match as many characters as possible, and will not release them to match subsequent tokens.",
-		ext:"<p>例如 <code>/.*a/</code> 会匹配到 <code>aaa</code>, 但 <code>/.*+a/</code> 则不会。because the repeating dot would match and not release the last character to match <code>a</code>.</p>",
+		desc:"令前面的量词贪婪，但不回溯。它会尽可能多地匹配字符，但不会为了匹配后面的标记而释放它。",
+		ext:"<p>例如 <code>/.*a/</code> 会匹配到 <code>aaa</code>, 但 <code>/.*+a/</code> 则不会。因为重复的<code>.</code>会匹配、但不会为了匹配最后一个字符<code>a</code>而释放。</p>",
 		token:"+"
 		},
 		{
 		id:"alt",
-		label:"alternation",
+		label:"多选",
 		desc:"多选表现起来像 逻辑与。匹配<code>|</code>前面的或后面的表达式。",
 		ext:"<p>它可以用在分组里面，或在整个表达式中使用。会按顺序尝试匹配。</p>",
 		example:["b(a|e|i)d","bad bud bod bed bid"],
@@ -542,17 +542,17 @@ o.kids = [
 		},
 		{
 		id:"conditional",
-		desc:"当满足前瞻条件后，从两个选项中选择一个匹配。Conditionally matches one of two options based on whether a lookaround is matched.",
+		desc:"当满足前瞻条件后，从两个选项中选择一个匹配。",
 		ext:"<p>例如, <code>/(?(?=a)ab|..)/</code> 会匹配 <code>ab</code> 和 <code>zx</code> 但不会匹配到 <code>ax</code>, 因为如果第一个字符满足条件 <code>a</code> 那么它就尝试匹配表达式 <code>ab</code>。</p>"+
-			"<p>任何前瞻都可以用在这个条件上。前瞻会在条件开始的位置启动子序列的匹配过程。后顾则会在结束的位置启动。A lookahead will start the subsequent match at the start of the condition, a lookbehind will start it after.</p>",
+			"<p>任何前瞻都可以用在这个条件上。前瞻会在条件开始的位置启动子序列的匹配过程。后顾则会在结束的位置启动。</p>",
 		token:"(?(?=A)B|C)"
 		},
 		{
 		id:"conditionalgroup",
-		label:"group conditional",
+		label:"分组条件",
 		desc:"当匹配到'{{name}}'分组后，从两个选项中选择一个匹配。",
 		ext:"<p>例如，<code>/(z)?(?(1)a|b)/</code> 会匹配到 <code>za</code>。因为第一个分组能成功匹配到 <code>z</code>， 这会让条件分支去选择第一个选项 <code>a</code>。</p>"+
-			"<p>相同的表达式会同时匹配到 <code>b</code> on its own。因为第1个分组没有匹配到，所以他会尝试匹配第二个选项 <code>b</code>。</p>"+
+			"<p>相同的表达式会同时匹配到 <code>b</code>。因为第1个分组没有匹配到，所以他会尝试匹配第二个选项 <code>b</code>。</p>"+
 			"<p>你可以用分组名称引用分组、数字或相对位置 (ex. <code>-1</code>)。</p>",
 		token:"(?(1)B|C)"
 		},
@@ -569,7 +569,7 @@ o.kids = [
 		tip:"{{~getDesc()}}{{~getModes()}}",
 		desc:"对正则的余下部分启用或禁用模式。",
 		ext:"模式对应于正则表达式的标识。 例如 <code>(?i)</code> 会对余下的正则启用大小写不敏感（即禁用大小写敏感）。"+
-			"<p>可以定义多个修饰符，修饰符后面跟<code>-</code>会禁用该修饰符。例如，<code>(?im-s)</code> 会启用 大小写不敏感 和 多行模式，禁用dotall。</p>"+
+			"<p>可以定义多个修饰符，修饰符后面跟<code>-</code>会禁用该修饰符。例如，<code>(?im-s)</code> 会启用 大小写不敏感 和 多行模式，禁用dotall标识。</p>"+
 			"<p>支持的修饰符有： <code>i</code> - 大小写不敏感、<code>s</code> - dotall、<code>m</code> - 多行、<code>x</code> - 无间隔、 <code>J</code> - 允许重复分组子正则、<code>U</code> - 非贪婪。</p>",
 		token:"(?i)"
 		}
@@ -584,20 +584,20 @@ o.kids = [
 	kids: [
 		{
 		id:"subst_$&match",
-		label: "match",
+		label: "匹配",
 		desc:"插入匹配到的文本。",
 		token:"$&"
 		},
 		{
 		id:"subst_0match",
-		label: "match",
+		label: "匹配",
 		desc:"插入匹配到的文本。",
 		ext:"<p>可以用不同语法使用这个特性：</p><p><code>$0</code> <code>\\0</code> <code>\\{0}</code></p>",
 		token:"$0"
 		},
 		{
 		id:"subst_group",
-		label: "capture group",
+		label: "捕获分组",
 		tip:"插入匹配到的分组 #{{group.num}}。",
 		desc:"插入匹配到的指定分组。例如，<code>$3</code> 会插入匹配到第3个分组。",
 		// NOTE: javascript profile overrides this:
@@ -606,25 +606,25 @@ o.kids = [
 		},
 		{
 		id:"subst_$before",
-		label: "before match",
+		label: "匹配之前",
 		desc:"插入匹配到的文本之前的字符串。",
 		token:"$`"
 		},
 		{
 		id:"subst_$after",
-		label: "after match",
+		label: "之后匹配",
 		desc:"插入匹配到的文本之后的字符串。",
 		token:"$'"
 		},
 		{
 		id:"subst_$esc",
-		label: "escaped $",
+		label: "转义$",
 		desc:"插入美元符号（$）",
 		token:"$$"
 		},
 		{
 		id: "subst_esc",
-		label: "escaped characters",
+		label: "转义字符",
 		token: "\\n",
 		desc: "方便起见，RegExr支持替换以下转义字符： <code>\\n</code>, <code>\\r</code>, <code>\\t</code>, <code>\\\\</code>, 以及 unicode转义字符 <code>\\uFFFF</code>。这会因你的部署环境而异。"
 		}
@@ -640,18 +640,18 @@ o.kids = [
 	kids: [
 		{
 		id:"caseinsensitive",
-		label: "ignore case",
+		label: "忽略大小写",
 		desc:"让整个表达式对大小写不敏感。",
 		ext:" 例如，<code>/aBc/i</code> 会匹配到 <code>AbC</code>。",
 		token:"i"
 		},
 		{
 		id:"global",
-		label: "global search",
+		label: "全局搜索",
 		tip: "保留上次匹配结果的位置，允许递归搜索。",
 		desc:"保留上次匹配结果的位置，允许子序列从上次匹配的结果继续搜索。"+
 			"<p>如果没有全局(<code>g</code>)标识, 后面的查询会返回相同的结果。</p><hr/>"+
-			"在禁用全局标识的时候，会RegExr会为了避免无穷个匹配结果而只返回第一个结果。",
+			"在禁用全局标识的时候，RegExr会为了避免无穷个匹配结果而只返回第一个结果。",
 		token:"g"
 		},
 		{
@@ -664,7 +664,7 @@ o.kids = [
 		{
 		id:"unicode",
 		tip:"启用<code>\\x{FFFFF}</code>Unicode转义。",
-		desc:"当启用Unicode标识时，你可以按<code>\\x{FFFFF}</code>格式转义unicode字符。"+
+		desc:"当启用Unicode标识时，你可以按<code>\\x{FFFFF}</code>格式转义Unicode字符。"+
 			"<p>这会使转义更严格，会对不能识别的转义字符 (例如 <code>\\j</code>) 报错。</p>",
 		token:"u"
 		},
@@ -699,7 +699,7 @@ o.misc = {
 	kids:[
 		{
 		id:"ignorews",
-		label:"ignored whitespace",
+		label:"忽略空白字符",
 		tip:"因已启用<b>x</b>扩展 模式，空白字符已被忽略。"
 		},
 		{
@@ -708,13 +708,13 @@ o.misc = {
 		},
 		{
 		id:"char",
-		label:"character",
+		label:"字符",
 		tip:"匹配 {{getChar()}} 字母 (字符编码 {{code}})。 {{getInsensitive()}}"
 		},
 		{
 		id:"escchar",
 		label:"escaped character",
-		tip:"匹配 {{getChar()}} (字符编码 {{code}})."
+		tip:"匹配 {{getChar()}} (字符编码 {{code}})。"
 		},
 		{
 		id:"open",
@@ -731,7 +731,7 @@ o.misc = {
 		{
 		id:"conditionalelse",
 		label:"conditional else",
-		tip:"Delimits the 'else' portion of the conditional."
+		tip:"区分条件中的else部分"
 		},
 		{
 		id:"ERROR",
