@@ -295,7 +295,7 @@ export default class Reference {
 }
 
 Reference.NONPRINTING_CHARS = {
-	"0": "NULL",
+	"0": "空（NULL）",
 	"1": "SOH",
 	"2": "STX",
 	"3": "ETX",
@@ -306,8 +306,8 @@ Reference.NONPRINTING_CHARS = {
 	"8": "BS",
 	"9": "TAB制表符", //
 	"10": "LF换行符", //
-	"11": "VERTICAL TAB",
-	"12": "FORM FEED",
+	"11": "纵向制表符（VERTICAL TAB）",
+	"12": "换页符（FROM FEED）",
 	"13": "CR换行符", //
 	"14": "SO",
 	"15": "SI",

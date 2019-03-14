@@ -53,6 +53,7 @@ o.kids = [
 		},
 		{
 		id:"range",
+		label: "范围",
 		tip:"匹配ASCII码从{{getChar(prev)}}到{{getChar(next)}}的字符 (ASCII码从 {{prev.code}} 到 {{next.code}})。 {{getInsensitive()}}",
 		example:["[g-s]","abcdefghijklmnopqrstuvwxyz"],
 		desc: "匹配ASCII码在指定范围区间的字符。",
@@ -68,6 +69,7 @@ o.kids = [
 		},
 		{
 		id:"dot",
+		label: "点",
 		tip:"匹配任何字符{{getDotAll()}}.",
 		desc:"匹配除换行符之外的任何字符。",
 		ext:" 等价于 <code>[^\\n\\r]</code>.",
@@ -75,6 +77,7 @@ o.kids = [
 		token:"."
 		},
 		{
+		id: "matchany",
 		label:"完全通配",
 		desc:"可以用来匹配所有字符，包括换行符，但是除了dotall标符(<code>s</code>)."+
 			"<p>另外一种形式是<code>[^]</code>, 但是它不被所有浏览器支持</p>",
@@ -90,6 +93,7 @@ o.kids = [
 		},
 		{
 		id:"word",
+		label: "单词",
 		desc:"匹配字母、数字、下划线。",
 		ext:" 只匹配小ASCII码的字符（无声调字母或非罗马英文字符）。 等价于 <code>[A-Za-z0-9_]</code>",
 		example:["\\w","bonjour, mon fr\u00E8re"],
@@ -105,6 +109,7 @@ o.kids = [
 		},
 		{
 		id:"digit",
+		label: "数字",
 		desc:"匹配任意数字 (0-9).",
 		ext:" 等价于 <code>[0-9]</code>.",
 		example:["\\d","+1-(444)-555-1234"],
@@ -120,6 +125,7 @@ o.kids = [
 		},
 		{
 		id:"whitespace",
+		label: "空白字符",
 		desc:"匹配任何空白字符。(空格, 制表符, 换行符)",
 		example:["\\s", "glib jocks vex dwarves!"],
 		token:"\\s"
@@ -207,7 +213,7 @@ o.kids = [
 	},
 
 	{
-	label:"Anchors",
+	label:"锚定",
 	id:"anchors",
 	desc:"锚定类比较特殊，它匹配位置，而不是字符。",
 	kids:[
@@ -402,6 +408,7 @@ o.kids = [
 		},
 		{
 		id:"define",
+		label: "定义",
 		desc:"用来在不被匹配的情况下定义一个命名分组用作子过程。",
 		ext:"<p>例如，<code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code> 会匹配到 <code>ABZ</code>，因为定义组在匹配中被忽略了，除非在子过程定义<code>foo</code>子过程，即例子中后方的<code>\\g'foo'</code>。 ",
 		token:"(?(DEFINE)(?'foo'ABC))"
@@ -477,12 +484,14 @@ o.kids = [
 	kids: [
 		{
 		id:"plus",
+		label: "+",
 		desc:"匹配1个或更多前面的标记。",
 		example:["b\\w+","b be bee beer beers"],
 		token:"+"
 		},
 		{
 		id:"star",
+		label: "*",
 		desc:"匹配0个或更多前面的标记。",
 		example:["b\\w*","b be bee beer beers"],
 		token:"*"
@@ -507,6 +516,7 @@ o.kids = [
 		},
 		{
 		id:"lazy",
+		label: "慵懒",
 		tip:"令前面的标记 {{getLazy()}}, 让其尽可能 {{getLazyFew()}} 地匹配字符。",
 		desc:"令前面的标记变慵懒，让其尽可能少地匹配字符。",
 		ext:"默认情况下，量词是贪婪的会尽可能多地匹配字符。",
@@ -515,6 +525,7 @@ o.kids = [
 		},
 		{
 		id:"possessive",
+		label: "占有型",
 		desc:"令前面的量词贪婪，但不回溯。它会尽可能多地匹配字符，但不会为了匹配后面的标记而释放它。",
 		ext:"<p>例如 <code>/.*a/</code> 会匹配到 <code>aaa</code>, 但 <code>/.*+a/</code> 则不会。因为重复的<code>.</code>会匹配、但不会为了匹配最后一个字符<code>a</code>而释放。</p>",
 		token:"+"
@@ -537,11 +548,13 @@ o.kids = [
 	kids: [
 		{
 		id:"comment",
+		label: "注释",
 		desc:"允许你在正则表达式中插入注释，匹配时候会被忽略。",
 		token:"(?#foo)"
 		},
 		{
 		id:"conditional",
+		label: "条件语句",
 		desc:"当满足前瞻条件后，从两个选项中选择一个匹配。",
 		ext:"<p>例如, <code>/(?(?=a)ab|..)/</code> 会匹配 <code>ab</code> 和 <code>zx</code> 但不会匹配到 <code>ax</code>, 因为如果第一个字符满足条件 <code>a</code> 那么它就尝试匹配表达式 <code>ab</code>。</p>"+
 			"<p>任何前瞻都可以用在这个条件上。前瞻会在条件开始的位置启动子序列的匹配过程。后顾则会在结束的位置启动。</p>",
@@ -558,6 +571,7 @@ o.kids = [
 		},
 		{
 		id:"recursion",
+		label: "回溯",
 		desc:"在相同位置尝试匹配整个表达式。",
 		ext:"<p>例如， <code>/a(?R)?z/</code> 会匹配到任意数量的 <code>a</code> 紧跟相同数量的 <code>z</code>: 匹配 <code>az</code> 单词或 <code>aaaazzzz</code>, 但不会匹配<code>azzz</code>。</p>"+
 			"<p>可以用不同语法使用这个特性：</p><p><code>(?R)</code> <code>(?0)</code> <code>\\g<0></code> <code>\\g'0'</code></p>",
@@ -565,7 +579,7 @@ o.kids = [
 		},
 		{
 		id:"mode",
-		label:"mode modifier",
+		label:"模式修改符",
 		tip:"{{~getDesc()}}{{~getModes()}}",
 		desc:"对正则的余下部分启用或禁用模式。",
 		ext:"模式对应于正则表达式的标识。 例如 <code>(?i)</code> 会对余下的正则启用大小写不敏感（即禁用大小写敏感）。"+
@@ -656,6 +670,7 @@ o.kids = [
 		},
 		{
 		id:"multiline",
+		label: "多行",
 		tip:"使用起始/结尾锚（<b>^</b>/<b>$</b>）会匹配到行首和行尾。",
 		desc:"当启用 multiline标识时，使用起始和结尾锚（<b>^</b> 和 <b>$</b>）会匹配到行首和行尾, 而不是整个字符串的头部和尾部。"+
 			"<p>需要注意的是类似<code>/^[\\s\\S]+$/m</code>的正则可能会匹配到含有换行符的字符串。因为锚会匹配到<b>任意</b>行的起始/结束位置。</p>",
@@ -663,6 +678,7 @@ o.kids = [
 		},
 		{
 		id:"unicode",
+		label: "Unicode",
 		tip:"启用<code>\\x{FFFFF}</code>Unicode转义。",
 		desc:"当启用Unicode标识时，你可以按<code>\\x{FFFFF}</code>格式转义Unicode字符。"+
 			"<p>这会使转义更严格，会对不能识别的转义字符 (例如 <code>\\j</code>) 报错。</p>",
@@ -670,6 +686,7 @@ o.kids = [
 		},
 		{
 		id:"sticky",
+		label: "粘连",
 		desc:"只会从lastIndex位置开始匹配，且如果设置了全局标识(<code>g</code>）的话会被忽略。",
 		ext:" 因为在RegExr的每次解析是独立的，该标识对已显示的内容没有任何影响。",
 		token:"y"
@@ -718,19 +735,22 @@ o.misc = {
 		},
 		{
 		id:"open",
+		label: "表达式头",
 		tip:"标记正则表达式起始位置。"
 		},
 		{
 		id:"close",
+		label: "表达式尾",
 		tip:"标记正则表达式的结束位置和标识的起始位置。"
 		},
 		{
 		id:"condition",
+		label: "条件",
 		tip:"The lookaround to match in resolving the enclosing conditional statement. 详情见参考手册中”条件“部分。"
 		},
 		{
 		id:"conditionalelse",
-		label:"conditional else",
+		label:"else条件",
 		tip:"区分条件中的else部分"
 		},
 		{

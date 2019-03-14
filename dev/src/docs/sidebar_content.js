@@ -83,7 +83,9 @@ home.kids = [
 		label:"关于",
 		desc:"RegExr v[build-version] ([build-date])."+
 			"<p>由 <a href='http://twitter.com/gskinner/' target='_blank'>Grant Skinner</a> 和 <a href='http://gskinner.com/' target='_blank'>gskinner</a> 团队创建, 并使用了 <a href='http://createjs.com/' target='_blank'>CreateJS</a> & <a href='http://codemirror.net/' target='_blank'>CodeMirror</a> 库.</p>"+
-			"<p>您可以在 <a href='http://github.com/gskinner/regexr/' target='_blank'>GitHub</a> 上提供反馈和记录bugs.</p>"
+			"<p>由 <a href='https://github.com/skys215' target='_blank'>skys215</a> 和 <a href='https://github.com/yaoyuan4102' target='_blank'>yaoyuan4102</a> 翻译成中文。</p>"+
+			"<p>您可以在 <a href='http://github.com/gskinner/regexr/' target='_blank'>GitHub</a> 上提供反馈和记录bugs.</p>" +
+			"<p>您可以在 <a href='http://github.com/skys215/regexr/' target='_blank'>此GitHub</a> 上提供翻译纠正或建议。</p>"
 		},
 		{
 		label:"开始",
@@ -171,7 +173,7 @@ home.kids = [
 				"<li>老的浏览器不支持u 或者 y 元字符</li>"+
 				"<li>在处理模棱两可的转义中的区别: \\8 \\9</li>"+
 				"<li>Chrome在处理 \\x & \\u 转义时，和其他浏览器有细微差别</li>"+
-				"<li>Chrome支持lookbehind, 但是它还没有在JS规范中</li>"+
+				"<li>Chrome支持后行断言, 但是它还没有在JS规范中</li>"+
 				"<li>Safari忽略了八进制转义中的前导零 (ex. \\00020)</li>"+
 				"</ul></p>"
 			},
