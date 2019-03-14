@@ -64,7 +64,7 @@ export default class Account extends EventDispatcher {
 		$.query(".signoutbtn", this.signoutEl).addEventListener("click", (evt) => this._doSignout());
 		this.signinBtn.addEventListener("click", (evt) => this.showTooltip());
 		$.query(".icon.help", this.signinEl).addEventListener("click", ()=> app.sidebar.goto("signin"));
-		this.signinList = new List($.query("ul.list", this.signinEl), {data:["GitHub","Facebook", "Google"], template});
+		this.signinList = new List($.query("ul.list", this.signinEl), {data:["GitHub"/*,"Facebook", "Google"*/], template});
 		this.signinList.on("change", ()=>this._signinListChange());
 	}
 
