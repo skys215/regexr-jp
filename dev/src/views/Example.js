@@ -38,7 +38,7 @@ export default class Example {
 			txt = ex[1];
 			regex = Utils.getRegExp(exp, "g");
 			if (this.title) { str += "<h1>" + this.title + "</h1><hr>"; }
-			str += "<code class='expression'><svg class='icon load'><use xlink:href='#load'><title>载入正则表达式Load expression</title></use></svg>" + Utils.htmlSafe(exp) + "</code>";
+			str += "<code class='expression'><svg class='icon load'><use xlink:href='#load'><title>载入正则表达式</title></use></svg>" + Utils.htmlSafe(exp) + "</code>";
 			if (txt && regex) {
 				let over=Math.max(0, txt.length-160), s=txt;
 				if (over) { s = Utils.htmlSafe(s.substr(0,159)); }

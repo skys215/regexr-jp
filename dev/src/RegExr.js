@@ -63,8 +63,8 @@ export default class RegExr extends EventDispatcher {
 		if (params.expression) { this.expression.value = params.expression; }
 		if (params.text) { this.text.value = params.text; }
 		if (params.tool) { this.tools.value = {id:params.tool, input:params.input}; }
-		
-		window.onbeforeunload = (e) => this.unsaved ? "You have unsaved changes." : null;
+
+		window.onbeforeunload = (e) => this.unsaved ? "你有未保存的变动。" : null;
 		this.resetUnsaved();
 
 		setTimeout(() => this._initAds(), 100);

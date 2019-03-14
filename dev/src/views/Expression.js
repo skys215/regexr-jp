@@ -258,9 +258,9 @@ Expression.FLAG_LABELS = {
 	"g": "<em>g</em>全局",
 	"i": "<em>i</em>忽略大小写",
 	"m": "<em>m</em>多行",
-	"s": "<em>s</em>单行(dotall)",
-	"u": "<em>u</em>nicode",
-	"x": "e<em>x</em>tended",
-	"y": "stick<em>y</em>",
+	"s": "<em>s</em>dotall",
+	"u": "<em>u</em>Unicode",
+	"x": "<em>x</em>扩展（extended）",
+	"y": "<em>y</em>粘性（sticky）",
 	"U": "<em>U</em>非贪婪"
 };
