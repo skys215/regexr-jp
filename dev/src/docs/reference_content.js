@@ -428,41 +428,41 @@ o.kids = [
 	},
 	
 	{
-	label: "Lookaround",
+	label: "前后查找",
 	id:"lookaround",
-	desc: "Lookaround lets you match a group before (lookbehind) or after (lookahead) your main pattern without including it in the result."+
-		"<p>Negative lookarounds specify a group that can NOT match before or after the pattern.</p>",
+	desc: "前后查找允许主表达式前或之后的组，而不将其包含在结果中。"+
+		"<p>负向查找指定一个表达式之前或之后无法匹配的组。 </p>",
 	kids: [
 		{
 		id:"poslookahead",
-		label: "positive lookahead",
-		desc:"Matches a group after the main expression without including it in the result.",
+		label: "正向先行断言",
+		desc:"匹配主表达式后面的组而不将其包含在结果中。",
 		example:["\\d(?=px)","1pt 2px 3em 4px"],
 		token:"(?=ABC)"
 		},
 		{
 		id:"neglookahead",
-		label: "negative lookahead",
-		desc:"Specifies a group that can not match after the main expression (if it matches, the result is discarded).",
+		label: "负向先行断言",
+		desc:"指定主表达式后无法匹配的组（如果匹配，则结果将被丢弃）。",
 		example:["\\d(?!px)","1pt 2px 3em 4px"],
 		token:"(?!ABC)"
 		},
 		{
 		id:"poslookbehind",
-		label: "positive lookbehind",
-		desc:"Matches a group before the main expression without including it in the result.",
+		label: "正向后行断言",
+		desc:"匹配主表达式之前的组，而不将其包含在结果中。",
 		token:"(?<=ABC)"
 		},
 		{
 		id:"neglookbehind",
-		label: "negative lookbehind",
-		desc:"Specifies a group that can not match before the main expression (if it matches, the result is discarded).",
+		label: "负向后行断言",
+		desc:"指定在主表达式之前无法匹配的组（如果匹配，则结果将被丢弃）。",
 		token:"(?<!ABC)"
 		},
 		{
 		id:"keepout",
-		label:"keep out",
-		desc:"Keep text matched so far out of the returned match, essentially discarding the match up to this point.",
+		label:"避开",
+		desc:"保持文本匹配到目前为止返回的匹配，丢弃到此点之前的匹配。",
 		ext:"For example <code>/o\\Kbar/</code> will match <code>bar</code> within the string <code>foobar</code>",
 		token:"\\K"
 		}
