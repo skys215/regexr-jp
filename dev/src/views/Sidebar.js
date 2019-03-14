@@ -193,7 +193,7 @@ export default class Sidebar {
 		} else {
 			let ref = app.reference;
 			this.contentEl.innerHTML = this._isInReference(o) ? ref.getContent(o.id) : ref.fillTags((o.desc || "") + (o.ext || ""), o, ref);
-			if (o.example) { this.contentEl.appendChild(new Example("Example", o.example).el); }
+			if (o.example) { this.contentEl.appendChild(new Example("示例", o.example).el); }
 		}
 	}
 	
