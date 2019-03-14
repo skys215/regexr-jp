@@ -53,7 +53,7 @@ o.kids = [
 		},
 		{
 		id:"range",
-		tip:"匹配ASCII码从{{getChar(prev)}}到{{getChar(next)}}的字符 (char code {{prev.code}} to {{next.code}}). {{getInsensitive()}}",
+		tip:"匹配ASCII码从{{getChar(prev)}}到{{getChar(next)}}的字符 (ASCII码从 {{prev.code}} 到 {{next.code}})。 {{getInsensitive()}}",
 		example:["[g-s]","abcdefghijklmnopqrstuvwxyz"],
 		desc: "匹配ASCII码在指定范围区间的字符。",
 		token:"[A-Z]"
@@ -70,7 +70,7 @@ o.kids = [
 		id:"dot",
 		tip:"匹配任何字符{{getDotAll()}}.",
 		desc:"匹配除换行符之外的任何字符。",
-		ext:" Equivalent to <code>[^\\n\\r]</code>.",
+		ext:" 等价于 <code>[^\\n\\r]</code>.",
 		example:[".", "glib jocks vex dwarves!"],
 		token:"."
 		},
@@ -91,7 +91,7 @@ o.kids = [
 		{
 		id:"word",
 		desc:"匹配字母、数字、下划线。",
-		ext:" Only matches low-ascii characters (no accented or non-roman characters). Equivalent to <code>[A-Za-z0-9_]</code>",
+		ext:" 只匹配小ASCII码的字符（无声调字母或非罗马英文字符）。 等价于 <code>[A-Za-z0-9_]</code>",
 		example:["\\w","bonjour, mon fr\u00E8re"],
 		token:"\\w"
 		},
@@ -99,14 +99,14 @@ o.kids = [
 		id:"notword",
 		label: "非词匹配",
 		desc:"匹配非字母、数字、下划线。",
-		ext:" Equivalent to <code>[^A-Za-z0-9_]</code>",
+		ext:" 等价于 <code>[^A-Za-z0-9_]</code>",
 		example:["\\W","bonjour, mon fr\u00E8re"],
 		token:"\\W"
 		},
 		{
 		id:"digit",
 		desc:"匹配任意数字 (0-9).",
-		ext:" Equivalent to <code>[0-9]</code>.",
+		ext:" 等价于 <code>[0-9]</code>.",
 		example:["\\d","+1-(444)-555-1234"],
 		token:"\\d"
 		},
@@ -114,7 +114,7 @@ o.kids = [
 		id:"notdigit",
 		label: "非数字",
 		desc:"匹配任意非数字字符 (0-9).",
-		ext:" Equivalent to <code>[^0-9]</code>.",
+		ext:" 等价于 <code>[^0-9]</code>.",
 		example:["\\D","+1-(444)-555-1234"],
 		token:"\\D"
 		},
@@ -133,26 +133,26 @@ o.kids = [
 		},
 		{
 		id:"hwhitespace",
-		label:"horizontal whitespace",
-		desc:"Matches any horizontal whitespace character (spaces, tabs).",
+		label:"横向空白字符",
+		desc:"匹配任意横向空白字符（空格、制表符）。",
 		token:"\\h"
 		},
 		{
 		id:"nothwhitespace",
-		label: "not horizontal whitespace",
-		desc:"Matches any character that is not a horizontal whitespace character (spaces, tabs).",
+		label: "非横向空白字符",
+		desc:"匹配任意非横向的空白字符（空格、制表符）。",
 		token:"\\H"
 		},
 		{
 		id:"vwhitespace",
-		label:"vertical whitespace",
-		desc:"Matches any vertical whitespace character (line breaks).",
+		label:"纵向空白字符",
+		desc:"匹配任意纵向的空白字符（换行符）。",
 		token:"\\v"
 		},
 		{
 		id:"notvwhitespace",
-		label: "not vertical whitespace",
-		desc:"Matches any character that is not a vertical whitespace character (line breaks).",
+		label: "非纵向空白字符",
+		desc:"匹配任意非纵向空白字符（换行符）。",
 		token:"\\V"
 		},
 		{
@@ -165,41 +165,41 @@ o.kids = [
 		id:"notlinebreak",
 		label:"非换行符",
 		desc:"匹配任意非换行符。",
-		ext:" Similar to dot (<code>.</code>) but is unaffected by the dotall flag (<code>s</code>).",
+		ext:" 于点相似（<code>.</code>）但是不会受dotall标识(<code>s</code>)的影响。",
 		token:"\\N"
 		},
 		{
 		id:"unicodecat",
-		tip:"Matches any character in the '{{getUniCat()}}' unicode category.",
-		label:"unicode category",
-		desc:"Matches a character in the specified unicode category. For example, <code>\\p{Ll}</code> will match any lowercase letter.",
-		ext:"<p>For a list of categories, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
+		tip:"匹配在 '{{getUniCat()}}' unicode分类的任意字符。",
+		label:"unicode分类",
+		desc:"匹配在指定Unicode分类里的任意字符。例如，<code>\\p{Ll}</code> 会匹配任意小写字符。",
+		ext:"<p>Unicode分类的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
 			"<p>可以用不同语法使用这个特性：</p><p><code>\\p{L}</code> <code>\\pL</code></p>",
 		token:"\\p{L}"
 		},
 		{
 		id:"notunicodecat",
-		tip:"Matches any character that is not in the '{{getUniCat()}}' unicode category.",
-		label:"not unicode category",
-		desc:"Matches any character that is not in the specified unicode category.",
-		ext:"<p>For a list of categories, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
+		tip:"匹配任意不在 '{{getUniCat()}}' unicode分类里的字符。",
+		label:"非uicode分类",
+		desc:"匹配任意不在指定Unicode分类里的字符。",
+		ext:"<p>Unicode分类的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
 			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{L}</code> <code>\\p{^L}</code> <code>\\PL</code></p>",
 		token:"\\P{L}"
 		},
 		{
 		id:"unicodescript",
-		tip:"Matches any character in the '{{value}}' unicode script.",
-		label:"unicode script",
-		desc:"Matches any character in the specified unicode script. For example, <code>\\p{Arabic}</code> will match characters in the Arabic script.",
-		ext:"<p>For a list of scripts, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>",
+		tip:"匹配任意在 '{{value}}' 里的Unicode脚本。",
+		label:"unicode脚本",
+		desc:"匹配任意在指定Unicode脚本里的字符。例如，<code>\\p{Arabic}</code> 会匹配任意阿拉伯脚本。",
+		ext:"<p>Unicode脚本的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>",
 		token:"\\p{Han}"
 		},
 		{
 		id:"notunicodescript",
-		tip:"Matches any character that is not in the '{{value}}' unicode script.",
-		label:"not unicode script",
-		desc:"Matches any character that is not in the specified unicode script.",
-		ext:"<p>For a list of scripts, see the <a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE spec</a>.</p>"+
+		tip:"匹配任意不在 '{{value}}' 里的Unicode脚本。",
+		label:"非unicode脚本",
+		desc:"匹配任意不在指定Unicode脚本里的字符。",
+		ext:"<p>Unicode脚本的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
 			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{Han}</code> <code>\\p{^Han}</code>",
 		token:"\\P{Han}"
 		}
@@ -209,34 +209,34 @@ o.kids = [
 	{
 	label:"Anchors",
 	id:"anchors",
-	desc:"Anchors are unique in that they match a position within a string, not a character.",
+	desc:"锚定类比较特殊，它匹配位置，而不是字符。",
 	kids:[
 		{
 		id:"bos",
 		label:"字符串起始",
 		desc:"匹配字符串的开头",
-		ext:" Unlike <code>^</code>, this is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
+		ext:" 不像 <code>^</code>，这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
 		token:"\\A"
 		},
 		{
 		id:"eos",
 		label:"字符串结尾",
 		desc:"匹配字符串的结尾",
-		ext:" Unlike <code>$</code>, this is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
+		ext:" 不像 <code>$</code>，这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
 		token:"\\Z"
 		},
 		{
 		id:"abseos",
 		label:"严格的字符串结尾",
 		desc:"匹配字符串结尾. 不像 <code>$</code> 或 <code>\\Z</code>, 它不允许尾随换行符。",
-		ext:" This is unaffected by the multiline flag (<code>m</code>). This matches a position, not a character.",
+		ext:" 这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
 		token:"\\z"
 		},
 		{
 		id:"bof",
 		label:"开头",
 		desc:"匹配字符串开头，或者当使用多行标志(<code>m</code>)时，匹配一行的开头。",
-		ext:" This matches a position, not a character.",
+		ext:" 这个会匹配到位置，而不是字符。",
 		example:["^\\w+","she sells seashells"],
 		token:"^"
 		},
@@ -244,7 +244,7 @@ o.kids = [
 		id:"eof",
 		label:"结尾",
 		desc:"匹配字符串结尾，或者当使用多行标志(<code>m</code>)时，匹配一行的结尾。",
-		ext:" This matches a position, not a character.",
+		ext:" 这个会匹配到位置，而不是字符。",
 		example:["\\w+$","she sells seashells"],
 		token:"$"
 		},
@@ -252,7 +252,7 @@ o.kids = [
 		id:"wordboundary",
 		label:"词边界",
 		desc:"匹配一个单词边界，也就是指单词和空格间的位置。",
-		ext:" See the word character class (<code>\w</code>) for more info.",
+		ext:" 详情见单词字符类（<code>\w</code>）。",
 		example:["s\\b","she sells seashells"],
 		token:"\\b"
 		},
@@ -260,7 +260,7 @@ o.kids = [
 		id:"notwordboundary",
 		label: "非词边界",
 		desc:"匹配非单词边界。",
-		ext:" This matches a position, not a character.",
+		ext:" 这个会匹配到位置，而不是字符。",
 		example:["s\\B","she sells seashells"],
 		token:"\\B"
 		},
@@ -268,7 +268,7 @@ o.kids = [
 		id:"prevmatchend",
 		label: "前匹配项结尾",
 		desc:"匹配前一个匹配的结束位置。",
-		ext:" This matches a position, not a character.",
+		ext:" 这个会匹配到位置，而不是字符。",
 		token:"\\G"
 		}
 	]
@@ -336,7 +336,7 @@ o.kids = [
 		label:"转义序列",
 		tip: "匹配文字字符串 '{{value}}'.",
 		desc:"所有在<code>\\Q</code>和<code>\\E</code>之间的字符为文字字符串。如果<code>\\E</code>被省略, 它将继续到表达式结尾。",
-		ext:" For example, the expression <code>/\\Q(?.)\\E/</code> will match the string <code>(?.)</code>.",
+		ext:" 例如，表达式 <code>/\\Q(?.)\\E/</code> 会匹配到字符 <code>(?.)</code>。",
 		token:"\\Q...\\E"
 		}
 	]
