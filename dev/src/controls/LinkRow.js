@@ -45,7 +45,7 @@ export default class LinkRow {
 
 		let fld=$.query(".url", this.el), copyBtn = $.query(".copy", this.el);
 		let clipboard = new Clipboard(copyBtn, { target: () => fld });
-		clipboard.on("success", () => app.tooltip.toggle.toggleOn("copy", "Copied to clipboard.", copyBtn, true, 3));
+		clipboard.on("success", () => app.tooltip.toggle.toggleOn("copy", "已复制到粘贴版。", copyBtn, true, 3));
 		clipboard.on("error", (e) => app.tooltip.toggle.toggleOn("copy", Utils.getCtrlKey()+"-C to copy.", copyBtn, true, 3)); // TODO: cmd/ctrl
 	}
 

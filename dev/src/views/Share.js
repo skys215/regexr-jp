@@ -62,7 +62,7 @@ export default class Share extends EventDispatcher {
 	get name() { return this.nameFld.value; }
 	set name(val) {
 		this.nameFld.value = val||"";
-		this.hNameFld.innerText = val||"Untitled Pattern";
+		this.hNameFld.innerText = val||"未命名表达式";
 	}
 
 	get author() { return this.authorFld.value; }
@@ -158,16 +158,16 @@ export default class Share extends EventDispatcher {
 		$.toggleClass(this.saveBtn, "disabled", !this._canSave());
 
 		$.toggleClass(this.hSaveBtn, "disabled", !this._canSave() && isOwned);
-		$.query(".action",this.hSaveBtn).innerText = isOwned ? "Save" : "Fork";
-		
-		if (!isOwned) { text = "This pattern was created by '"+(o.author||"[anonymous]")+"'."; }
-		else if (!isChanged) { text = "No unsaved changes." }
-		else if (isNew) { text = "Save will create a shareable public link."; }
-		else { text = "Save will update the current link."; }
+		$.query(".action",this.hSaveBtn).innerText = isOwned ? "保存" : "Fork";
 
-		if (!isOwned && !isChanged) { text += " Fork to create your own copy."; }
-		else if (!isNew) { text += " Fork will create a new copy" + (isChanged ? " with your changes." : "."); }
-		
+		if (!isOwned) { text = "本正则表达式由 '"+(o.author||"[anonymous]")+"'创建。"; }
+		else if (!isChanged) { text = "未做改动。" }
+		else if (isNew) { text = "保存会创建一个可分享的链接。"; }
+		else { text = "保存会更新当前链接。"; }
+
+		if (!isOwned && !isChanged) { text += " 通过fork创建自己的版本。"; }
+		else if (!isNew) { text += " Fork 会创建" + (isChanged ? " 带有你变动的新版本" : "你自己的版本。"); }
+
 		this._setSaveText(text);
 
 		this._linkRow.pattern = this._pattern.id && this._pattern;
@@ -204,8 +204,8 @@ export default class Share extends EventDispatcher {
 
 	_pushHistory(pattern) {
 		let history = window.history, url = Utils.getPatternURL(pattern);
-		let title = "RegExr: "+ (pattern.name || "Learn, Build, & Test RegEx");
-		
+		let title = "RegExr: "+ (pattern.name || "学习、构建和测试正则");
+
 		if (history.state && (pattern.id === history.state.id)) {
 			history.replaceState(pattern, title, url);
 		} else {
@@ -252,7 +252,7 @@ export default class Share extends EventDispatcher {
 				this.nameFld.focus();
 				this.nameFld.select();
 			}
-			this._linkRow.showMessage("<b>Saved.</b> New share link created. Click to copy to clipboard.");
+			this._linkRow.showMessage("<b>已保存。</b> 已创建新链接。 点击复制链接至粘贴版。");
 		}
 	}
 	
@@ -299,7 +299,7 @@ export default class Share extends EventDispatcher {
 
 	_doDelete() {
 		let o = this._pattern;
-		if (!confirm("Are you sure you want to permanently delete this pattern?")) { return; }
+		if (!confirm("是否确定永久删除该正则表达式？")) { return; }
 		this._deleteStatus.distract();
 		Server.delete(o.id)
 			.then((data) => this._handleDelete(data))
@@ -311,7 +311,7 @@ export default class Share extends EventDispatcher {
 		app.state = {
 			flavor: app.flavor.value
 		}
-		setTimeout(()=>app.tooltip.toggle.showOn("delete", "Pattern was permanently deleted.", this._deleteRow, true, 0), 1);
+		setTimeout(()=>app.tooltip.toggle.showOn("delete", "已删除。", this._deleteRow, true, 0), 1);
 	}
 
 	_handleErr(err, status) {
@@ -383,6 +383,6 @@ export default class Share extends EventDispatcher {
 	}
 
 	_getErrMsg(err) {
-		return "<span class='error'>ERROR:</span> "+app.reference.getError("servercomm");
+		return "<span class='error'>错误：</span> "+app.reference.getError("servercomm");
 	}
 }

@@ -103,16 +103,16 @@ export default class Text extends EventDispatcher {
 	
 	_updateResult() {
 		let result = this._result, matches=result&&result.matches, l=matches&&matches.length, el = this.resultEl;
-		$.removeClass(el, "error warning matches");
+		$.removeClass(el, "错误 警告 结果");
 		if (result && result.error) {
-			el.innerText = result.error.warning ? "WARNING" : "ERROR";
-			$.addClass(el, "error");
-			if (result.error.warning) { $.addClass(el, "warning"); }
+			el.innerText = result.error.warning ? "警告" : "错误";
+			$.addClass(el, "错误");
+			if (result.error.warning) { $.addClass(el, "警告"); }
 		} else if (l) {
-			el.innerHTML = l + " match" + (l>1?"es":"") + (this._emptyCount?"*":"");
-			$.addClass(el, "matches");
+			el.innerHTML = l + " 结果" + (l>1?"":"") + (this._emptyCount?"*":"");
+			$.addClass(el, "结果");
 		} else {
-			el.innerText = "No match";
+			el.innerText = "无结果";
 		}
 		if (result.time != null) {  el.innerHTML += "<em> ("+parseFloat(result.time).toFixed(1)+"ms)</em>"; }
 		this._updateSelected();
@@ -150,18 +150,18 @@ export default class Text extends EventDispatcher {
 		let tt = app.tooltip.hover, res=this._result, err = res&&res.error, str="";
 		if (evt.type === "mouseleave") { return tt.hide("result"); }
 		if (err && !err.warning) {
-			str = "<span class='error'>EXEC ERROR:</span> " + this._errorText(err);
+			str = "<span class='error'>执行错误：</span> " + this._errorText(err);
 		} else {
 			if (err && err.warning) {
-				str = "<span class='error warning'>WARNING:</span> "+ this._errorText(err) + "<hr>";
+				str = "<span class='error warning'>警告：</span> "+ this._errorText(err) + "<hr>";
 			}
 			let l = res&&res.matches&&res.matches.length;
-			str += (l||"No")+" match"+(l>1?"es":"")+" found in "+this.value.length+" characters";
-			str += this._emptyCount  ? ", including "+this._emptyCount+" empty matches (* not displayed)." : ".";
+			str += "在 "+this.value.length+" 中" +(l?"找到":"无")+"结果";
+			str += this._emptyCount  ? ", 其中 "+this._emptyCount+" 空结果(未显示 \"*\")。" : "。";
 			let cm = this.editor, sel = cm.listSelections()[0], pos = sel.head;
 			let i0 = cm.indexFromPos(pos), i1=cm.indexFromPos(sel.anchor), range=Math.abs(i0-i1);
-			str += "<hr>Insertion point: line "+pos.line+", col "+pos.ch+", index "+i0;
-			str += (range>0 ? " ("+range+" character"+(range===1?"":"s")+" selected)" : "")
+			str += "<hr>插入点： "+pos.line+" 行, "+pos.ch+"列, 下标 "+i0;
+			str += (range>0 ? " (已选中 "+range+" 字符)" : "")
 		}
 		tt.showOn("result", str, this.resultEl, false, -2);
 	}

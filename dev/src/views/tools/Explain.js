@@ -48,10 +48,10 @@ export default class Explain {
 		let el = $.empty(this.el), token = app.expression.token, expr = app.expression.value;
 		this._divs = [];
 		if (!token || token.next.type === "close") {
-			el.innerHTML = "<span class='desc'>Enter an Expression above and it will be explained here.</span>";
+			el.innerHTML = "<span class='desc'>在上方输入的表达式会在此显示解析。</span>";
 			return;
 		}
-		el.innerHTML = "<span class='desc'>Roll-over elements below to highlight in the Expression above. Click to open in Reference.</span>";
+		el.innerHTML = "<span class='desc'>滚动鼠标来高亮上方的正则表达式。通过点击来显示用法。</span>";
 		while ((token = token.next) && (token.type !== "close")) {
 			
 			if (token.proxy || (token.open && token.open.proxy)) { continue; }
@@ -78,10 +78,10 @@ export default class Explain {
 					$.addClass(div, className);
 				}
 				if (token.depth > 3) {
-					div.innerHTML = "So... you wanted to see what would happen if you just kept nesting groups, eh? Well, this is it."+
-						" I was going to reward your curiosity with a RegEx joke, but a quick search on google reveals that not even"+
-						" the collective wisdom of the internet can make regular expressions funny. Well, except the whole 'now you've got two problems'"+
-						" shtick, but you've probably heard that one already. Wasn't really worth the effort, was it?";
+					div.innerHTML = "所以……你是想看看当嵌套分组时会发生什么对吧？ 其实吧，结果就是这样。"+
+						" 我本来想表扬你对正则表达式玩笑的好奇心的， 但谷歌一下你就会发现：就凭几千万的网民是无法让正则表达式变得好玩的。"+
+						" 除了大概你已经听说过的 “当你遇到一个问题，发现可以用正则表达式解决时，你遇到了两个问题” 之外，"+
+						" 这不值得尝试，你觉得呢？";
 					token = token.close.prv;
 					this._divs.push(div);
 					el = div;

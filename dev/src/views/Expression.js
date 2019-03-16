@@ -244,8 +244,8 @@ export default class Expression extends EventDispatcher {
 		if (evt.type === "mouseleave") { return tt.hide("error"); }
 		if (errs.length === 0) { return; }
 		let err = errs.length === 1 && errs[0].error;
-		let str = err ? app.reference.getError(err, errs[0]) : "Problems in the Expression are underlined in <span class='exp-error'>red</span>. Roll over them for details.";
-		let label = err && err.warning ? "WARNING" : "PARSE ERROR";
+		let str = err ? app.reference.getError(err, errs[0]) : "有错误的地方已用<span class='exp-error'>色</span>下划线标注。滚动到该处查看详情。";
+		let label = err && err.warning ? "警告" : "解析错误";
 		tt.showOn("error", "<span class='error'>"+label+":</span> "+str, this.errorEl);
 	}
 	
@@ -255,12 +255,12 @@ Expression.DEFAULT_EXPRESSION = "/([A-Z])\\w+/g";
 
 Expression.FLAGS = "gimsuxyU"; // for flag order
 Expression.FLAG_LABELS = {
-	"g": "<em>g</em>lobal",
-	"i": "case <em>i</em>nsensitive",
-	"m": "<em>m</em>ultiline",
-	"s": "<em>s</em>ingle line (dotall)",
-	"u": "<em>u</em>nicode",
-	"x": "e<em>x</em>tended",
-	"y": "stick<em>y</em>",
-	"U": "<em>U</em>ngreedy"
+	"g": "<em>g</em>全局",
+	"i": "<em>i</em>忽略大小写",
+	"m": "<em>m</em>多行",
+	"s": "<em>s</em>dotall",
+	"u": "<em>u</em>Unicode",
+	"x": "<em>x</em>扩展（extended）",
+	"y": "<em>y</em>粘性（sticky）",
+	"U": "<em>U</em>非贪婪"
 };

@@ -57,12 +57,12 @@ let pcre = {
 	},
 	
 	docs: {
-		"escoctal":{ext:"+<p>The syntax <code>\\o{FFF}</code> is also supported.</p>"},
+		"escoctal":{ext:"+<p>同时支持 <code>\\o{FFF}</code> 语法。</p>"},
 		"numref":{
-			ext:"<p>There are multiple syntaxes for this feature: <code>\\1</code> <code>\\g1</code> <code>\\g{1}</code>.</p>"+
-				"<p>The latter syntaxes support relative values preceded by <code>+</code> or <code>-</code>. For example <code>\\g-1</code> would match the group preceding the reference.</p>"
+			ext:"<p>可以用不同语法使用这个特性：<code>\\1</code> <code>\\g1</code> <code>\\g{1}</code>。</p>"+
+				"<p>同时支持以<code>+</code>或<code>-</code>开头的相对值。例如，<code>\\g-1</code> 会匹配相对引用的分组</p>"
 		},
-		"lazy": { ext:"+<p>This behaviour is reversed by the ungreedy (<code>U</code>) flag/modifier.</p>" }
+		"lazy": { ext:"+<p>这个行为在启用非贪婪标识（<code>U</code>）时有效。</p>" }
 	}
 };
 
