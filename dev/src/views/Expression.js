@@ -19,7 +19,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import $ from "../utils/DOMUtils";
 import CMUtils from "../utils/CMUtils";
 import Utils from "../utils/Utils";
-import Track from "../utils/Track";
 
 import List from "../controls/List";
 import ExpressionLexer from "../ExpressionLexer";
@@ -64,7 +63,6 @@ export default class Expression extends EventDispatcher {
 	
 	set flags(flags) {
 		flags = app.flavor.validateFlagsStr(flags);
-		Track.event("set_flags", "engagement", {flags:flags});
 		let str = this.editor.getValue(), index = str.lastIndexOf(this.delim);
 		this.editor.replaceRange(flags, {line: 0, ch: index + 1}, {line: 0, ch: str.length }); // this doesn't work if readOnly is false.
 	}

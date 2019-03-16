@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import Track from "./utils/Track";
-
 import EventDispatcher from "./events/EventDispatcher.js";
 import BrowserSolver from "./helpers/BrowserSolver.js";
 import ServerSolver from "./helpers/ServerSolver.js";
@@ -35,7 +33,6 @@ export default class Flavor extends EventDispatcher {
 	set value(id) {
 		let profile = profiles[id.toLowerCase() || "js"];
 		if (!profile || profile === this._profile) { return; }
-		Track.page("flavor/"+id);
 		this._profile = profile;
 		this._buildSupportMap(profile);
 		this.dispatchEvent("change");

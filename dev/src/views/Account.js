@@ -19,7 +19,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import EventDispatcher from "../events/EventDispatcher";
 
 import $ from "../utils/DOMUtils"
-import Track from "../utils/Track"
 
 import Tooltip from "../controls/Tooltip";
 import List from "../controls/List";
@@ -90,11 +89,10 @@ export default class Account extends EventDispatcher {
 	_cleanSignout(err) {
 		$.removeClass(this.tooltipEl, "wait");
 	}
-	
+
 	_signinListChange() {
 		let service = this.signinList.selected.toLowerCase();
 		$.addClass(this.tooltipEl, "wait");
-		Track.event("login", "access", service);
 		setTimeout(() => Server.login(service), 100);
 	}
 }

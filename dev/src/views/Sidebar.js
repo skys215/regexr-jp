@@ -21,7 +21,6 @@ import Utils from "../utils/Utils";
 
 import List from "../controls/List";
 import content from "../docs/sidebar_content";
-import Track from "../utils/Track";
 import Server from "../net/Server";
 import Community from "./Community";
 import Example from "./Example";
@@ -44,7 +43,6 @@ export default class Sidebar {
 
 	minimize(val=true, track=true) {
 		if (val === this._minimized) { return; }
-		if (val && track) { Track.event("minimize_menu", "engagement"); }
 		$.togglePanel(this.el, '.full', '.min', !val);
 		this._minimized = val;
 		this._updateUI();
@@ -63,8 +61,7 @@ export default class Sidebar {
 		if (item.hide) { return this.show(item.parent); }
 		if (!item || item.id === "menu") { return; } // expand button on the min menu
 		this.minimize(false);
-		if (item.id) { Track.page("sidebar/"+item.id); }
-		
+
 		if (!item.el && !item.kids) {
 			if (this.searchMode || !item.parent || item.parent === this.curItem) {
 				// in a search, community / favorites, of selecting a leaf child from a list.
@@ -281,7 +278,6 @@ export default class Sidebar {
 		this._abortReq();
 		let val = this.searchFld.value;
 		if (this.curItem.id === "community") {
-			if (val) { Track.event("search", "engagement", {search_term:val, target:"community"}); }
 			$.addClass(this.searchEl, "wait");
 			this._showListMsg();
 			this.openReq = Server.communitySearch(val)

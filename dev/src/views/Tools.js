@@ -19,7 +19,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import $ from "../utils/DOMUtils";
 import CMUtils from "../utils/CMUtils";
 import Utils from "../utils/Utils";
-import Track from "../utils/Track";
 
 import List from "../controls/List";
 import ExpressionHighlighter from "./ExpressionHighlighter";
@@ -69,7 +68,6 @@ export default class Tools extends EventDispatcher {
 	
 	show(id) {
 		if (!id || id === this._toolId) { return; }
-		Track.page("tool/"+id);
 
 		this.toolList.selected = this._toolId = id;
 		let input = (id === "replace" || id === "list");
