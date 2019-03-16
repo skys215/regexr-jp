@@ -100,7 +100,12 @@ export default class Tools extends EventDispatcher {
 		this.resultEl = $.query("> article > .inputtool > .result", el);
 		
 		this.toolListEl = $.query(".toollist", this.headerEl);
-		let data = ["Replace", "List", "Details", "Explain"].map((val) => ({label:val, id:val.toLowerCase()}));
+		let data = [
+			{label:"替换",id:"replace"},
+			{label:"列表",id:"List"},
+			{label:"详情",id:"Details"},
+			{label:"解释",id:"Explain"},
+		];
 		this.toolList = new List(this.toolListEl, {data});
 		this.toolList.on("change", ()=> this._handleListChange());
 		

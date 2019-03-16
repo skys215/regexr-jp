@@ -45,7 +45,7 @@ export default class Details {
 // private methods:
 	_update() {
 		$.empty(this.el);
-		$.create("div", "desc", "Click a <span class='match'>match</span> above to display match &amp; group details. Mouse over a <code>Group</code> row to highlight it in the Expression.", this.el);
+		$.create("div", "desc", "点击上方的<span class='match'>匹配结果</span>以显示配对信息和分组信息。 将鼠标移到<code>分组</code>上来高亮表达式。", this.el);
 		this._addMatch(app.text.selectedMatch, app.text.value);
 	}
 	
@@ -55,8 +55,8 @@ export default class Details {
 		let groupTokens = app.expression.lexer.captureGroups;
 		
 		let tableEl = $.create("table", null, null, this.el);
-		let matchEl = $.create("tr", "match", "<td>Match "+match.num+"</td><td>"+this._getRangeStr(match)+"</td><td></td>", tableEl);
-		
+		let matchEl = $.create("tr", "match", "<td>匹配了 "+match.num+"</td><td>"+this._getRangeStr(match)+"</td><td></td>", tableEl);
+
 		if (l) {
 			let inGroups = [], lastIndex = match.i;
 			for (let i = 0; i <= l; i++) {
@@ -86,7 +86,7 @@ export default class Details {
 			}
 			if (ext) { extStr += Utils.htmlSafe(textVal.substring(lastIndex, me)); }
 		} else {
-			$.create("tr", "nogroup", "<td colspan='3'>No groups.</td>", tableEl);
+			$.create("tr", "nogroup", "<td colspan='3'>无分组。</td>", tableEl);
 		}
 		
 		$.query("td:last-child", matchEl).innerHTML = extStr || matchVal;
@@ -94,7 +94,7 @@ export default class Details {
 	
 	_getMatchVal(match, str) {
 		let val = match.s || (match.i === undefined ? "" : str.substr(match.i, match.l));
-		return val ? Utils.htmlSafe(val) : "<em>&lt;empty&gt;</em>";
+		return val ? Utils.htmlSafe(val) : "<em>&lt;空&gt;</em>";
 	}
 	
 	_getRangeStr(match) {

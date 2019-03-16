@@ -38,13 +38,13 @@ export default class Example {
 			txt = ex[1];
 			regex = Utils.getRegExp(exp, "g");
 			if (this.title) { str += "<h1>" + this.title + "</h1><hr>"; }
-			str += "<code class='expression'><svg class='icon load'><use xlink:href='#load'><title>Load expression</title></use></svg>" + Utils.htmlSafe(exp) + "</code>";
+			str += "<code class='expression'><svg class='icon load'><use xlink:href='#load'><title>载入正则表达式</title></use></svg>" + Utils.htmlSafe(exp) + "</code>";
 			if (txt && regex) {
 				let over=Math.max(0, txt.length-160), s=txt;
 				if (over) { s = Utils.htmlSafe(s.substr(0,159)); }
 				if (regex) { s = s.replace(regex, "<em>$&</em>"); }
 				// TODO: this won't match on html elements:
-				str += "<hr><code class='text'><svg class='icon load'><use xlink:href='#load'><title>Load text</title></use></svg>" + s + (over?"<i>\u2026</i>" : "") + "</code>";
+				str += "<hr><code class='text'><svg class='icon load'><use xlink:href='#load'><title>载入文本</title></use></svg>" + s + (over?"<i>\u2026</i>" : "") + "</code>";
 			}
 		}
 		this.el.innerHTML = str;

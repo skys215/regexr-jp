@@ -63,8 +63,8 @@ export default class RegExr extends EventDispatcher {
 		if (params.expression) { this.expression.value = params.expression; }
 		if (params.text) { this.text.value = params.text; }
 		if (params.tool) { this.tools.value = {id:params.tool, input:params.input}; }
-		
-		window.onbeforeunload = (e) => this.unsaved ? "You have unsaved changes." : null;
+
+		window.onbeforeunload = (e) => this.unsaved ? "你有未保存的变动。" : null;
 		this.resetUnsaved();
 
 		setTimeout(() => this._initAds(), 100);
@@ -131,12 +131,12 @@ export default class RegExr extends EventDispatcher {
 	}
 	
 	newDoc(warn=true) {
-		this.load({flavor: this.flavor.value, expression: ".", text:"Text"}, warn);
+		this.load({flavor: this.flavor.value, expression: ".", text:"文本"}, warn);
 		this.expression.selectAll();
 	}
 
 	load(state, warn=true) {
-		if (warn === true) { warn = "You have unsaved changes. Continue without saving?"; }
+		if (warn === true) { warn = "你有未保存的变动。是否放弃保存？"; }
 		if (warn && this.unsaved && !confirm(warn)) { return; }
 		this.state = Utils.clone(state);
 	}
