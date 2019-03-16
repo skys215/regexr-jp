@@ -85,7 +85,8 @@ home.kids = [
 			"<p>由 <a href='http://twitter.com/gskinner/' target='_blank'>Grant Skinner</a> 和 <a href='http://gskinner.com/' target='_blank'>gskinner</a> 团队创建, 并使用了 <a href='http://createjs.com/' target='_blank'>CreateJS</a> & <a href='http://codemirror.net/' target='_blank'>CodeMirror</a> 库.</p>"+
 			"<p>由 <a href='https://github.com/skys215' target='_blank'>skys215</a> 和 <a href='https://github.com/yaoyuan4102' target='_blank'>yaoyuan4102</a> 翻译成中文。</p>"+
 			"<p>您可以在 <a href='http://github.com/gskinner/regexr/' target='_blank'>GitHub</a> 上提供反馈和记录bugs.</p>" +
-			"<p>您可以在 <a href='http://github.com/skys215/regexr/' target='_blank'>此GitHub</a> 上提供翻译纠正或建议。</p>"
+			"<p>您可以在 <a href='http://github.com/skys215/regexr/' target='_blank'>此GitHub</a> 上提供翻译纠正或建议。</p>" +
+			"<p>您可以在 <a href='https://afdian.net/@skys215' target='_blank'>爱发电</a> 上捐助本项目。</p>"
 		},
 		{
 		label:"开始",
