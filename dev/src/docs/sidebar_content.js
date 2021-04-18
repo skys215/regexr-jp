@@ -24,7 +24,7 @@ home.label = "菜单";
 home.desc = "[from HTML]";
 home.kids = [
 
-	
+
 	{
 	label: "正则表达式设置",
 	id: "share",
@@ -43,7 +43,7 @@ home.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "我的正则表达式",
 	id:"favorites",
@@ -52,17 +52,17 @@ home.kids = [
 	search: true,
 	kids: []
 	},
-	
+
 	{
 	label: "备忘单",
 	id:"cheatsheet",
 	el: "#cheatsheet"
 	},
-	
+
 	{ // injected from Reference
 	id:"reference"
 	},
-	
+
 	{
 	label: "正则表达式社区",
 	id: "community",
@@ -81,7 +81,7 @@ home.kids = [
 
 		{
 		label:"关于",
-		desc:"RegExr v[build-version] ([build-date])."+
+		desc:"RegExr v<%= build_version %> (<%= build_date %>)."+
 			"<p>由 <a href='http://twitter.com/gskinner/' target='_blank'>Grant Skinner</a> 和 <a href='http://gskinner.com/' target='_blank'>gskinner</a> 团队创建, 并使用了 <a href='http://createjs.com/' target='_blank'>CreateJS</a> & <a href='http://codemirror.net/' target='_blank'>CodeMirror</a> 库.</p>"+
 			"<p>由 <a href='https://github.com/skys215' target='_blank'>skys215</a> 和 <a href='https://github.com/yaoyuan4102' target='_blank'>yaoyuan4102</a> 翻译成中文。</p>"+
 			"<p>您可以在 <a href='http://github.com/gskinner/regexr/' target='_blank'>GitHub</a> 上提供反馈和记录bugs.</p>" +
@@ -107,9 +107,12 @@ home.kids = [
 				"<p>在行的开头或结尾处的较浅色盖子表示行之间继续匹配。</p>"
 			},
 			{
-			label:"工具面板",
-			desc:"单击<b>文本</b>面板下方的<b>工具</b>标题栏以显示或隐藏<b>工具</b>面板。"+
-				"<p>工具提供了不同的查询结果的方式。</p>",
+			label:"测试面板",
+			desc:"在这里你可以创建一套测试，用于实时验证你的<b>正则表达式</b>。"+
+				"<p>一个测试可以检查表达式在测试文本中匹配到了任意内容、所有内容还是没有匹配到内容。</p>"+
+				"<p>通过点击<b>文本</b>面板上方的开关来使用此功能。当你点击保存时，文本和测试都将保存。</p>"
+			},
+			{
 			kids: [
 				{
 				label:"替换",

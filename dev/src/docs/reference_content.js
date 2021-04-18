@@ -77,7 +77,7 @@ o.kids = [
 		token:"."
 		},
 		{
-		id: "matchany",
+		id: "matchanyset",
 		label:"完全通配",
 		desc:"可以用来匹配所有字符，包括换行符，但是除了dotall标符(<code>s</code>)."+
 			"<p>另外一种形式是<code>[^]</code>, 但是它不被所有浏览器支持</p>",
@@ -279,7 +279,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "转义字符",
 	id:"escchars",
@@ -347,7 +347,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "分组 & 引用",
 	id:"groups",
@@ -366,7 +366,7 @@ o.kids = [
 		tip:"创建一个名为'{{name}}'的捕获分组。",
 		desc:"创建一个可以通过指定名称引用的捕获分组。",
 		ext:"<p>可以用不同语法使用这个特性：</p><p><code>(?'name'ABC)</code> <code>(?P&lt;name>ABC)</code> <code>(?&lt;name>ABC)</code></p>",
-		token:"(?'name'ABC)"
+		token:"(?<name>ABC)"
 		},
 		{
 		id:"namedref",
@@ -433,7 +433,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "前后查找",
 	id:"lookaround",
@@ -475,7 +475,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "量词 & 多选",
 	id:"quants",
@@ -540,7 +540,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	label: "特殊",
 	id:"other",
@@ -644,7 +644,7 @@ o.kids = [
 		}
 	]
 	},
-	
+
 	{
 	id:"flags",
 	label:"标识",
