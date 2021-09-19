@@ -105,7 +105,7 @@ export default class Text extends EventDispatcher {
 		return {
 			id: UID.id,
 			name: "",
-			text: "Enter your test text here.",
+			text: "请填入测试文本",
 			type: "any"
 		}
 	}
@@ -117,7 +117,10 @@ export default class Text extends EventDispatcher {
 		this.resultEl.addEventListener("mouseleave", (evt)=>this._mouseResult(evt));
 
 		this.modeListEl = $.query("> header .modelist", el);
-		let data = ["Text", "Tests"].map((val) => ({label:val, id:val.toLowerCase()}));
+		let data = [
+			{ label: "文本", id: "text"},
+			{ label: "测试用例", id: "tests"}
+		];
 		this.modeList = new List(this.modeListEl, {data});
 		this.modeList.on("change", ()=> this._handleModeChange());
 		this.modeList.selected = "text";
@@ -192,7 +195,7 @@ export default class Text extends EventDispatcher {
 		let result = this._result, matches=result&&result.matches, l=matches&&matches.length, text;
 
 		if (l && result && !result.error) {
-			text = l + " 结果" + (l>1?"es":"") + (this._emptyCount?"*":"");
+			text = l + " 结果" + (this._emptyCount?"*":"");
 		} else if (!result || !result.error) {
 			text = "无结果";
 		}
@@ -211,7 +214,7 @@ export default class Text extends EventDispatcher {
 
 		if (clss) { $.addClass(el, clss); }
 		el.innerHTML = text;
-		if (result.time != null) {  el.innerHTML += "<em> ("+parseFloat(result.time).toFixed(1)+"ms)</em>"; }
+		if (result.time != null) {  el.innerHTML += "<em> ("+parseFloat(result.time).toFixed(1)+"毫秒)</em>"; }
 	}
 
 	_updateSelected() {
@@ -284,10 +287,10 @@ export default class Text extends EventDispatcher {
 // Test mode:
 	_initTestUI(el) {
 		const types = [
-			{id:"all", label:"Match Full"},
-			{id:"any", label:"Match Any"},
+			{id:"all", label:"匹配全部"},
+			{id:"any", label:"匹配任何"},
 			// {id:"start", label:"Match Start"},
-			{id:"none", label:"Match None"},
+			{id:"none", label:"不匹配"},
 		];
 		this.typeLabels = types.reduce((o, t) => { o[t.id] = t.label; return o; }, {});
 
@@ -314,7 +317,7 @@ export default class Text extends EventDispatcher {
 		if (result.error) { return this._showResult(); }
 
 		let data = this._tests, l=data.length;
-		if (!data || !l) { return this._showResult("No tests."); }
+		if (!data || !l) { return this._showResult("无测试."); }
 
 		let matches = result.matches.reduce((o, t) => { o[t.id] = t; return o; }, {}), fails=0;
 		for (let i=0; i<l; i++) {
@@ -335,9 +338,9 @@ export default class Text extends EventDispatcher {
 		this._testFails = fails;
 		this._testMatches = matches;
 		if (fails) {
-			this._showResult(fails+" FAILED", "fail");
+			this._showResult(fails+" 未通过", "fail");
 		} else {
-			this._showResult("PASSED", "pass");
+			this._showResult("通过", "pass");
 		}
 
 		this._updateSelTest();
@@ -373,7 +376,7 @@ export default class Text extends EventDispatcher {
 	_updateTestHeader(o, el, edit) {
 		let nameFld = $.query("header .name", el);
 		nameFld.value = o.name||"";
-		nameFld.placeholder = o.text && !edit ? o.text.substr(0, 100) : "Untitled Test";
+		nameFld.placeholder = o.text && !edit ? o.text.substr(0, 100) : "未命名测试";
 
 		let typeLbl = $.query("header .button.type .label", el);
 		typeLbl.innerText = this.typeLabels[o.type];
