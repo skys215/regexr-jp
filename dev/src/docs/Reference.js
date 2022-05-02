@@ -68,16 +68,16 @@ export default class Reference {
 
 	getQuant(token) {
 		let min = token.min, max = token.max;
-		return min === max ? min : max === -1 ? min + " 或更多" : "在 " + min + " 和 " + max + " 之间";
+		return min === max ? min : max === -1 ? min + " 回以上" : min + "～" + max + "回";
 	}
 
 	getUniCat(token) {
-		return Reference.UNICODE_CATEGORIES[token.value] || "[未识别]";
+		return Reference.UNICODE_CATEGORIES[token.value] || "[無効]";
 	}
 
 	getModes(token) {
-		let str = (token.on ? " 启用 \"<code>"+token.on+"</code>\"." : "")
-		if (token.off) { str += " 禁用 \"<code>"+token.off+"</code>\"."; }
+		let str = (token.on ? "\"<code>"+token.on+"</code>\"を有効化。" : "")
+		if (token.off) { str += "\"<code>"+token.off+"</code>\"を無効化。"; }
 		return str;
 	}
 
@@ -86,11 +86,11 @@ export default class Reference {
 			let chr = String.fromCharCode(token.code);
 			if (chr.toLowerCase() === chr.toUpperCase()) { return ""; }
 		}
-		return token.modes ? `大小写 ${token.modes.i ? "不" : ""}敏感。` : "";
+		return token.modes ? `大文字小文字を区別 ${token.modes.i ? "しない" : "する"}。` : "";
 	}
 
 	getDotAll(token) {
-		return (token.modes.s ? "包括" : "不包括") + " 换行";
+		return "改行を" + (token.modes.s ? "含む" : "含まない");
 	}
 
 	getLabel(token) {
@@ -103,11 +103,11 @@ export default class Reference {
 	}
 
 	getLazy(token) {
-		return token.modes.U ? "贪心" : "慵懒";
+		return token.modes.U ? "最長マッチング" : "最短マッチング";
 	}
 
 	getLazyFew(token) {
-		return token.modes.U ? "很多" : "很少";
+		return token.modes.U ? "多く" : "少なく";
 	}
 
 	getPHPVersion() {
@@ -199,7 +199,7 @@ export default class Reference {
 
 	getError(error, token) {
 		let errId = error && error.id;
-		let str = this._content.errors[errId] || "无 error='" + errId + "' 的相关文档";
+		let str = this._content.errors[errId] || "error='" + errId + "' 関連のドキュメントは見つかりませんでした";
 		if (token) { str = this.fillTags(str, token, this, 20); }
 		return str;
 	}
@@ -210,21 +210,21 @@ export default class Reference {
 		let node = this.getNodeForToken(token), label, tip;
 
 		if (token.error && !token.error.warning) {
-			label = "<span class='error'>错误: </span>";
+			label = "<span class='error'>エラー: </span>";
 			tip = this.getError(token.error, token);
 		} else {
 			label = node ? node.label || node.id || "" : token.type;
 			tip = this.getVal(node, "tip") || this.getVal(node, "desc");
 			tip = this.fillTags(tip, token, this, 20);
 			if (token.type === "group") { label += " #" + token.num; }
-			label = "<b>" + label[0].toUpperCase() + label.substr(1) + ".</b> ";
+			label = "<b>" + label[0].toUpperCase() + label.substr(1) + "。</b> ";
 
 			if (token.error) {
-				tip += "<span class='warningtext'><span class='error warning'>WARNING: </span>" + this.getError(token.error, token) + "</span>";
+				tip += "<span class='warningtext'><span class='error warning'>ワーニング: </span>" + this.getError(token.error, token) + "</span>";
 			}
 		}
 
-		return tip ? label + tip :  "无 id='" + this.idForToken(token) + "' 的相关文档";
+		return tip ? label + tip :  "id='" + this.idForToken(token) + "' 関連のドキュメントは見つかりませんでした";
 	}
 
 	getContent(id) {
@@ -236,23 +236,23 @@ export default class Reference {
 	tipForMatch(match, text) {
 		if (!match) { return null; }
 		let more = match.l > 150;
-		let str = "<b>匹配： </b>" + Utils.shorten(text.substr(match.i, match.l), 150, true, "i") +
-				  "<br/><b>范围： </b><code>" + match.i + "-" + (match.i+match.l-1)+ "</code>";
+		let str = "<b>マッチ： </b>" + Utils.shorten(text.substr(match.i, match.l), 150, true, "i") +
+				  "<br/><b>範囲： </b><code>" + match.i + "-" + (match.i+match.l-1)+ "</code>";
 
 		let groups = match.groups, l = groups && groups.length;
 		for (let i = 0; i < l; i++) {
 			if (i > 3 && l > 5) {
 				more = false;
-				str += "<br><span class='more'>点 详情 查看剩余"+(l-i)+" 个</span>";
+				str += "<br><span class='more'>詳細　をクリックし残りの"+(l-i)+"個を見る</span>";
 				break;
 			}
 			let group = groups[i], s;
 			s = (group.i !== undefined) ? text.substr(group.i, group.l) : group.s;
 			more = more || (s && s.length > 50);
 			str += (i > 0) ? "<br>" : "<hr>";
-			str += "<b>group #" + (i+1) + ": </b>" + Utils.shorten(s, 50, true, "i");
+			str += "<b>グループ #" + (i+1) + ": </b>" + Utils.shorten(s, 50, true, "i");
 		}
-		if (more) { str += "<br><span class='more'>点 详情 查看所有匹配</span>" }
+		if (more) { str += "<br><span class='more'>詳細　をクリックし全てのマッチを見る</span>" }
 		return str;
 	};
 
@@ -298,80 +298,80 @@ export default class Reference {
 }
 
 Reference.NONPRINTING_CHARS = {
-	"0": "空（NULL）",
-	"1": "SOH",
-	"2": "STX",
-	"3": "ETX",
-	"4": "EOT",
-	"5": "ENQ",
-	"6": "ACK",
-	"7": "BELL",
-	"8": "BS",
-	"9": "TAB制表符", //
-	"10": "LF换行符", //
-	"11": "纵向制表符（VERTICAL TAB）",
-	"12": "换页符（FROM FEED）",
-	"13": "CR换行符", //
-	"14": "SO",
-	"15": "SI",
-	"16": "DLE",
-	"17": "DC1",
-	"18": "DC2",
-	"19": "DC3",
-	"20": "DC4",
-	"21": "NAK",
-	"22": "SYN",
-	"23": "ETB",
-	"24": "CAN",
-	"25": "EM",
-	"26": "SUB",
-	"27": "ESC",
-	"28": "FS",
-	"29": "GS",
-	"30": "RS",
-	"31": "US",
-	"32": "空格", //
-	"127": "DEL"
+	"0": "空白（NULL）",
+	"1": "ヘッディング開始(SOH)",
+	"2": "テキスト開始(STX)",
+	"3": "テキスト終結(ETX)",
+	"4": "伝送終了(EOT)",
+	"5": "問い合わせ(ENQ)",
+	"6": "肯定応答(ACK)",
+	"7": "ベル(BELL \\a)",
+	"8": "後退(BS \\b)",
+	"9": "水平タブ(HT \\t)", //
+	"10": "改行(LF \\n)", //
+	"11": "垂直タブ(VT \\v）",
+	"12": "書式送り(\\f)",
+	"13": "復帰(\\r)", //
+	"14": "シフトアウト(SO)",
+	"15": "シフトイン(SI)",
+	"16": "伝送制御拡張(DLE)",
+	"17": "装置制御1(DC1)",
+	"18": "装置制御2(DC2)",
+	"19": "装置制御3(DC3)",
+	"20": "装置制御4(DC4)",
+	"21": "否定応答(NAK)",
+	"22": "同期信号(SYN)",
+	"23": "伝送ブロック終結(ETB)",
+	"24": "取り消し(CAN)",
+	"25": "媒体終結(EM)",
+	"26": "置換(SUB)",
+	"27": "拡張(ESC)",
+	"28": "ファイル分離(FS)",
+	"29": "グループ分離(GS)",
+	"30": "レコード分離(RS)",
+	"31": "ユニット分離(US)",
+	"32": "スペース",
+	"127": "抹消(DEL)"
 };
 
 Reference.UNICODE_CATEGORIES = {
 	// from: http://www.pcre.org/original/doc/html/pcrepattern.html
-	"C": "其他",
-	"Cc": "控制符",
-	"Cf": "格式化字符",
-	"Cn": "未分配",
-	"Co": "私有",
-	"Cs": "代替",
-	"L": "字母",
-	"L&": "任何字母",
-	"Ll": "小写字母",
-	"Lm": "修饰字符",
-	"Lo": "其他字母",
-	"Lt": "标题大写字母",
-	"Lu": "大写字母",
-	"M": "标记",
-	"Mc": "空格标记",
-	"Me": "环绕标记",
-	"Mn": "非空格标记",
+	"C": "その他",
+	"Cc": "コントロール文字",
+	"Cf": "書式",
+	"Cn": "未割り当て",
+	"Co": "プライベート用途",
+	"Cs": "サロゲート",
+	"L": "文字",
+	"L&": "大文字または小文字",
+	"Ll": "小文字",
+	"Lm": "修飾",
+	"Lo": "その他",
+	"Lt": "タイトル文字",
+	"Lu": "大文字",
+	"M": "結合文字",
+	"Mc": "結合文字，幅あり",
+	"Me": "結合文字，囲み",
+	"Mn": "結合文字，幅なし",
 	"N": "数字",
-	"Nd": "十进制数字",
-	"Nl": "字母数字",
-	"No": "其他数字",
-	"P": "标点",
-	"Pc": "连接符",
-	"Pd": "破折标点",
-	"Pe": "结束标点",
-	"Pf": "结尾标点",
-	"Pi": "起始标点",
-	"Po": "其他标点",
-	"Ps": "开始标点",
-	"S": "符号",
-	"Sc": "货币符号",
-	"Sk": "修饰符号",
-	"Sm": "数学符号",
-	"So": "其他符号",
-	"Z": "分割符",
-	"Zl": "行分隔符",
-	"Zp": "段落分隔符",
-	"Zs": "空格分隔符"
+	"Nd": "数字，10進数字",
+	"Nl": "数字，文字",
+	"No": "数字，その他",
+	"P": "句読点",
+	"Pc": "句読点，接続",
+	"Pd": "句読点，ダッシュ",
+	"Pe": "句読点，閉じ",
+	"Pf": "句読点，終了引用符",
+	"Pi": "句読点，開始引用符",
+	"Po": "句読点，その他",
+	"Ps": "句読点，開き",
+	"S": "記号",
+	"Sc": "記号，通貨",
+	"Sk": "記号，修飾",
+	"Sm": "記号，数学",
+	"So": "記号，その他",
+	"Z": "区切り文字",
+	"Zl": "区切り文字，行",
+	"Zp": "区切り文字，段落",
+	"Zs": "区切り文字，空白"
 };

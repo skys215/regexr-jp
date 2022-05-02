@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>RegExr: 学习、构建 和 测试 正则表达式 Test RegEx</title>
+	<title>RegExr：正規表現を学ぶ、作る、テストするツール</title>
 
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3579542-6"></script>
@@ -22,8 +22,8 @@
 	<link rel="stylesheet" type="text/css" href="<%= css_file %>">
 
 	<!-- basic meta tags -->
-	<meta name="title" content="RegExr: 学习、构建 和 测试 正则表达式" />
-	<meta name="description" content="带有语法高亮的、支持PHP / PCRE 和 JS 语言、 上下文解释、 备忘单、参考 和 正则表达式社区的正则表达式测试工具" />
+	<meta name="title" content="RegExr：正規表現を学ぶ、作る、テストするツール" />
+	<meta name="description" content="シンタックスハイライト、PHP/PCREとJavascript、文脈による解釈、早見表、レファレンス、コミュニティーと正規表現チェッカー" />
 
 	<!-- mobile -->
 	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
@@ -42,20 +42,20 @@
 	<meta name="theme-color" content="#70b0e0">
 
 	<!-- social -->
-	<meta property="og:image" content="http://regexr.skys215.com/assets/card.png"/>
+	<meta property="og:image" content="http://regexr-jp.com/assets/card.png"/>
 	<meta property="og:image:width" content="1200"/>
 	<meta property="og:image:height" content="630"/>
-    <meta property="og:title" content="RegExr: 学习、构建 和 测试 正则表达式"/>
-    <meta property="og:description" content="RegExr 是一个集 学习、构建 和 测试 正则表达式 (Regular Expressions / RegEx / RegExp)于一身的在线工具。"/>
-    <meta property="og:url" content="http://regexr.skys215.com/"/>
+    <meta property="og:title" content="RegExr：正規表現を学ぶ、作る、テストするツール"/>
+    <meta property="og:description" content="RegExrは正規表現を学ぶ、作る、テストするツールです。"/>
+    <meta property="og:url" content="http://regexr-jp.com/"/>
     <meta property="og:site_name" content="RegExr"/>
 
 	<meta name="twitter:card" content="summary_large_image"/>
 	<meta name="twitter:site:id" content="@gskinner"/>
-	<meta name="twitter:title" content="RegExr: 学习、构建 和 测试 正则表达式"/>
-	<meta name="twitter:description" content="RegExr 是一个集 学习、构建 和 测试 正则表达式 (Regular Expressions / RegEx / RegExp)于一身的在线工具。"/>
-	<meta name="twitter:image" content="http://regexr.skys215.com/assets/card.png"/>
-	<meta name="twitter:url" content="http://regexr.skys215.com/" />
+	<meta name="twitter:title" content="RegExr：正規表現を学ぶ、作る、テストするツール"/>
+	<meta name="twitter:description" content="RegExrは正規表現を学ぶ、作る、テストするツールです。"/>
+	<meta name="twitter:image" content="http://regexr-jp.com/assets/card.png"/>
+	<meta name="twitter:url" content="http://regexr-jp.com/" />
 </head>
 
 <body>
@@ -66,23 +66,23 @@
 		<header class="header">
 			<svg class="icon logo inline"><use xlink:href="#RegExr"></use></svg>
 			<div class="settings">
-				<span class="name">新建表达式</span>
-				<svg class="icon share"><use xlink:href="#share"><title>表达式设置</title></use></svg>
+				<span class="name">新規正規表現式</span>
+				<svg class="icon share"><use xlink:href="#share"><title>セッティング</title></use></svg>
 				</div>
 			</ul>
 			<ul class="file">
 				<li class="save disabled"><span class="action">保存</span> <span class="savekey">(--)</span></li>
-				<li class="new">新建</li>
+				<li class="new">新規</li>
 			</ul>
 			<ul class="etc">
-				<li class="button theme"><svg class="icon moon inline"><use xlink:href="#moon"><title>暗黑模式</title></use></svg></li>
-				<li class="by">由 <a href="http://gskinner.com">gskinner</a>创建</li>
+				<li class="button theme"><svg class="icon moon inline"><use xlink:href="#moon"><title>ダークモード</title></use></svg></li>
+				<li class="by"><a href="http://gskinner.com">gskinner</a>の作品</li>
 				<li class="github"><a href="http://github.com/gskinner/regexr/">GitHub</a></li>
-				<li class="by">|　由<a href="http://github.com/skys215/regexr/">skys215</a>和<a href="http://github.com/yaoyuan4102/">yaoyuan4102</a>翻译</li>
-				<li class="github"><a href="http://github.com/skys215/regexr/">中文GitHub</a></li>
+				<li class="by">| <a href="http://github.com/skys215/regexr-jp/">skys215</a>より翻訳</li>
+				<li class="github"><a href="http://github.com/skys215/regexr-jp/">日本語版GitHub</a></li>
 				<li class="signin"><a>
 					<svg class="icon user inline"><use xlink:href="#user"></use></svg>
-					<span class="label">登录</span>
+					<span class="label">ログイン</span>
 				</a></li>
 			</ul>
 		</header>
@@ -93,9 +93,9 @@
 					<header class="row">
 						<div class="backrow">
 							<svg class="icon back"><use xlink:href="#menu"></use></svg>
-							<h1 class="label">菜单</h1>
+							<h1 class="label">メニュー</h1>
 						</div>
-						<svg class="small icon close"><use xlink:href="#close"><title>最小化菜单</title></use></svg>
+						<svg class="small icon close"><use xlink:href="#close"><title>メニューを最小化</title></use></svg>
 					</header>
 					<header class="search row">
 						<input type="text" placeholder="搜索">
@@ -104,18 +104,18 @@
 					</header>
 					<ul class="list"></ul>
 					<div class="content">
-						RegExr 是一个集 <b>学习</b>、<b>构建</b> 和 <b>测试</b> 正则表达式（Regular Expressions / RegEx / RegExp)于一身的在线工具。
+						RegExrは正規表現（Regular Expressions / RegEx / RegExp）を<b>学ぶ</b>、<b>作る</b>、<b>テスト</b>するツールです。
 						<hr>
 						<ul>
-							<li>支持 <b>JavaScript</b> &amp; <b>PHP/PCRE</b> 正则表达式。</li>
-							<li>匹配结果<b>即时</b>显示。</li>
-							<li>在匹配结果或表达式上<b>滚动滚轮</b>以见详情。</li>
-							<li>使用<b>测试</b>验证表达式。</li>
-							<li><b>保存</b> 并与其他人分享正则表达式。</li>
-							<li>使用 <b>工具</b> 查看匹配结果。</li>
-							<li>完整的、带有帮助和示例的<b>正则表达式文档</b>。</li>
-							<li>在编辑器中按 {{getCtrlKey()}}-Z / Y<b>撤销</b> 和 <b>重做</b> 。</li>
-							<li>搜索并为<b>社区正则表达式</b>评分。</li>
+							<li><b>JavaScript</b> と <b>PHP/PCRE</b> 二つライブラリを使用可能。</li>
+							<li>マッチ結果は<b>リアルタイム</b>に表示されます。</li>
+							<li><b>カーソル</b>を当てたらマッチ結果や正規表現の詳細が見えます。</li>
+							<li><b>テスト</b>を用いて正規表現を確かめる。</li>
+							<li><b>保存</b> し正規表現を共有する。</li>
+							<li><b>ツール</b>を利用しマッチした結果を見る。</li>
+							<li>完全な、ヘルプと例が付いてある<b>正規表現レファレンス</b>。</li>
+							<li>エディターで {{getCtrlKey()}}-Z / Yを押して<b>取り消し</b> と <b>やり直し</b> 。</li>
+							<li><b>コミュニティの正規表現</b>を検索と評価可能。</li>
 						</ul>
 					</div>
 					<div class="hello">
@@ -137,7 +137,7 @@
 								<div class="native-main">
 									<img class="native-img" src="#native_logo#">
 									<div class="native-details">
-										<span class="native-company">由 #native_company# 赞助</span>
+										<span class="native-company">サポート #native_company#</span>
 										<span class="native-desc">#native_desc#</span>
 									</div>
 								</div>
@@ -158,7 +158,7 @@
 				<div class="blocker"></div>
 				<section class="expression">
 					<header>
-						<h1>表达式</h1>
+						<h1>正規表現</h1>
 						<div class="controlbar">
 							<div class="button flavor">
 								<svg class="icon"><use xlink:href="#code"></use></svg>
@@ -167,7 +167,7 @@
 							</div>
 							<div class="button flags">
 								<svg class="icon"><use xlink:href="#flags"></use></svg>
-								<span class="label">标识</span>
+								<span class="label">修飾子（フラグ）</span>
 								<svg class="icon dropdown"><use xlink:href="#dropdown"></use></svg>
 							</div>
 						</div>
@@ -182,10 +182,10 @@
 						</h1>
 						<div class="button add">
 							<svg class="icon add"><use xlink:href="#add"></use></svg>
-							<span class="label">添加测试</span>
+							<span class="label">新規テスト</span>
 						</div>
 						<div class="controlbar">
-							<div class="control result">无结果。</div>
+							<div class="control result">结果なし。</div>
 						</div>
 					</header>
 					<article>
@@ -204,20 +204,20 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 						<ul class="list"></ul>
 						<div class="add button">
 							<svg class="icon add"><use xlink:href="#add"></use></svg>
-							<span class="label">添加测试</span>
+							<span class="label">新規テスト</span>
 						</div>
 						<div class="default">
-							创建一套满足（或不满足）你的正则表达式的测试。
-							<p>通过点击“添加测试”按钮来创建新的测试。点击一个测试来编辑其名字、类型以及文本。</p>
+							正規表現に満たす（或いは満たさない）テストを追加し、正規表現を試す。
+							<p>「新規テスト」ボタンをクリックし、新しいテストケースを追加。テストケースをクリックしてテストの名前、タイプやテキストを編集可能です。</p>
 						</div>
 					</div>
 				</section>
 
 				<section class="tools">
 					<header>
-						<h1>工具</h1>
+						<h1>ツール</h1>
 						<ul class="segcontrol toollist"></ul>
-						<svg class="small icon max"><use xlink:href="#close"><title>开关工具面板</title></use></svg>
+						<svg class="small icon max"><use xlink:href="#close"><title>ツールパネルの表示切り替え</title></use></svg>
 					</header>
 					<article>
 						<svg class="icon help"><use xlink:href="#help"></use></svg>
@@ -240,7 +240,7 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 
 		<div id="tooltip-flavor">
 			<header>
-				<h1>正则引擎</h1>
+				<h1>ライブラリ</h1>
 				<svg class="icon help"><use xlink:href="#help"></use></svg>
 			</header>
 			<hr>
@@ -249,7 +249,7 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 
 		<div id="tooltip-flags">
 			<header>
-				<h1>正则标识</h1>
+				<h1>修飾子</h1>
 				<svg class="icon help"><use xlink:href="#help"></use></svg>
 			</header>
 			<hr>
@@ -263,67 +263,67 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 		<div id="tooltip-signin">
 			<div class="signin">
 				<header>
-					<h1>登录</h1>
+					<h1>ログイン</h1>
 					<svg class="icon help"><use xlink:href="#help"></use></svg>
 				</header>
 				<hr>
 				<div class="content">
-					登录以 保存正则表达式 和 使用收藏夹。点击上方的帮助按钮查看更多信息。
+					ログインする事で正規表現を保存したり、お気に入りが可能です。ヘルプをクリックしてもっと見る。
 					<br><br>
-					任何未保存的改动都会丢失。已保存的正则表达式和收藏会迁移到你的帐号下。
+					保存してない変動は全て失います。保存された正規表現とお気に入りはあなたのアカウントに移ります。
 				</div>
 				<hr>
 				<ul class="list"></ul>
 			</div>
 			<div class="signout">
 				<header>
-					<h1>退出</h1>
+					<h1>ログアウト</h1>
 				</header>
 				<hr>
 				<div class="content">
-					当前登录用户<b class="username">--</b> 经 <b class="type">--</b>.
+					<b class="username">--</b>は<b class="type">--</b>を通じてログイン。
 					<br><br>
-					<span class="signoutbtn">退出。</span>
+					<span class="signoutbtn">ログアウト</span>
 				</div>
 			</div>
 			<div class="distract">
 				<svg class="icon distractor anim-spin"><use xlink:href="#distractor"></use></svg>
-				请稍等……
+				しばらくお待ちください……
 			</div>
 		</div>
 
 		<div id="cheatsheet">
 			<table class="cheatsheet">
 				<tr><th colspan="2" data-id="charclasses">字符类</th></tr>
-				<tr><td>.</td><td>匹配除了换行符（\n）以外的任意一个字符</td></tr>
-				<tr><td>\w  \d  \s</td><td>任意一个字母或数字或下划线，也就是 A~Z,a~z,0~9,_ 中任意一个, 任意一个数字，0~9 中的任意一个, 包括空格、制表符、换页符等空白字符的其中任意一个</td></tr>
-				<tr><td>\W  \D  \S</td><td>非 字母, 数字, 空白字符</td></tr>
-				<tr><td>[abc]</td><td>匹配a、 b、或c中的任何一个</td></tr>
-				<tr><td>[^abc]</td><td>匹配 a、b和c之外的任何一个</td></tr>
-				<tr><td>[a-g]</td><td>a和g之间的任意一个字符</td></tr>
+				<tr><td>.</td><td>改行(LF:\n)を除く任意の1文字</td></tr>
+				<tr><td>\w  \d  \s</td><td>英数字または「_」(\w)、数字(\d)か空白文字(\s)のうち１文字</td></tr>
+				<tr><td>\W  \D  \S</td><td>\w、\d、\s以外の文字</td></tr>
+				<tr><td>[abc]</td><td>aまたはbまたはcにマッチ</td></tr>
+				<tr><td>[^abc]</td><td>abc以外の文字にマッチ</td></tr>
+				<tr><td>[a-g]</td><td>aからgまでのいずれどちらかの１文字にマッチ</td></tr>
 
-				<tr><th colspan="2" data-id="anchors">锚</th></tr>
-				<tr><td>^abc$</td><td>字符串的开头/结尾</td></tr>
-				<tr><td>\b  \B</td><td>单词边界、非单词的边界</td></tr>
+				<tr><th colspan="2" data-id="anchors">アンカー</th></tr>
+				<tr><td>^abc$</td><td>文字の行頭(^)・行末($)</td></tr>
+				<tr><td>\b  \B</td><td>単語の先頭・末尾(\b)/単語の先頭でも末尾でもない(\B)</td></tr>
 
-				<tr><th colspan="2" data-id="escchars">转义字符</th></tr>
-				<tr><td>\.  \*  \\</td><td>转义特殊字符</td></tr>
-				<tr><td>\t  \n  \r</td><td>制表符, LF换行符, CR换行符</td></tr>
+				<tr><th colspan="2" data-id="escchars">エスケープシーケンス</th></tr>
+				<tr><td>\.  \*  \\</td><td>特殊文字</td></tr>
+				<tr><td>\t  \n  \r</td><td>タブ(TAB:\x09)、 改行(LF:\x0A), 復帰(CR:\x0D)</td></tr>
 				<!-- <tr><td>\u00A9</td><td>unicode escaped &copy;</td></tr> -->
 
-				<tr><th colspan="2" data-id="groups">分组 & 前瞻后顾</th></tr>
-				<tr><td>(abc)</td><td>捕获分组</td></tr>
-				<tr><td>\1</td><td>反向引用#1</td></tr>
-				<tr><td>(?:abc)</td><td>不捕获分组</td></tr>
-				<tr><td>(?=abc)</td><td>正向前瞻</td></tr>
-				<tr><td>(?!abc)</td><td>负向前瞻</td></tr>
+				<tr><th colspan="2" data-id="groups">グルーピング & 後読み・先読み</th></tr>
+				<tr><td>(abc)</td><td>グルーピ</td></tr>
+				<tr><td>\1</td><td>キャプチャグループ</td></tr>
+				<tr><td>(?:abc)</td><td>非キャプチャグループ</td></tr>
+				<tr><td>(?=abc)</td><td>先読みアサーション</td></tr>
+				<tr><td>(?!abc)</td><td>否定先読みアサーション</td></tr>
 
-				<tr><th colspan="2" data-id="quants">量词 & 分支</th></tr>
-				<tr><td>a*  a+  a?</td><td>0个或更多，1个或更多，0个或1个</td></tr>
-				<tr><td>a{5} a{2,}</td><td>刚好5个，2个或以上</td></tr>
-				<tr><td>a{1,3}</td><td>1~3个</td></tr>
-				<tr><td>a+? a{2,}?</td><td>非贪婪匹配（仅可能少匹配）</td></tr>
-				<tr><td>ab|cd</td><td>匹配 ab 或 cd</td></tr>
+				<tr><th colspan="2" data-id="quants">量指定子 & 〜または〜</th></tr>
+				<tr><td>a*  a+  a?</td><td>0個以上、1個以上、0個または1個</td></tr>
+				<tr><td>a{5} a{2,}</td><td>５回、２回以上</td></tr>
+				<tr><td>a{1,3}</td><td>１～３回繰り返し</td></tr>
+				<tr><td>a+? a{2,}?</td><td>最短マッチでマッチング</td></tr>
+				<tr><td>ab|cd</td><td>abまたはcd</td></tr>
 			</table>
 		</div>
 
@@ -331,23 +331,23 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 			<header>
 				<div class="label name"></div>
 				<div>
-					<svg class="icon favorites"><use xlink:href="#favorites"><title>收藏夹（添加到我的收藏夹）</title></use></svg>
-					<svg class="icon share"><use xlink:href="#share"><title>加载并打开正则表达式设置</title></use></svg>
+					<svg class="icon favorites"><use xlink:href="#favorites"><title>お気に入り（お気に入りに追加）</title></use></svg>
+					<svg class="icon share"><use xlink:href="#share"><title>セティングを読み込んでパネルを開く</title></use></svg>
 				</div>
 			</header>
 			<div class="actions list">
 				<div class="link row">
 					<svg class="icon link"><use xlink:href="#link"></use></svg>
-					<div class="label">加载</div>
+					<div class="label">読み込む</div>
 					<div class="url">--</div>
-					<svg class="icon copy"><use xlink:href="#copy"><title>复制到粘贴版</title></use></svg>
+					<svg class="icon copy"><use xlink:href="#copy"><title>クリップボードへコピー</title></use></svg>
 				</div>
 				<div class="rate inactive row">
 					<svg class="icon thumb"><use xlink:href="#thumb"></use></svg>
-					<div class="label">评分</div>
-					<svg class="icon rate thumbdown"><use xlink:href="#thumb"><title>给正则表达式评分</title></use></svg>
+					<div class="label">評価</div>
+					<svg class="icon rate thumbdown"><use xlink:href="#thumb"><title>低評価</title></use></svg>
 					<span class="rating">--</span>
-					<svg class="icon rate thumbup"><use xlink:href="#thumb"><title>给正则表达式评分</title></use></svg>
+					<svg class="icon rate thumbup"><use xlink:href="#thumb"><title>高評価</title></use></svg>
 				</div>
 			</div>
 			<div class="desc"></div>
@@ -360,13 +360,13 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 			<div id="share_main">
 				<div class="signin row">
 					<svg class="icon user"><use xlink:href="#user"></use></svg>
-					<div class="label signin"><a>登录</a> 来避免弄丢你的正则表达式！</div>
-					<div class="label signout">以<b class="username">--</b>登录</div>
+					<div class="label signin">正規表現を失くさないために<a>ログイン</a>！</div>
+					<div class="label signout"><b class="username">--</b>としてログイン</div>
 				</div>
 				<div class="save row">
-					<div class="message">保存会创建一个可分享的链接。</div>
+					<div class="message">保存すると共有可能なリンクが作成されます。</div>
 					<div class="buttons row">
-						<div class="fork button">Fork</div>
+						<div class="fork button">フォーク</div>
 						<div class="save button default">保存</div>
 						<div class="status"></div>
 					</div>
@@ -374,75 +374,75 @@ Explore results with the Tools below. Replace & List output custom results. Deta
 				<div class="info">
 					<div class="info row">
 						<svg class="icon info"><use xlink:href="#info"></use></svg>
-						<div class="label">选填信息</div>
+						<div class="label">その他</div>
 					</div>
 					<div class="inputs">
-						<input class="name" type="text" placeholder="表达式名称（建议填上）" maxlength="30">
-						<input class="author" type="text" placeholder="作者名称" maxlength="20">
-						<textarea class="description" rows="4" placeholder="描述" maxlength="250"></textarea>
-						<input class="keywords" type="text" placeholder="关键字" maxlength="50">
+						<input class="name" type="text" placeholder="式名（できれば）" maxlength="30">
+						<input class="author" type="text" placeholder="作者" maxlength="20">
+						<textarea class="description" rows="4" placeholder="説明" maxlength="250"></textarea>
+						<input class="keywords" type="text" placeholder="キーワード" maxlength="50">
 					</div>
 				</div>
 				<div class="actions list">
 					<div class="link row">
 						<svg class="icon link"><use xlink:href="#link"></use></svg>
-						<div class="label">分享链接</div>
+						<div class="label">共有リンク</div>
 						<div class="url"></div>
-						<svg class="icon copy"><use xlink:href="#copy"><title>复制到粘贴版</title></use></svg>
+						<svg class="icon copy"><use xlink:href="#copy"><title>クリップボードにコピー</title></use></svg>
 					</div>
 					<div class="private row">
 						<svg class="icon private"><use xlink:href="#private"></use></svg>
-						<div class="label">私有</div>
+						<div class="label">非公開</div>
 						<div class="status"></div>
 						<svg class="icon check"><use xlink:href="#check"></use></svg>
 					</div>
 					<div class="favorites row">
 						<svg class="icon favorites"><use xlink:href="#favorites"></use></svg>
-						<div class="label">收藏夹</div>
+						<div class="label">お気に入り</div>
 						<div class="status"></div>
 						<svg class="icon check"><use xlink:href="#check"></use></svg>
 					</div>
 					<div class="community row">
 						<svg class="icon community"><use xlink:href="#community"></use></svg>
-						<div class="label">分享到社区</div>
+						<div class="label">コミュニティに共有</div>
 						<svg class="icon arrow"><use xlink:href="#arrowright"></use></svg>
 					</div>
 					<div class="delete row">
 						<svg class="icon delete"><use xlink:href="#delete"></use></svg>
-						<div class="label">删除</div>
+						<div class="label">削除</div>
 						<div class="status"></div>
 					</div>
 				</div>
 			</div>
 
 			<div id="share_community">
-				编写以下信息使人们容易找到该表达式。
+				見つかりやすいため、以下のフォームを記入してください。
 				<div class="inputs">
-					<input class="name" type="text" placeholder="表达式名称（必填）" maxlength="30">
-					<input class="author" type="text" placeholder="作者名称" maxlength="20">
-					<textarea class="description" rows="3" placeholder="描述" maxlength="250"></textarea>
-					<input class="keywords" type="text" placeholder="关键字" maxlength="50">
+					<input class="name" type="text" placeholder="式名（必須）" maxlength="30">
+					<input class="author" type="text" placeholder="作者" maxlength="20">
+					<textarea class="description" rows="3" placeholder="説明" maxlength="250"></textarea>
+					<input class="keywords" type="text" placeholder="キーワード" maxlength="50">
 				</div>
 				<div class="buttons">
-					<div class="button cancel">取消</div>
-					<div class="button share default"><svg class="icon community"><use xlink:href="#community"></use></svg> 分享</div>
+					<div class="button cancel">キャンセル</div>
+					<div class="button share default"><svg class="icon community"><use xlink:href="#community"></use></svg> 共有</div>
 					<div class="status"></div>
 				</div>
-				点此会分享该正则表达式（包括文本）的一个副本到社区。
-				<b>你将无法编辑或删除已分享的副本。</b>
+				これをクリックすることで、この正規表現（テキストを含む）をコミュニティに共有することができます。
+				<b>共有したコピーは編集も削除もできません。</b>
 			</div>
 		</div>
 
 		<div id="tests_item">
 			<header>
-				<svg class="icon fail small"><use xlink:href="#close"><title>Failed</title></use></svg>
-				<svg class="icon pass small"><use xlink:href="#check"><title>Passed</title></use></svg>
+				<svg class="icon fail small"><use xlink:href="#close"><title>不合格</title></use></svg>
+				<svg class="icon pass small"><use xlink:href="#check"><title>合格</title></use></svg>
 				<h1><input type="text" class="name" placeholder="Untitled Test"></input></h1>
 				<div class="button type">
-					<span class="label">Match all</span>
+					<span class="label">全てマッチ</span>
 					<svg class="icon dropdown"><use xlink:href="#dropdown"></use></svg>
 				</div>
-				<svg class="icon delete small"><use xlink:href="#delete"><title>Delete test</title></use></svg>
+				<svg class="icon delete small"><use xlink:href="#delete"><title>削除</title></use></svg>
 			</header>
 			<article>
 				<div class="bar"></div>

@@ -57,12 +57,12 @@ let pcre = {
 	},
 	
 	docs: {
-		"escoctal":{ext:"+<p>同时支持 <code>\\o{FFF}</code> 语法。</p>"},
+		"escoctal":{ext:"+<p><code>\\o{FFF}</code>とも書けます。</p>"},
 		"numref":{
-			ext:"<p>可以用不同语法使用这个特性：<code>\\1</code> <code>\\g1</code> <code>\\g{1}</code>。</p>"+
-				"<p>同时支持以<code>+</code>或<code>-</code>开头的相对值。例如，<code>\\g-1</code> 会匹配相对引用的分组</p>"
+			ext:"<p><code>\\1</code> <code>\\g1</code> <code>\\g{1}</code>とも書けます。</p>"+
+				"<p><code>+</code>や<code>-</code>で始める相対位置を使用可能です。例えば、<code>\\g-1</code>は相対の位置にマッチします。</p>"
 		},
-		"lazy": { ext:"+<p>这个行为在启用非贪婪标识（<code>U</code>）时有效。</p>" }
+		"lazy": { ext:"+<p>この行為は非貪欲フラグ（<code>U</code>）が設定してる時のみ有効。</p>" }
 	}
 };
 

@@ -69,7 +69,7 @@ export default class RegExr extends EventDispatcher {
 		if (params.text) { this.text.value = params.text; }
 		if (params.tool) { this.tools.value = {id:params.tool, input:params.input}; }
 
-		window.onbeforeunload = (e) => this.unsaved ? "你有未保存的变动。" : null;
+		window.onbeforeunload = (e) => this.unsaved ? "変更は適応されておりません" : null;
 		this.resetUnsaved();
 
 		// setTimeout(() => this._initAds(), 100);
@@ -142,12 +142,12 @@ export default class RegExr extends EventDispatcher {
 	}
 
 	newDoc(warn=true) {
-		this.load({flavor: this.flavor.value, expression: ".", text:"文本"}, warn);
+		this.load({flavor: this.flavor.value, expression: ".", text:"テキスト"}, warn);
 		this.expression.selectAll();
 	}
 
 	load(state, warn=true) {
-		if (warn === true) { warn = "你有未保存的变动。是否放弃保存？"; }
+		if (warn === true) { warn = "変更は適応されておりません。放棄しますか？"; }
 		if (warn && this.unsaved && !confirm(warn)) { return; }
 		this.state = Utils.clone(state);
 	}

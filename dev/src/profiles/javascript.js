@@ -138,7 +138,7 @@ let javascript = {
 		"subst_group": {ext:""}, // remove other syntaxes.
 		"namedgroup": {ext:""}, // remove other syntaxes.
 		"unicodecat": {
-			ext: "<p>Requires the <code>u</code> flag.</p>"+
+			ext: "<p><code>u</code> フラグが必須です.</p>"+
 			"<p>For a list of values, see this <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes'>MDN page</a>.</p>"
 		},
 		// notunicodecat, unicodescript, notunicodescript are copied from unicodecat below.

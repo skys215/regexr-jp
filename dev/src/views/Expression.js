@@ -169,7 +169,7 @@ export default class Expression extends EventDispatcher {
 	
 	_initTooltips(el) {
 		const template = $.template`<svg class="inline check icon"><use xlink:href="#check"></use></svg> ${"label"}`;
-		let flavorData = app.flavor.profiles.map((o)=>({id:o.id, label:o.label+" ("+(o.browser?"浏览器端":"服务器端")+")"}));
+		let flavorData = app.flavor.profiles.map((o)=>({id:o.id, label:o.label+" ("+(o.browser?"ブラウザ側":"サーバ側")+")"}));
 		
 		this.flavorBtn = $.query("section.expression .button.flavor", el);
 		this.flavorEl = $.query("#library #tooltip-flavor");
@@ -245,8 +245,8 @@ export default class Expression extends EventDispatcher {
 		if (evt.type === "mouseleave") { return tt.hide("error"); }
 		if (errs.length === 0) { return; }
 		let err = errs.length === 1 && errs[0].error;
-		let str = err ? app.reference.getError(err, errs[0]) : "有错误的地方已用<span class='exp-error'>色</span>下划线标注。滚动到该处查看详情。";
-		let label = err && err.warning ? "警告" : "解析错误";
+		let str = err ? app.reference.getError(err, errs[0]) : "エラーの場所は<span class='exp-error'>色</span>の下線で表記してあり、カーソルを当てたら詳細が見られます。";
+		let label = err && err.warning ? "ワーニング" : "解析エラー";
 		tt.showOn("error", "<span class='error'>"+label+":</span> "+str, this.errorEl);
 	}
 	
@@ -256,12 +256,12 @@ Expression.DEFAULT_EXPRESSION = "/([A-Z])\\w+/g";
 
 Expression.FLAGS = "gimsuxyU"; // for flag order
 Expression.FLAG_LABELS = {
-	"g": "<em>g</em>全局",
-	"i": "<em>i</em>忽略大小写",
-	"m": "<em>m</em>多行",
-	"s": "<em>s</em>dotall",
-	"u": "<em>u</em>Unicode",
-	"x": "<em>x</em>扩展（extended）",
-	"y": "<em>y</em>粘性（sticky）",
-	"U": "<em>U</em>非贪婪"
+	"g": "<em>g</em>グローバルマッチ",
+	"i": "<em>i</em>大文字小文字を区別しない",
+	"m": "<em>m</em>マルチライン",
+	"s": "<em>s</em>シングルライン",
+	"u": "<em>u</em>\\d \\s \\wがUnicodeにもマッチ",
+	"x": "<em>x</em>コメントモード（extended）",
+	"y": "<em>y</em>繰り返しマッチ時の位置を維持（sticky）",
+	"U": "<em>U</em>最短マッチと最長マッチを逆転"
 };

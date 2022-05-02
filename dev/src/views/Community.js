@@ -40,7 +40,7 @@ export default class CommunityContent {
 	set item(o) {
 		let el = this.el;
 		this._pattern = o;
-		$.query(".author", el).innerText = o.author ? "by "+o.author  : "";
+		$.query(".author", el).innerText = o.author ? o.author+ "　より"  : "";
 		$.query(".name.label", el).innerText = o.name;
 		$.query(".desc", el).innerText = o.description || "无描述。";
 		this._updateRating();

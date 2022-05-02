@@ -45,7 +45,7 @@ export default class Details {
 // private methods:
 	_update() {
 		$.empty(this.el);
-		$.create("div", "desc", "点击上方的<span class='match'>匹配结果</span>以显示配对信息和分组信息。 将鼠标移到<code>分组</code>上来高亮表达式。", this.el);
+		$.create("div", "desc", "テキストパネルの<span class='match'>マッチ結果</span>をクリックすることで、マッチング情報やグループ情報が見られます。ポインターを<code>グループ</code>にあてることで正規表現をハイライトすることができます。", this.el);
 		this._addMatch(app.text.selectedMatch, app.text.value);
 	}
 	
@@ -55,7 +55,7 @@ export default class Details {
 		let groupTokens = app.expression.lexer.captureGroups;
 		
 		let tableEl = $.create("table", null, null, this.el);
-		let matchEl = $.create("tr", "match", "<td>匹配了 "+match.num+"</td><td>"+this._getRangeStr(match)+"</td><td></td>", tableEl);
+		let matchEl = $.create("tr", "match", "<td>マッチ "+match.num+"</td><td>"+this._getRangeStr(match)+"</td><td></td>", tableEl);
 
 		if (l) {
 			let inGroups = [], lastIndex = match.i;
@@ -77,7 +77,7 @@ export default class Details {
 					lastIndex = index;
 				}
 				let val = "<span" + (ext ? " class='group-" + num % 6 + "'" : "") + ">" + this._getMatchVal(group, textVal) + "</span>";
-				let label = token.name ? "'"+token.name+"'" : ("Group " + num);
+				let label = token.name ? "'"+token.name+"'" : ("グループ " + num);
 				let tr = $.create("tr", "group", "<td>" + label + "</td><td>" + this._getRangeStr(group) + "</td><td>" + val + "</td>", tableEl);
 				
 				tr.token = token;
@@ -86,7 +86,7 @@ export default class Details {
 			}
 			if (ext) { extStr += Utils.htmlSafe(textVal.substring(lastIndex, me)); }
 		} else {
-			$.create("tr", "nogroup", "<td colspan='3'>无分组。</td>", tableEl);
+			$.create("tr", "nogroup", "<td colspan='3'>グループなし。</td>", tableEl);
 		}
 		
 		$.query("td:last-child", matchEl).innerHTML = extStr || matchVal;
@@ -94,7 +94,7 @@ export default class Details {
 	
 	_getMatchVal(match, str) {
 		let val = match.s || (match.i === undefined ? "" : str.substr(match.i, match.l));
-		return val ? Utils.htmlSafe(val) : "<em>&lt;空&gt;</em>";
+		return val ? Utils.htmlSafe(val) : "<em>&lt;空白&gt;</em>";
 	}
 	
 	_getRangeStr(match) {

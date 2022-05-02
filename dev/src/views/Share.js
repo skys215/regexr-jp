@@ -62,7 +62,7 @@ export default class Share extends EventDispatcher {
 	get name() { return this.nameFld.value; }
 	set name(val) {
 		this.nameFld.value = val||"";
-		this.hNameFld.innerText = val||"未命名表达式";
+		this.hNameFld.innerText = val||"表現名未設定";
 	}
 
 	get author() { return this.authorFld.value; }
@@ -158,15 +158,15 @@ export default class Share extends EventDispatcher {
 		$.toggleClass(this.saveBtn, "disabled", !this._canSave());
 
 		$.toggleClass(this.hSaveBtn, "disabled", !this._canSave() && isOwned);
-		$.query(".action",this.hSaveBtn).innerText = isOwned ? "保存" : "Fork";
+		$.query(".action",this.hSaveBtn).innerText = isOwned ? "保存" : "フォーク";
 
-		if (!isOwned) { text = "本正则表达式由 '"+(o.author||"[anonymous]")+"'创建。"; }
-		else if (!isChanged) { text = "未做改动。" }
-		else if (isNew) { text = "保存会创建一个可分享的链接。"; }
-		else { text = "保存会更新当前链接。"; }
+		if (!isOwned) { text = "作者：'"+(o.author||"[匿名]"); }
+		else if (!isChanged) { text = "変更なし" }
+		else if (isNew) { text = "保存すると共有可能なリンクが作成されます。"; }
+		else { text = "保存すると当リンクは更新されます。"; }
 
-		if (!isOwned && !isChanged) { text += " 通过fork创建自己的版本。"; }
-		else if (!isNew) { text += " Fork 会创建" + (isChanged ? " 带有你变动的新版本" : "你自己的版本。"); }
+		if (!isOwned && !isChanged) { text += " フォークし正規表現を編集する。"; }
+		else if (!isNew) { text += " フォークで" + (isChanged ? " 変動後のバージョンを作る。" : "自分のバージョンを作る。"); }
 
 		this._setSaveText(text);
 
@@ -204,7 +204,7 @@ export default class Share extends EventDispatcher {
 
 	_pushHistory(pattern) {
 		let history = window.history, url = Utils.getPatternURL(pattern);
-		let title = "RegExr: "+ (pattern.name || "学习、构建和测试正则");
+		let title = "RegExr: "+ (pattern.name || "正規表現を学ぶ、書く、テストする");
 
 		if (history.state && (pattern.id === history.state.id)) {
 			history.replaceState(pattern, title, url);
@@ -252,7 +252,7 @@ export default class Share extends EventDispatcher {
 				this.nameFld.focus();
 				this.nameFld.select();
 			}
-			this._linkRow.showMessage("<b>已保存。</b> 已创建新链接。 点击复制链接至粘贴版。");
+			this._linkRow.showMessage("<b>保存しました。</b> 新しリンクを作成しました。クリックしてコピー。");
 		}
 	}
 	
@@ -299,7 +299,7 @@ export default class Share extends EventDispatcher {
 
 	_doDelete() {
 		let o = this._pattern;
-		if (!confirm("是否确定永久删除该正则表达式？")) { return; }
+		if (!confirm("正規表現を永久に削除しますか？")) { return; }
 		this._deleteStatus.distract();
 		Server.delete(o.id)
 			.then((data) => this._handleDelete(data))
@@ -311,7 +311,7 @@ export default class Share extends EventDispatcher {
 		app.state = {
 			flavor: app.flavor.value
 		}
-		setTimeout(()=>app.tooltip.toggle.showOn("delete", "已删除。", this._deleteRow, true, 0), 1);
+		setTimeout(()=>app.tooltip.toggle.showOn("delete", "削除しました。", this._deleteRow, true, 0), 1);
 	}
 
 	_handleErr(err, status) {
@@ -383,6 +383,6 @@ export default class Share extends EventDispatcher {
 	}
 
 	_getErrMsg(err) {
-		return "<span class='error'>错误：</span> "+app.reference.getError("servercomm");
+		return "<span class='error'>エラー：</span> "+app.reference.getError("servercomm");
 	}
 }

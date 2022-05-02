@@ -23,518 +23,518 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 let reference_content = {}, o = reference_content;
 export default reference_content;
 
-o.label = "正则表达式 参考手册";
+o.label = "リファレンス";
 o.id = "reference";
 o.search = true,
-    o.desc = `用于创建正则表达式的元字符列表。
-	<p>在列表中 双击 添加到你的正则表达式中。</p>
-	<p>点击旁边的箭头来载入示例。</p>`;
+    o.desc = `使える正規表現のトークン一覧。
+	<p>リストでアイテムをダブルクリックして挿入する。</p>
+	<p>横にある矢印をクリックして例を読み込む。</p>`;
 
 o.kids = [
 	{
-	label: "字符类",
+	label: "文字クラス要素",
 	id: "charclasses",
-	desc: "字符类匹配特定集合中的字符。 有许多预定义的字符类，您也可以定义自己的字符集。",
+	desc: "文字クラスは、文字や数字の区別など、文字の種類を区別します。",
 	kids: [
 
 		{
 		id:"set",
-		label: "字符集",
-		desc:"匹配集合中的任何字符。",
+		label: "文字グループ",
+		desc:"入力文字列に含まれるなら一致と見なされる個別の文字の一覧です",
 		example:["[aeiou]","glib jocks vex dwarves!"],
 		token:"[ABC]"
 		},
 		{
 		id:"setnot",
-		label: "非集",
-		desc:"匹配不在集合中的任何字符。",
+		label: "文字グループの否定",
+		desc:"入力文字列に含まれない場合に一致と見なされる個別の文字の一覧です",
 		example:["[^aeiou]","glib jocks vex dwarves!"],
 		token:"[^ABC]"
 		},
 		{
 		id:"range",
-		label: "范围",
-		tip:"匹配ASCII码从{{getChar(prev)}}到{{getChar(next)}}的字符 (ASCII码从 {{prev.code}} 到 {{next.code}})。 {{getInsensitive()}}",
+		label: "文字範囲",
+		tip:"{{getChar(prev)}}から{{getChar(next)}}までの文字(ASCII {{prev.code}}から{{next.code}})まで。 {{getInsensitive()}}",
 		example:["[g-s]","abcdefghijklmnopqrstuvwxyz"],
-		desc: "匹配ASCII码在指定范围区间的字符。",
+		desc: "ASCIIコード範囲と一致する文字をマッチ。",
 		token:"[A-Z]"
 		},
 		{
 		id:"posixcharclass",
-		tip:"匹配在'{{value}}' POSIX类中的任何字符.",
+		tip:"POSIXクラス'{{value}}'に含めてるどれ1文字にマッチ。",
 		label:"POSIX类",
-		desc:"匹配指定POSIX类中的任何字符。必须存在于字符集中。例如, <code>[[:alnum:]$]</code>将匹配字母数字字符和<code>$</code>.",
-		ext:"<p>POSIX类列表，请见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE规范</a>.</p>",
+		desc:"POSIX で定められている正規表現。例えば<code>[[:alnum:]$]</code>は英数字 (≡ [0-9A-Za-z])と<code>$</code>にマッチ。",
+		ext:"<p>POSIX正規表現，<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE標準</a>.</p>",
 		token:"[:alnum:]"
 		},
 		{
 		id:"dot",
-		label: "点",
-		tip:"匹配任何字符{{getDotAll()}}.",
-		desc:"匹配除换行符之外的任何字符。",
-		ext:" 等价于 <code>[^\\n\\r]</code>.",
+		label: "ドット",
+		tip:"任意の1文字{{getDotAll()}}.",
+		desc:"改行を除く任意の1文字。",
+		ext:" <code>[^\\n\\r]</code>と同じ。",
 		example:[".", "glib jocks vex dwarves!"],
 		token:"."
 		},
 		{
 		id: "matchanyset",
-		label:"完全通配",
-		desc:"可以用来匹配所有字符，包括换行符，但是除了dotall标符(<code>s</code>)."+
-			"<p>另外一种形式是<code>[^]</code>, 但是它不被所有浏览器支持</p>",
+		label:"全ての文字",
+		desc:"改行を含む全ての文字にマッチ。ただしdotallフラグ(<code>s</code>)が有効の時のみ。"+
+			"<p>同じ効果を持つ正規表現は<code>[^]</code>。ただしどのブラウザーでも使える訳ではない。</p>",
 		example:["[\\s\\S]", "glib jocks vex dwarves!"],
 		token:"[\\s\\S]"
 		},
 		{
 		id:"unicodegrapheme",
-		label:"unicode字素",
-		desc:"匹配任意单个Unicode字素（例如，字符）。",
-		ext:"这包括换行符（在dotall标识启用下）和被编码成多码点的字素。",
+		label:"Unicode文字(16進数)",
+		desc:"任意のUnicode1文字にマッチ。",
+		ext:"dotallフラグが有効の時は改行やマルチバイトの書記素も含めます。",
 		token:"\\X"
 		},
 		{
 		id:"word",
-		label: "单词",
-		desc:"匹配字母、数字、下划线。",
-		ext:" 只匹配小ASCII码的字符（无声调字母或非罗马英文字符）。 等价于 <code>[A-Za-z0-9_]</code>",
+		label: "単語の文字",
+		desc:"すべての半角英数字とアンダースコア。",
+		ext:" _を含む英数文字にマッチ。<code>[a-zA-Z0-9_]</code>と同じ。",
 		example:["\\w","bonjour, mon fr\u00E8re"],
 		token:"\\w"
 		},
 		{
 		id:"notword",
-		label: "非词匹配",
-		desc:"匹配非字母、数字、下划线。",
-		ext:" 等价于 <code>[^A-Za-z0-9_]</code>",
+		label: "単語の文字以外",
+		desc:"半角英数字とアンダースコア以外すべて",
+		ext:"<code>[^A-Za-z0-9_]</code>と同じ。",
 		example:["\\W","bonjour, mon fr\u00E8re"],
 		token:"\\W"
 		},
 		{
 		id:"digit",
 		label: "数字",
-		desc:"匹配任意数字 (0-9).",
-		ext:" 等价于 <code>[0-9]</code>.",
+		desc:"すべての半角数字（0-9）。",
+		ext:"<code>[0-9]</code>と同じ。",
 		example:["\\d","+1-(444)-555-1234"],
 		token:"\\d"
 		},
 		{
 		id:"notdigit",
-		label: "非数字",
-		desc:"匹配任意非数字字符 (0-9).",
-		ext:" 等价于 <code>[^0-9]</code>.",
+		label: "数字以外",
+		desc:"半角数字（0-9）以外すべて。",
+		ext:" <code>[^0-9]</code>と同じ。",
 		example:["\\D","+1-(444)-555-1234"],
 		token:"\\D"
 		},
 		{
 		id:"whitespace",
-		label: "空白字符",
-		desc:"匹配任何空白字符。(空格, 制表符, 换行符)",
+		label: "空白文字",
+		desc:"空白文字（半角スペース、\t、\n、\r、\f）すべて",
 		example:["\\s", "glib jocks vex dwarves!"],
 		token:"\\s"
 		},
 		{
 		id:"notwhitespace",
-		label: "非空白字符",
-		desc:"匹配任何非空白字符。(空格, 制表符, 换行符)",
+		label: "空白文字以外",
+		desc:"空白文字（半角スペース、\t、\n、\r、\f）以外すべて",
 		example:["\\S", "glib jocks vex dwarves!"],
 		token:"\\S"
 		},
 		{
 		id:"hwhitespace",
-		label:"横向空白字符",
-		desc:"匹配任意横向空白字符（空格、制表符）。",
+		label:"横スペース",
+		desc:"水平空白文字(半角スペースや\t)。",
 		token:"\\h"
 		},
 		{
 		id:"nothwhitespace",
-		label: "非横向空白字符",
-		desc:"匹配任意非横向的空白字符（空格、制表符）。",
+		label: "横スペース以外",
+		desc:"水平空白文字(半角スペースや\t)以外すべて。",
 		token:"\\H"
 		},
 		{
 		id:"vwhitespace",
-		label:"纵向空白字符",
-		desc:"匹配任意纵向的空白字符（换行符）。",
+		label:"縦スペース",
+		desc:"垂直タブ（制御コード 0x0b）をマッチ。",
 		token:"\\v"
 		},
 		{
 		id:"notvwhitespace",
-		label: "非纵向空白字符",
-		desc:"匹配任意非纵向空白字符（换行符）。",
+		label: "垂直タブ以外",
+		desc:"垂直タブ（制御コード 0x0b）以外全てをマッチ。",
 		token:"\\V"
 		},
 		{
 		id:"linebreak",
-		label:"换行符",
-		desc:"匹配任意换行符, 包括CRLF对, 和单个CR / LF。",
+		label:"改行",
+		desc:"改行文字。CRLF、CRとLFを含む。",
 		token:"\\R"
 		},
 		{
 		id:"notlinebreak",
-		label:"非换行符",
-		desc:"匹配任意非换行符。",
-		ext:" 于点相似（<code>.</code>）但是不会受dotall标识(<code>s</code>)的影响。",
+		label:"改行文字以外",
+		desc:"改行文字以外の文字全て。",
+		ext:"<code>.</code>と似てます。しかしdotallフラグ(<code>s</code>)の影響は受けません。",
 		token:"\\N"
 		},
 		{
 		id:"unicodecat",
-		tip:"匹配在 '{{getUniCat()}}' unicode分类的任意字符。",
-		label:"unicode分类",
-		desc:"匹配在指定Unicode分类里的任意字符。例如，<code>\\p{Ll}</code> 会匹配任意小写字符。",
-		ext:"<p>Unicode分类的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
-			"<p>可以用不同语法使用这个特性：</p><p><code>\\p{L}</code> <code>\\pL</code></p>",
+		tip:"Unicode文字クラス'{{getUniCat()}}'に含む全ての文字。",
+		label:"Unicode文字クラス - 一般カテゴリ",
+		desc:"指定したUnicode文字クラスに含む全ての文字にマッチ。例えば<code>\\p{Ll}</code>は全ての小文字にマッチします。",
+		ext:"<p>Unicode文字クラス一覧：<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 標準</a>。</p>"+
+			"<p>二つ書き方があります：</p><p><code>\\p{L}</code>と<code>\\pL</code></p>",
 		token:"\\p{L}"
 		},
 		{
 		id:"notunicodecat",
-		tip:"匹配任意不在 '{{getUniCat()}}' unicode分类里的字符。",
-		label:"非uicode分类",
-		desc:"匹配任意不在指定Unicode分类里的字符。",
-		ext:"<p>Unicode分类的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
-			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{L}</code> <code>\\p{^L}</code> <code>\\PL</code></p>",
+		tip:"Unicode文字クラス'{{getUniCat()}}'に含む全ての文字以外の文字。",
+		label:"Unicode文字クラス - 一般カテゴリ　以外",
+		desc:"指定したUnicode文字クラスに含む全ての文字以外の文字。",
+		ext:"<p>Unicode文字クラス一覧：<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 標準</a>。</p>"+
+			"<p>二つ書き方があります：</p><p><code>\\P{L}</code>と<code>\\p{^L}</code> <code>\\PL</code></p>",
 		token:"\\P{L}"
 		},
 		{
 		id:"unicodescript",
-		tip:"匹配任意在 '{{value}}' 里的Unicode脚本。",
-		label:"unicode脚本",
-		desc:"匹配任意在指定Unicode脚本里的字符。例如，<code>\\p{Arabic}</code> 会匹配任意阿拉伯脚本。",
-		ext:"<p>Unicode脚本的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>",
+		tip:"Unicode文字クラス'{{value}}'に含む全ての文字。",
+		label:"Unicode文字クラス - スクリプト",
+		desc:"Unicode文字クラスに含む全ての文字にマッチ。例えば、<code>\\p{Arabic}</code>は全てのアラビア語文字にマッチ。",
+		ext:"<p>Unicode文字クラス一覧：<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 標準</a>。</p>",
 		token:"\\p{Han}"
 		},
 		{
 		id:"notunicodescript",
-		tip:"匹配任意不在 '{{value}}' 里的Unicode脚本。",
-		label:"非unicode脚本",
-		desc:"匹配任意不在指定Unicode脚本里的字符。",
-		ext:"<p>Unicode脚本的列表见<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 规范</a>。</p>"+
-			"<p>可以用不同语法使用这个特性：</p><p><code>\\P{Han}</code> <code>\\p{^Han}</code>",
+		tip:"Unicode文字クラス'{{value}}'に含む全ての文字以外の文字。",
+		label:"Unicode文字クラス - スクリプト　以外",
+		desc:"Unicode文字クラスに含む全ての文字以外の文字にマッチ。",
+		ext:"<p>Unicode文字クラス一覧：<a href='http://www.pcre.org/original/doc/html/pcrepattern.html'>PCRE 標準</a>。</p>"+
+			"<p>二つ書き方があります：</p><p><code>\\P{Han}</code>と<code>\\p{^Han}</code>",
 		token:"\\P{Han}"
 		}
 	]
 	},
 
 	{
-	label:"锚定",
+	label:"アンカー",
 	id:"anchors",
-	desc:"锚定类比较特殊，它匹配位置，而不是字符。",
+	desc:"アンカーは文字列が一致する位置を指定します。指定された位置での一致のみが検索されます。",
 	kids:[
 		{
 		id:"bos",
-		label:"字符串起始",
-		desc:"匹配字符串的开头",
-		ext:" 不像 <code>^</code>，这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
+		label:"先頭判断",
+		desc:"先頭行の行頭にマッチします。",
+		ext:"<code>^</code>と異なって、先頭判断はマルチラインモード(<code>m</code>)の影響は受けません。文字じゃなく、位置をマッチします。",
 		token:"\\A"
 		},
 		{
 		id:"eos",
-		label:"字符串结尾",
-		desc:"匹配字符串的结尾",
-		ext:" 不像 <code>$</code>，这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
+		label:"末尾判断",
+		desc:"最終行の行末、または最終行の行末の改行(\n)のひとつ前にマッチします。",
+		ext:"<code>$</code>と異なって、末尾判断はマルチラインモード(<code>m</code>)の影響は受けません。文字じゃなく、位置をマッチします。",
 		token:"\\Z"
 		},
 		{
 		id:"abseos",
-		label:"严格的字符串结尾",
-		desc:"匹配字符串结尾. 不像 <code>$</code> 或 <code>\\Z</code>, 它不允许尾随换行符。",
-		ext:" 这个不会受多行标识 (<code>m</code>)的影响。这个会匹配到位置，而不是字符。",
+		label:"厳格末尾判断",
+		desc:"最終行の行末にマッチします。ただし、<code>$</code>や<code>\\Z</code>と異なって、行末に改行がある場合はマッチしません。",
+		ext:"<code>$</code>と異なって、マルチラインモード(<code>m</code>)の影響は受けません。文字じゃなく、位置をマッチします。",
 		token:"\\z"
 		},
 		{
 		id:"bof",
-		label:"开头",
-		desc:"匹配字符串开头，或者当使用多行标志(<code>m</code>)时，匹配一行的开头。",
-		ext:" 这个会匹配到位置，而不是字符。",
+		label:"行頭",
+		desc:"行頭にマッチします。マルチラインモード(<code>m</code>)がオンの場合は各行の行頭にマッチします。",
+		ext:" 文字じゃなく、位置をマッチします。",
 		example:["^\\w+","she sells seashells"],
 		token:"^"
 		},
 		{
 		id:"eof",
-		label:"结尾",
-		desc:"匹配字符串结尾，或者当使用多行标志(<code>m</code>)时，匹配一行的结尾。",
-		ext:" 这个会匹配到位置，而不是字符。",
+		label:"行末",
+		desc:"行末にマッチします。マルチラインモード(<code>m</code>)がオンの場合は各行の行末にマッチします。",
+		ext:" 文字じゃなく、位置をマッチします。",
 		example:["\\w+$","she sells seashells"],
 		token:"$"
 		},
 		{
 		id:"wordboundary",
-		label:"词边界",
-		desc:"匹配一个单词边界，也就是指单词和空格间的位置。",
-		ext:" 详情见单词字符类（<code>\w</code>）。",
+		label:"語の区切り位置",
+		desc:"単語の先頭か末尾である場合にマッチします。ASCII の単語境界 (片側は \\w、もう一方は \\W、\\A、または \\z）",
+		ext:" 詳しくは（<code>\w</code>）をご覧ください。",
 		example:["s\\b","she sells seashells"],
 		token:"\\b"
 		},
 		{
 		id:"notwordboundary",
-		label: "非词边界",
-		desc:"匹配非单词边界。",
-		ext:" 这个会匹配到位置，而不是字符。",
+		label: "語の区切り位置以外",
+		desc:"単語の先頭でも末尾でもない場合にマッチします。ASCII 単語境界ではない",
+		ext:" 文字じゃなく、位置をマッチします。",
 		example:["s\\B","she sells seashells"],
 		token:"\\B"
 		},
 		{
 		id:"prevmatchend",
-		label: "前匹配项结尾",
-		desc:"匹配前一个匹配的结束位置。",
-		ext:" 这个会匹配到位置，而不是字符。",
+		label: "最後の一致の終わり",
+		desc:"最初の行の行頭、もしくはグローバルマッチ(<code>\g</code>)におけるひとつ前のマッチの終了場所にマッチします。",
+		ext:" 文字じゃなく、位置をマッチします。",
 		token:"\\G"
 		}
 	]
 	},
 
 	{
-	label: "转义字符",
+	label: "エスケープシーケンス",
 	id:"escchars",
-	desc: "转义序列可用于插入保留字符，特殊字符和Unicode字符。所有转义字符以<code>\\</code>为起始.",
+	desc: "エスケープシーケンスは保留文字、特殊文字やUnicode文字を使うことができます。エスケープ文字は全て<code>\\</code>で始まります。",
 	kids: [
 		{
 		id:"reservedchar",
-		label:"保留字符",
-		desc:"以下字符含有特殊含义, 应该以<code>\\</code>(反斜杠)为开头，以表示文字字符："+
+		label:"メタ文字",
+		desc:"正規表現中で意味を持つ文字(メタ文字)は、<code>\\</code>でその意味を無効化(エスケープ)することができます。"+
 			"<p><code>{{getEscChars()}}</code></p>"+
-			"<p>在一个字符集中, 只有 <code>\\</code>, <code>-</code>, 和 <code>]</code> 需要被转义。</p>",
+			"<p>文字クラスの中では、ただ<code>\\</code>、<code>-</code>と<code>]</code>がエスケープ必要です。</p>",
 		example:["\\+","1 + 1 = 2"],
 		token:"\\+",
 		show:true
 		},
 		{
 		id:"escoctal",
-		label:"八进制转义",
-		desc:"八进制转义以<code>\\000</code>为开头。",
-		ext:"数字值必须小于255(<code>\\377</code>)。", // PCRE profile adds to ext.
+		label:"8進数コード",
+		desc:"<code>\\nnn</code>と表します。nnn は、8進文字コードを表す 2桁または 3桁で構成されます。",
+		ext:"最大値は255(<code>\\377</code>)です。", // PCRE profile adds to ext.
 		example:["\\251","RegExr is \u00A92014"],
 		token:"\\000"
 		},
 		{
 		id:"eschexadecimal",
-		label:"十六进制转义",
-		desc:"十六进制转义的形式为<code>\\xFF</code>。",
+		label:"16進数コード (2桁の数字)",
+		desc:"<code>\\xFF</code>と表します。",
 		example:["\\xA9","RegExr is \u00A92014"],
 		token:"\\xFF"
 		},
 		{
 		id:"escunicodeu",
-		label:"unicode转义",
-		desc:"Unicode转义的形式为<code>\\uFFFF</code>。",
+		label:"Unicodeエスケープシーケンス",
+		desc:"<code>\\uFFFF</code>と表します。",
 		example:["\\u00A9","RegExr is \u00A92014"],
 		token:"\\uFFFF"
 		},
 		{
 		id:"escunicodeub",
-		label:"扩展的unicode转义",
-		desc:"Unicode转义的形式为<code>\\u{FFFF}</code>。",
-		ext:"支持用任意长度十六进制转义的全范围Unicode码点。<p>需要启用Unicode标识（<code>u</code>）。</p>",
+		label:"拡張領域のUnicodeエスケープシーケンス",
+		desc:"<code>\\u{FFFF}</code>と表します。",
+		ext:"<p>Unicode（<code>u</code>）修飾子が必要です。</p>",
 		token:"\\u{FFFF}"
 		},
 		{
 		id:"escunicodexb",
-		label:"Unicode转义",
-		desc:"以<code>\\x{FF}</code>格式转义的Unicode字符。",
+		label:"16 進文字コード",
+		desc:"<code>\\x{FF}</code>と表します。",
 		token:"\\x{FF}"
 		},
 		{
 		id:"esccontrolchar",
-		label:"转义控制字符",
-		desc:"以<code>\\cZ</code>格式转义的Unicode控制字符。",
+		label:"制御文字のエスケープ",
+		desc:"<code>\\cX</code>と表します。ASCII の制御文字と一致します。X は制御文字です。 たとえば、<code>\cC</code> は CTRL-C です。",
 		ext:"范围从<code>\\cA</code> (SOH, 字符码 1) 至 <code>\\cZ</code> (SUB, 字符码 26)。 <h1>例如：</h1><code>\\cI</code> 匹配（字符码 9）。",
 		token:"\\cI"
 		},
 		{
 		id:"escsequence",
-		label:"转义序列",
-		tip: "匹配文字字符串 '{{value}}'.",
-		desc:"所有在<code>\\Q</code>和<code>\\E</code>之间的字符为文字字符串。如果<code>\\E</code>被省略, 它将继续到表达式结尾。",
-		ext:" 例如，表达式 <code>/\\Q(?.)\\E/</code> 会匹配到字符 <code>(?.)</code>。",
+		label:"エスケープシーケンス",
+		tip: "'{{value}}'をマッチ。",
+		desc:"～部分に含まれるメタ文字をメタ文字として解釈しない。<code>\\Q</code>と<code>\\E</code>の間にある文字をそのままマッチする。もし<code>\\E</code>を略した場合は正規表現の終わりまで続きます。",
+		ext:" 例えば、<code>/\\Q(?.)\\E/</code>は<code>(?.)</code>をマッチします。",
 		token:"\\Q...\\E"
 		}
 	]
 	},
 
 	{
-	label: "分组 & 引用",
+	label: "グルーピングとキャプチャグループ",
 	id:"groups",
-	desc: "分组允许你把一系列的标记一起处理。捕获分组可以用反向引用单独地在结果中使用。",
+	desc: "グルーピングを使用しマッチした文字列(グループ)同時に処理することができます。キャプチャグループはマッチした文字列(グループ)を参照することができます。",
 	kids: [
 		{
 		id:"group",
-		label: "捕获分组",
-		desc: "把多个标记分在同一组并创建一个捕获分组，用来创建子串或引用。",
+		label: "キャプチャグループ",
+		desc: "正規表現の部分式を表し、入力文字列の部分文字列をキャプチャします。 ",
 		example:["(ha)+","hahaha haa hah!"],
 		token:"(ABC)"
 		},
 		{
 		id:"namedgroup",
-		label: "命名捕获分组",
-		tip:"创建一个名为'{{name}}'的捕获分组。",
-		desc:"创建一个可以通过指定名称引用的捕获分组。",
-		ext:"<p>可以用不同语法使用这个特性：</p><p><code>(?'name'ABC)</code> <code>(?P&lt;name>ABC)</code> <code>(?&lt;name>ABC)</code></p>",
+		label: "名前付きキャプチャグループ",
+		tip:"'{{name}}'と名付けたグループ。",
+		desc:"部分式に名前または番号でアクセスできるようなグループを定義する。",
+		ext:"<p>幾つか表し方があります：</p><p><code>(?'name'ABC)</code> <code>(?P&lt;name>ABC)</code> <code>(?&lt;name>ABC)</code></p>",
 		token:"(?<name>ABC)"
 		},
 		{
 		id:"namedref",
-		label:"命名引用",
-		tip:"匹配名为'{{group.name}}'的捕获分组的结果。",
-		desc:"匹配命名捕获分组的结果。",
-		ext:"<p>可以用不同语法使用这个特性：</p><p><code>\\k'name'</code> <code>\\k&lt;name></code> <code>\\k{name}</code> <code>\\g{name}</code> <code>(?P=name)</code></p>",
+		label:"名前付き参照",
+		tip:"'{{group.name}}'と名付けたグループを参照。",
+		desc:"名前付きキャプチャグループを参照。",
+		ext:"<p>幾つか表し方があります：</p><p><code>\\k'name'</code> <code>\\k&lt;name></code> <code>\\k{name}</code> <code>\\g{name}</code> <code>(?P=name)</code></p>",
 		token:"\\k'name'"
 		},
 		{
 		id:"numref",
-		label:"数字引用",
-		tip:"匹配#{{group.num}}号捕获分组的结果。",
-		desc:"匹配捕获分组的结果。例如，<code>\\1</code> 匹配第一个捕获分组的结果，<code>\\3</code> 则匹配第三个结果。",
+		label:"番号で参照",
+		tip:"#{{group.num}}番目のキャプチャグループを参照。",
+		desc:"検索文字列で指定したN番目の(と)で囲まれたパターンと一致した文字列（部分文字列）を引用する。Nは1～9のいずれか。<code>\\N</code>と表す。",
 		// PCRE adds relative and alternate syntaxes in ext
 		example:["(\\w)a\\1","hah dad bad dab gag gab"],
 		token:"\\1"
 		},
 		{
 		id:"branchreset",
-		label: "分支重置分组",
-		desc:"定义一个拥有相同序号的分组。",
-		ext: "<p>例如，在 <code>(?|(a)|(b))</code> 中，两个分组（a 和 b）会被算作分组#1。",
+		label: "条件マッチング",
+		desc:"番号が同じキャプチャグループを定義。",
+		ext: "<p>例えば、<code>(?|(a)|(b))</code>では、二つのグループ（aとb）二つとも#1番目のキャプチャグループとする。",
 		token:"(?|(a)|(b))"
 		},
 		{
 		id:"noncapgroup",
-		label: "非捕获分组",
-		desc:"在不创建捕获分组的情况下，把数个标记组在一起。",
+		label: "非キャプチャグループ",
+		desc:"マッチングは通常に行われますが、マッチした文字列が \\1 や $1 などにキャプチャされません。",
 		example:["(?:ha)+","hahaha haa hah!"],
 		token:"(?:ABC)"
 		},
 		{
 		id:"atomic",
-		label:"原子组",
-		desc:"原子组是一个在匹配时，会抛弃反向引用位置的非捕获分组。",
-		ext:"<p>例如，<code>/(?>ab|a)b/</code> 会匹配 <code>abb</code> 但不会匹配 <code>ab</code> 。因为一旦匹配到 <code>ab</code> 时，原子组会阻止反向引用去重试 <code>a</code>选项。</p>",
+		label:"アトミック グループ",
+		desc:"出来うる限りマッチし、バックトラックしない。",
+		ext:"<p>例えば、<code>/(?>ab|a)b/</code>は<code>abb</code>にマッチするが、<code>ab</code>をマッチしない。一旦<code>ab</code>にマッチした時に、所有格マッチはバックトラックは<code>a</code>にマッチするのを阻止するからです。</p>",
 		token:"(?>ABC)"
 		},
 		{
 		id:"define",
-		label: "定义",
-		desc:"用来在不被匹配的情况下定义一个命名分组用作子过程。",
-		ext:"<p>例如，<code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code> 会匹配到 <code>ABZ</code>，因为定义组在匹配中被忽略了，除非在子过程定义<code>foo</code>子过程，即例子中后方的<code>\\g'foo'</code>。 ",
+		label: "定義",
+		desc:"グループを定義",
+		ext:"<p>例えば、<code>/A(?(DEFINE)(?'foo'Z))B\\g'foo'/</code>は<code>ABZ</code>をマッチします。前方で定義した内容はマッチされず、使われた時だけマッチングします。",
 		token:"(?(DEFINE)(?'foo'ABC))"
 		},
 		{
 		id:"numsubroutine",
-		label:"数字子过程",
-		tip:"匹配捕获组#{{group.num}}中的表达式。",
-		desc:"匹配捕获分组中的表达式。不同于匹配结果的“引用”。"+
-			" 例如，<code>/(a|b)\\g'1'/</code> 可以匹配 <code>ab</code>，因为 <code>a|b</code> 表达式再一次被匹配了。",
-		ext:"<p>可以用不同语法使用这个特性： <code>\\g&lt;1></code> <code>\\g'1'</code> <code>(?1)</code>。</p>"+
-			"<p>同时支持以<code>+</code>或<code>-</code>开头的相对值。例如， <code>\\g<-1></code> 会匹配相对引用的分组。</p>",
+		label:"数字サブルーチン呼び出し",
+		tip:"#{{group.num}}番目のグループの正規表現にマッチします。",
+		desc:"n番目のグループの正規表現にマッチします。"+
+			" 例えば、<code>/(a|b)\\g'1'/</code>は<code>ab</code>をマッチすることができます。<code>\\g'1'</code>を使うことで、<code>a|b</code>が再び実行されたからです。",
+		ext:"<p> <code>\\g&lt;1></code>や<code>\\g'1'</code>、<code>(?1)</code>とも書けます。</p>"+
+			"<p><code>+</code>や<code>-</code>を使って相対位置を示すこともできます。例えば、<code>\\g<-1></code>1個前のグループにマッチ。</p>",
 		token:"\\g'1'"
 		},
 		{
 		id:"namedsubroutine",
-		label:"命名子过程",
-		tip:"匹配捕获分组中名为'{{group.name}}'的表达式。",
-		desc:"匹配捕获分组中的表达式。不同于匹配结果的”引用“。",
-		ext:"<p>可以用不同语法使用这个特性： <code>\\g&lt;name></code> <code>\\g'name'</code> <code>(?&name)</code> <code>(?P>name)</code>.</p>",
+		label:"名前付きサブルーチン呼び出し",
+		tip:"'{{group.name}}'と名付けたグループの正規表現にマッチします。",
+		desc:"名付けたグループの正規表現にマッチします。",
+		ext:"<p><code>\\g&lt;name></code>や<code>\\g'name'</code>、<code>(?&name)</code>、<code>(?P>name)</code>とも書けます。</p>",
 		token:"\\g'name'"
 		}
 	]
 	},
 
 	{
-	label: "前后查找",
+	label: "後読み・先読み",
 	id:"lookaround",
-	desc: "前后查找允许主表达式前或之后的组，而不将其包含在结果中。"+
-		"<p>负向查找指定一个表达式之前或之后无法匹配的组。 </p>",
+	desc: "ある位置から続く文字列がある部分式にマッチするならばその位置にマッチする。"+
+		"<p>「ある位置から続く文字列(先読み、lookahead)/ある位置の手前までの文字列(後読み、lookbehind)」と「マッチする(肯定、positive)/マッチしない(否定、negative)」の組み合わせで4つのパターンがあります。</p>",
 	kids: [
 		{
 		id:"poslookahead",
-		label: "正向先行断言",
-		desc:"匹配主表达式后面的组而不将其包含在结果中。",
+		label: "先読みアサーション",
+		desc:"正規表現に一致する文字列が始まる位置にある検索文字列と一致。",
 		example:["\\d(?=px)","1pt 2px 3em 4px"],
 		token:"(?=ABC)"
 		},
 		{
 		id:"neglookahead",
-		label: "负向先行断言",
-		desc:"指定主表达式后无法匹配的组（如果匹配，则结果将被丢弃）。",
+		label: "否定先読みアサーション",
+		desc:"正規表現に一致しない文字列が始まる位置にある検索文字列と一致。",
 		example:["\\d(?!px)","1pt 2px 3em 4px"],
 		token:"(?!ABC)"
 		},
 		{
 		id:"poslookbehind",
-		label: "正向后行断言",
-		desc:"匹配主表达式之前的组，而不将其包含在结果中。",
+		label: "後読みアサーション",
+		desc:"正規表現に一致する文字列で終わる位置にある検索文字列と一致。",
 		token:"(?<=ABC)"
 		},
 		{
 		id:"neglookbehind",
-		label: "负向后行断言",
-		desc:"指定在主表达式之前无法匹配的组（如果匹配，则结果将被丢弃）。",
+		label: "否定後読みアサーション",
+		desc:"正規表現に一致しない文字列で終わる位置にある検索文字列と一致。",
 		token:"(?<!ABC)"
 		},
 		{
 		id:"keepout",
-		label:"避开",
-		desc:"保持文本匹配到目前为止返回的匹配，丢弃到此点之前的匹配。",
-		ext:"For example <code>/o\\Kbar/</code> will match <code>bar</code> within the string <code>foobar</code>",
+		label:"$0 の最初をリセット。",
+		desc:"マッチ結果の開始位置を \\K の位置にリセットする。つまり \\K より前の文字がマッチ結果に含まれなくなる。",
+		ext:"例えば、/(?<=\t)\w+/ は タブに続く単語にマッチングしますが、タブは $& に 含まれません。 固定幅の後読みのみが動作します。",
 		token:"\\K"
 		}
 	]
 	},
 
 	{
-	label: "量词 & 多选",
+	label: "量指定子",
 	id:"quants",
-	desc: "量词指定了前面的标记需要出现的次数。默认情况下，量词是贪婪的，会尽可能多地匹配字符。"+
-		"<hr/>多选表现起来像 逻辑与，匹配这个或那个序列。",
+	desc: "直前の部分式を何回繰り返すかを指定します。通常、量指定子は最長一致です。できるだけ多くなるように照合が行われます。"+
+		"<hr/>選択は論理和と似てます。",
 	kids: [
 		{
 		id:"plus",
 		label: "+",
-		desc:"匹配1个或更多前面的标记。",
+		desc:"1回以上の繰り返しに一致します。",
 		example:["b\\w+","b be bee beer beers"],
 		token:"+"
 		},
 		{
 		id:"star",
 		label: "*",
-		desc:"匹配0个或更多前面的标记。",
+		desc:"0回以上の繰り返しに一致します。",
 		example:["b\\w*","b be bee beer beers"],
 		token:"*"
 		},
 		{
 		id:"quant",
-		label:"量词",
-		tip:"匹配 {{getQuant()}} 个前面的标记。",
-		desc:"匹配指定数量个前面的标记。"+
-			"<code>{1,3}</code> 会匹配1个到3个。"+
-			"<code>{3}</code> 会匹配正好3个。"+
-			"<code>{3,}</code> 会匹配3个或更多。",
+		label:"数量詞",
+		tip:"{{getQuant()}} 回の繰り返しに一致します。",
+		desc:"指定した回数の繰り返しに一致します。"+
+			"<code>{1,3}</code>1回から3回の繰り返しに一致します。"+
+			"<code>{3}</code>ちょうど3回の繰り返しに一致します。"+
+			"<code>{3,}</code>3回以上の繰り返しに一致します。",
 		example:["b\\w{2,3}","b be bee beer beers"],
 		token:"{1,3}"
 		},
 		{
 		id:"opt",
-		label:"可选项",
-		desc:"匹配0个或1个前面的标记，用于标为可选项。",
+		label:"任意",
+		desc:"0回または1回の繰り返しに一致します。",
 		example: ["colou?r", "color colour"],
 		token:"?"
 		},
 		{
 		id:"lazy",
-		label: "慵懒",
-		tip:"令前面的标记 {{getLazy()}}, 让其尽可能 {{getLazyFew()}} 地匹配字符。",
-		desc:"令前面的标记变慵懒，让其尽可能少地匹配字符。",
-		ext:"默认情况下，量词是贪婪的会尽可能多地匹配字符。",
+		label: "非貪欲",
+		tip:"前方にある{{getLazy()}}をできるだけ{{getLazyFew()}}マッチ。",
+		desc:"前方にある正規表現を非貪欲にさせ、できるだけ少なくマッチする。",
+		ext:"通常、量指定子は最長一致です。",
 		example:["b\\w+?","b be bee beer beers"],
 		token:"?"
 		},
 		{
 		id:"possessive",
-		label: "占有型",
-		desc:"令前面的量词贪婪，但不回溯。它会尽可能多地匹配字符，但不会为了匹配后面的标记而释放它。",
-		ext:"<p>例如 <code>/.*a/</code> 会匹配到 <code>aaa</code>, 但 <code>/.*+a/</code> 则不会。因为重复的<code>.</code>会匹配、但不会为了匹配最后一个字符<code>a</code>而释放。</p>",
+		label: "貪欲",
+		desc:"前方にある量指定子を貪欲にさせる、ただしバックトレースはしない。できるだけ多くマッチする。",
+		ext:"<p>例えば、<code>/.*a/</code>は<code>aaa</code>にマッチしますけど、<code>/.*+a/</code>はマッチしません。</p>",
 		token:"+"
 		},
 		{
 		id:"alt",
-		label:"多选",
-		desc:"多选表现起来像 逻辑与。匹配<code>|</code>前面的或后面的表达式。",
-		ext:"<p>它可以用在分组里面，或在整个表达式中使用。会按顺序尝试匹配。</p>",
+		label:"選択",
+		desc:"縦棒<code>|</code>によってどちらかにマッチ。選択は論理和と似てます。",
+		ext:"<p>グループや正規表現全体の中で使えます。先方にある方を優先にマッチします。</p>",
 		example:["b(a|e|i)d","bad bud bod bed bid"],
 		token:"|"
 		}
@@ -542,169 +542,170 @@ o.kids = [
 	},
 
 	{
-	label: "特殊",
+	label: "その他",
 	id:"other",
-	desc: "其他未分类标记（tokens）。",
+	desc: "その他のトークン。",
 	kids: [
 		{
 		id:"comment",
-		label: "注释",
-		desc:"允许你在正则表达式中插入注释，匹配时候会被忽略。",
+		label: "コメント",
+		desc:"正規表現にコメントを挿入することができます。マッチされないです。",
 		token:"(?#foo)"
 		},
 		{
 		id:"conditional",
-		label: "条件语句",
-		desc:"当满足前瞻条件后，从两个选项中选择一个匹配。",
-		ext:"<p>例如, <code>/(?(?=a)ab|..)/</code> 会匹配 <code>ab</code> 和 <code>zx</code> 但不会匹配到 <code>ax</code>, 因为如果第一个字符满足条件 <code>a</code> 那么它就尝试匹配表达式 <code>ab</code>。</p>"+
-			"<p>任何前瞻都可以用在这个条件上。前瞻会在条件开始的位置启动子序列的匹配过程。后顾则会在结束的位置启动。</p>",
+		label: "先読みと後読み付きの条件分岐",
+		desc:"先読みの条件が満たされた場合、二つのうちひとつをマッチする。",
+		ext:"<p>例えば、<code>/(?(?=a)ab|..)/</code>は<code>ab</code>と<code>zx</code>をマッチします。しかし<code>ax</code>はマッチされません。理由は、もし一つ目の文字が<code>a</code>に満たした場合、<code>ab</code>にマッチすることを試すからです。</p>"+
+			"<p>どの先読みもこの条件分岐に使えます。</p>",
 		token:"(?(?=A)B|C)"
 		},
 		{
 		id:"conditionalgroup",
-		label:"分组条件",
-		desc:"当匹配到'{{name}}'分组后，从两个选项中选择一个匹配。",
-		ext:"<p>例如，<code>/(z)?(?(1)a|b)/</code> 会匹配到 <code>za</code>。因为第一个分组能成功匹配到 <code>z</code>， 这会让条件分支去选择第一个选项 <code>a</code>。</p>"+
-			"<p>相同的表达式会同时匹配到 <code>b</code>。因为第1个分组没有匹配到，所以他会尝试匹配第二个选项 <code>b</code>。</p>"+
-			"<p>你可以用分组名称引用分组、数字或相对位置 (ex. <code>-1</code>)。</p>",
+		label:"条件分岐",
+		desc:"'{{name}}'のグループにマッチした後、二つの選択肢のうちのひとつにマッチする。",
+		ext:"<p>例えば、<code>/(z)?(?(1)a|b)/</code>は<code>za</code>にマッチします。一つ目のグループは<code>z</code>にマッチできるから条件分岐はひとつめ<code>a</code>を選びます。</p>"+
+			"<p>上記の正規表現は<code>b</code>もマッチします。一つ目のグループがマッチできなかったことで、二つ目の選択肢<code>b</code>をマッチし始めるからです。</p>"+
+			"<p>名前付きグループや、番号つきグループ、相対位置も使えます（例：<code>-1</code>）。</p>",
 		token:"(?(1)B|C)"
 		},
 		{
 		id:"recursion",
-		label: "回溯",
-		desc:"在相同位置尝试匹配整个表达式。",
-		ext:"<p>例如， <code>/a(?R)?z/</code> 会匹配到任意数量的 <code>a</code> 紧跟相同数量的 <code>z</code>: 匹配 <code>az</code> 单词或 <code>aaaazzzz</code>, 但不会匹配<code>azzz</code>。</p>"+
-			"<p>可以用不同语法使用这个特性：</p><p><code>(?R)</code> <code>(?0)</code> <code>\\g<0></code> <code>\\g'0'</code></p>",
+		label: "再帰的パターン",
+		desc:"全体の最初から再帰します。",
+		ext:"<p>例えば、<code>/a(?R)?z/</code>は任意の数の<code>a</code>をマッチし、同じ数の<code>z</code>をすぐマッチします。<code>az</code>や<code>aaaazzzz</code>にはマッチするが、<code>azzz</code>にはマッチしません。</p>"+
+			"<p></p><p><code>(?R)</code> <code>(?0)</code> <code>\\g<0></code> <code>\\g'0'</code>とも書けます。</p>",
 		token:"(?R)"
 		},
 		{
 		id:"mode",
-		label:"模式修改符",
+		label:"内部オプション設定",
 		tip:"{{~getDesc()}}{{~getModes()}}",
-		desc:"对正则的余下部分启用或禁用模式。",
-		ext:"模式对应于正则表达式的标识。 例如 <code>(?i)</code> 会对余下的正则启用大小写不敏感（即禁用大小写敏感）。"+
-			"<p>可以定义多个修饰符，修饰符后面跟<code>-</code>会禁用该修饰符。例如，<code>(?im-s)</code> 会启用 大小写不敏感 和 多行模式，禁用dotall标识。</p>"+
-			"<p>支持的修饰符有： <code>i</code> - 大小写不敏感、<code>s</code> - dotall、<code>m</code> - 多行、<code>x</code> - 无间隔、 <code>J</code> - 允许重复分组子正则、<code>U</code> - 非贪婪。</p>",
+		desc:"パターン中で修飾子を変更。",
+		ext:"例えば、<code>(?i)</code>は残りの部分に対して大文字小文字を無視します。"+
+			"<p>複数の修飾子を指定することもできます。ハイフン<code>-</code>を前につけることにより、そのオプションを 解除することも可能です。例えば、<code>(?im-s)</code>は大文字小文字を無視し、マルチラインモードをオンにして、dotallを無効化にさせます。</p>"+
+			"<p>使用可能な修飾子は：<code>i</code> - 大文字小文字無視、<code>s</code> - dotall、<code>m</code> - マルチライン、<code>x</code> - コメントモード、 <code>J</code> - 重複したnameを使用できるようにする、<code>U</code> - 非貪欲。</p>",
 		token:"(?i)"
 		}
 	]
 	},
 
 	{
-	label: "替换",
-	desc: "这些标记（tokens）用来替换字符串，插入到匹配结果的其他部分。",
+	label: "置換",
+	desc: "置換用メタ文字。",
 	target: "subst",
 	id:"subst",
 	kids: [
 		{
 		id:"subst_$&match",
-		label: "匹配",
-		desc:"插入匹配到的文本。",
+		label: "マッチ",
+		desc:"マッチした文字列を取得。",
 		token:"$&"
 		},
 		{
 		id:"subst_0match",
-		label: "匹配",
-		desc:"插入匹配到的文本。",
-		ext:"<p>可以用不同语法使用这个特性：</p><p><code>$0</code> <code>\\0</code> <code>\\{0}</code></p>",
+		label: "マッチ",
+		desc:"$0 は正規表現にマッチした文字列全体を表します。",
+		ext:"<p><code>$0</code> <code>\\0</code> <code>\\{0}</code>とも書けます。</p>",
 		token:"$0"
 		},
 		{
 		id:"subst_group",
-		label: "捕获分组",
-		tip:"插入匹配到的分组 #{{group.num}}。",
-		desc:"插入匹配到的指定分组。例如，<code>$3</code> 会插入匹配到第3个分组。",
+		label: "グルーピングにマッチした文字列",
+		tip:"マッチされてグループ #{{group.num}}を挿入。",
+		desc:"マッチされてグループを挿入。例えば。<code>$3</code>は3番目の括弧にマッチした部分文字列を参照できます。",
 		// NOTE: javascript profile overrides this:
-		ext:"<p>可以用不同的语法使用这个特性：</p><p><code>$1</code> <code>\\1</code> <code>\\{1}</code></p>",
+		ext:"<p></p><p><code>$1</code> <code>\\1</code> <code>\\{1}</code>とも書けます。</p>",
 		token:"$1"
 		},
 		{
 		id:"subst_$before",
-		label: "匹配之前",
-		desc:"插入匹配到的文本之前的字符串。",
+		label: "手前の文字列",
+		desc:"マッチしたテキストの手前の文字列。",
 		token:"$`"
 		},
 		{
 		id:"subst_$after",
-		label: "之后匹配",
-		desc:"插入匹配到的文本之后的字符串。",
+		label: "後ろの文字列",
+		desc:"マッチしたテキストの後ろの文字列。",
 		token:"$'"
 		},
 		{
 		id:"subst_$esc",
-		label: "转义$",
-		desc:"插入美元符号（$）",
+		label: "ドル記号",
+		desc:"ドル記号を挿入（$）",
 		token:"$$"
 		},
 		{
 		id: "subst_esc",
-		label: "转义字符",
+		label: "エスケープ文字列",
 		token: "\\n",
-		desc: "方便起见，RegExr支持替换以下转义字符： <code>\\n</code>, <code>\\r</code>, <code>\\t</code>, <code>\\\\</code>, 以及 unicode转义字符 <code>\\uFFFF</code>。这会因你的部署环境而异。"
+		desc: "下記の書き方でエスケープ可能です： <code>\\n</code>、<code>\\r</code>、<code>\\t</code>、<code>\\\\</code>、と unicodeエスケープ文字 <code>\\uFFFF</code>。"
 		}
 	]
 	},
 
 	{
 	id:"flags",
-	label:"标识",
-	tooltip:"标识可以改变表达式的解析方式。点击以编辑。",
-	desc:"标识可以改变表达式的解析方式。标识会在表达式末尾斜杠后(例如. <code>/.+/igm</code> )。",
+	label:"修飾子",
+	tooltip:"クリックして編集。",
+	desc:"正規表現のオプションを指定することで、これらの正規表現の既定の動作とそのいくつかの側面を変更できます。修飾子は終了デリミタ<code>/</code>の後に書きます（例えば、<code>/.+/igm</code>）。",
 	target:"flags",
 	kids: [
 		{
 		id:"caseinsensitive",
-		label: "忽略大小写",
-		desc:"让整个表达式对大小写不敏感。",
-		ext:" 例如，<code>/aBc/i</code> 会匹配到 <code>AbC</code>。",
+		label: "大文字・小文字無視モード",
+		desc:"大文字小文字を無視する。",
+		ext:" 例えば、<code>/aBc/i</code>は<code>AbC</code>をマッチします。",
 		token:"i"
 		},
 		{
 		id:"global",
-		label: "全局搜索",
-		tip: "保留上次匹配结果的位置，允许递归搜索。",
-		desc:"保留上次匹配结果的位置，允许子序列从上次匹配的结果继续搜索。"+
-			"<p>如果没有全局(<code>g</code>)标识, 后面的查询会返回相同的结果。</p><hr/>"+
-			"在禁用全局标识的时候，RegExr会为了避免无穷个匹配结果而只返回第一个结果。",
+		label: "グローバルマッチモード",
+		tip: "対象文字列の先頭から最後までマッチングを連続的に行います。",
+		desc:"正規表現が文字列の中で一致する可能性がある場所すべてについてテストを行うことを示します。"+
+			"<p>グローバルマッチモード(<code>g</code>)が無効の時、サブシーケンスは同じ結果を出します。</p><hr/>"+
+			"RegExrは無限個マッチを防ぐために、一つ目しかマッチしません。",
 		token:"g"
 		},
 		{
 		id:"multiline",
-		label: "多行",
-		tip:"使用起始/结尾锚（<b>^</b>/<b>$</b>）会匹配到行首和行尾。",
-		desc:"当启用 multiline标识时，使用起始和结尾锚（<b>^</b> 和 <b>$</b>）会匹配到行首和行尾, 而不是整个字符串的头部和尾部。"+
-			"<p>需要注意的是类似<code>/^[\\s\\S]+$/m</code>的正则可能会匹配到含有换行符的字符串。因为锚会匹配到<b>任意</b>行的起始/结束位置。</p>",
+		label: "マルチラインモード",
+		tip:"<b>^</b>、<b>$</b>、<b>\\A</b>、<b>\\z</b> が改行で区切られた各行の行頭・行末にマッチするようになります。",
+		desc:"<b>^</b> と <b>$</b> は、(入力文字列の先頭および末尾ではなく) 各行の先頭および末尾と一致します。"+
+			"<p>注意するべきことは<code>/^[\\s\\S]+$/m</code>みたいな場合は改行を含む文字列をマッチされます。アンカーは<b>任意</b>行頭・行末の位置を意味するからです。</p>",
 		token:"m"
 		},
 		{
 		id:"unicode",
-		label: "Unicode",
-		tip:"启用<code>\\x{FFFFF}</code>Unicode转义。",
-		desc:"当启用Unicode标识时，你可以按<code>\\x{FFFFF}</code>格式转义Unicode字符。"+
-			"<p>这会使转义更严格，会对不能识别的转义字符 (例如 <code>\\j</code>) 报错。</p>",
+		label: "Unicode にもマッチ",
+		tip:"パターンを一連の Unicode コードポイントとして扱います。",
+		desc:"この修飾子が有効の時、<code>\\x{FFFFF}</code>でUnicode文字をエスケープすることができます。"+
+			"<p>エスケープにはもっと厳しくなります、認識できないエスケープシーケンス(例えば、<code>\\j</code>)に対してはエラーがでます。</p>",
 		token:"u"
 		},
 		{
 		id:"sticky",
-		label: "粘连",
-		desc:"只会从lastIndex位置开始匹配，且如果设置了全局标识(<code>g</code>）的话会被忽略。",
-		ext:" 因为在RegExr的每次解析是独立的，该标识对已显示的内容没有任何影响。",
+		label: "粘着",
+		desc:"文字列内の検索を、この正規表現の lastIndex プロパティで示されたインデックスからのみ開始する。しかしsticky と global の両方が定義された正規表現では、 global フラグ(<code>g</code>）は無視されます。",
+		// ext:" 因为在RegExr的每次解析是独立的，该标识对已显示的内容没有任何影响。",
 		token:"y"
 		},
 		{
 		id:"dotall",
-		desc:"点（<code>.</code>）会匹配任何字符，包括换行符。",
+		label: "シングルモード",
+		desc:"<code>.</code> を改行文字と一致するようにします。点（<code>.</code>）会匹配任何字符，包括换行符。",
 		token:"s"
 		},
 		{
 		id:"extended",
-		desc:"除了在字符集中定义的空白字符外，Literal 的空白字符会被忽略。",
+		desc:"この修飾子を設定すると、エスケープするか 文字クラスの内部を除き、 パターンの空白文字は完全に無視されます。複雑なパターンの内部に コメントを記述することが可能となります。",
 		token:"x"
 		},
 		{
 		id:"ungreedy",
-		tip:"默认非贪婪（慵懒）匹配。",
-		desc:"默认非贪婪（慵懒）匹配。会贪婪匹配带有<code>?</code>的量词。",
+		tip:"最短マッチと最長マッチを逆転",
+		desc:"<code>?</code>を後ろに付けてはじめて貪欲になるようになります。",
 		token:"U"
 		}
 	]
@@ -716,8 +717,8 @@ o.misc = {
 	kids:[
 		{
 		id:"ignorews",
-		label:"忽略空白字符",
-		tip:"因已启用<b>x</b>扩展 模式，空白字符已被忽略。"
+		label:"空白文字",
+		tip:"修飾子<b>x</b>が設定してあるので、空白文字は無視されます。"
 		},
 		{
 		id:"extnumref", // alternative syntaxes.
@@ -725,88 +726,88 @@ o.misc = {
 		},
 		{
 		id:"char",
-		label:"字符",
-		tip:"匹配 {{getChar()}} 字母 (字符编码 {{code}})。 {{getInsensitive()}}"
+		label:"文字",
+		tip:"{{getChar()}}文字にマッチ（コード {{code}}）。{{getInsensitive()}}"
 		},
 		{
 		id:"escchar",
 		label:"escaped character",
-		tip:"匹配 {{getChar()}} (字符编码 {{code}})。"
+		tip:"{{getChar()}}にマッチ（コード　{{code}}）。"
 		},
 		{
 		id:"open",
-		label: "表达式头",
-		tip:"标记正则表达式起始位置。"
+		label: "パターンの始め",
+		tip:"パターンの開始の位置を示す。"
 		},
 		{
 		id:"close",
-		label: "表达式尾",
-		tip:"标记正则表达式的结束位置和标识的起始位置。"
+		label: "パターンの終わり",
+		tip:"バターンの終わりの位置、修飾子の始まりの位置を示す。"
 		},
 		{
 		id:"condition",
 		label: "条件",
-		tip:"The lookaround to match in resolving the enclosing conditional statement. 详情见参考手册中”条件“部分。"
+		tip:"条件分岐の先読みか後読み条件。詳細はレファレンスの「先読みと後読み付きの条件分岐」をご覧ください。"
 		},
 		{
 		id:"conditionalelse",
-		label:"else条件",
-		tip:"区分条件中的else部分"
+		label:"または",
+		tip:"条件分岐のelseの部分。"
 		},
 		{
 		id:"ERROR",
-		tip:"错误已在正则表达式中用红线标出。滚动滚轮以查看详情。"
+		tip:"エラーは正規表現の下に赤い線を引きました。カーソルを当てて詳細を見られます。"
 		},
 		{
 		id:"PREG_INTERNAL_ERROR",
-		tip:"PCRE内部错误"
+		tip:"PCRE内部エラー"
 		},
 		{
 		id:"PREG_BACKTRACK_LIMIT_ERROR",
-		tip:"反向引用个数超出限制。"
+		tip:"バックトラック数の上限を超えました。"
 		},
 		{
 		id:"PREG_RECURSION_LIMIT_ERROR",
-		tip:"递归层数超出限制。"
+		tip:"最大再帰数を超えました。"
 		},
 		{
 		id:"PREG_BAD_UTF8_ERROR",
-		tip:"不合法的UTF-8数据。"
+		tip:"不無効のUTF-8データ。"
 		},
 		{
 		id:"PREG_BAD_UTF8_OFFSET_ERROR",
-		tip:"不合法的UTF-8数据。"
+		tip:"無効のUTF-8データ。"
 		}
 	]
 };
 
 o.errors = {
-	groupopen:"缺少右括号。",
-	groupclose:"缺少左括号。",
-	setopen:"缺少右中括号。",
-	rangerev:"起始值和结束值相反。起始值大于结束值。",
-	quanttarg:"无效的量词。",
-	quantrev:"量词的起始值大于结束值。",
-	esccharopen:"缺少待转义字符。",
-	esccharbad:"不存在的转义字符或转义格式错误。",
-	unicodebad:"未能识别的UNICODE类别或脚本。",
-	posixcharclassbad:"未能识别的POSIX字符类。",
-	posixcharclassnoset:"POSIX字符类必须在字符集中。",
-	notsupported:"不支持\"{{~getLabel()}}\" 特性。",
-	fwdslash:"未转义的斜杠。直接把本正则表达式粘贴到代码可能会导致问题。",
-	esccharbad:"无效的转义序列。",
-	servercomm:"通信错误。",
-	extraelse:"条件组中含有额外的else分支。",
-	unmatchedref:"引用了一个不存在的分组 \"{{name}}\"。",
-	modebad:"未能识别的标识 \"<code>{{errmode}}</code>\".",
-	badname:"分组名称不能以数字开头。",
-	dupname:"分组名称不能重复。",
-	branchreseterr:"<b>分支重置。</b> 结果是正确的，但是RegExr解析器还不能正确地给新分组编号。敬请期待！",
-	timeout:"解析超时！", // TODO: can we couple this to the help content somehow?
+	groupopen:"右括弧が左括弧にマッチしません。",
+	groupclose:"左括弧が右括弧にマッチしません。",
+	setopen:"右角括弧が左角括弧にマッチしません。",
+	rangerev:"開始値と最終値が逆です。開始値は最終値より大きいです。",
+	quanttarg:"無効な量指定子",
+	quantrev:"量指定子の開始値は最終値より大きいです。",
+	esccharopen:"エスケープ文字がありません。",
+	esccharbad:"無効なエスケープ文字かエスケープの形式が間違っています。",
+	unicodebad:"無効なUnicodeカテゴリかスクリプト。",
+	posixcharclassbad:"無効なPOSIX文字クラス。",
+	posixcharclassnoset:"無効なPOSIX文字クラス。",
+	notsupported:"RegExr は\"{{~getLabel()}}\"に対して対応してません。",
+	fwdslash:"エスケープしてないスラッシュ。直接正規表現をコピーペーストすると問題が出るかもしれません。",
+	esccharbad:"無効なエスケープシーケンス。",
+	servercomm:"通信エラー",
+	extraelse:"条件分岐に余計なelseがあります。",
+	unmatchedref:"無効のグループ\"{{name}}\"を参照してます。",
+	modebad:"無効の修飾子\"<code>{{errmode}}</code>\"。",
+	badname:"グループ名は数字で始まることはできません。",
+	dupname:"同名グループがあります。",
+	branchreseterr:"<b>分岐リセット</b> マッチングは正確だけど、RegExrはまだ新グループに番号を付けられません。",
+	timeout:"分析タイムアウト！", // TODO: can we couple this to the help content somehow?
 
 	// warnings:
-	jsfuture:"\"{{~getLabel()}}\" 功能可能不支持所有浏览器。",
-	infinite:"该正则可能会返回空结果，且在个别测试用例上可能会返回无穷个结果。", // TODO: can we couple this to the help content somehow?
+	jsfuture:"全てのブラウザーが\"{{~getLabel()}}\"に適用されてる訳ではありません。",
+	infinite:"この正規表現はマッチできないかもしれません。しかし正規表現によって、無限にマッチされるかもしれません。", // TODO: can we couple this to the help content somehow?
 };
 
 /*

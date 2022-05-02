@@ -36,7 +36,7 @@ export default class Sidebar {
 		this.openReq = null;
 		this._initUI(el);
 		this._content = this._prepContent(content);
-		this.minList.data = [{id: "menu", label:"Menu"}].concat(content.kids);
+		this.minList.data = [{id: "menu", label:"メミュー"}].concat(content.kids);
 		app.flavor.on("change", ()=>this._onFlavorChange());
 		let id = app.prefs.read("side");
 		if (!id || !this._idMap[id] || id === "share") { id = "home"; }
@@ -205,7 +205,7 @@ export default class Sidebar {
 		} else {
 			let ref = app.reference;
 			this.contentEl.innerHTML = this._isInReference(o) ? ref.getContent(o.id) : ref.fillTags((o.desc || "") + (o.ext || ""), o, ref);
-			if (o.example) { this.contentEl.appendChild(new Example("示例", o.example).el); }
+			if (o.example) { this.contentEl.appendChild(new Example("例", o.example).el); }
 		}
 	}
 
@@ -318,7 +318,7 @@ export default class Sidebar {
 		this._showListMsg();
 	}
 
-	_showListMsg(msg="加载中……") {
+	_showListMsg(msg="読み込み中……") {
 		this.listEl.innerHTML = "<li class='loading'>"+msg+"</li>";
 	}
 	
@@ -330,7 +330,7 @@ export default class Sidebar {
 	_showServerResults(data) {
 		this.menuList.data = data.results;
 		if (data.results.length === 0) {
-			this._showListMsg(this.curItem.id === "community" ? "没有匹配结果。" : "未创建或未添加至收藏夹。");
+			this._showListMsg(this.curItem.id === "community" ? "見つかりませんでした。" : "存在してませんかお気に入りに入っておりません。");
 		}
 	}
 	

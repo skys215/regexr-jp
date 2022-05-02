@@ -48,7 +48,7 @@ export default class Replace {
 	
 	_update() {
 		let o = app.result && app.result.tool, result = o&&o.result;
-		this.output.value = result || "无结果";
+		this.output.value = result || "結果なし";
 	}
 
 	_handleEvent(evt) {

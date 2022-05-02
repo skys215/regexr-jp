@@ -48,10 +48,10 @@ export default class Explain {
 		let el = $.empty(this.el), token = app.expression.token, expr = app.expression.value;
 		this._divs = [];
 		if (!token || token.next.type === "close") {
-			el.innerHTML = "<span class='desc'>在上方输入的表达式会在此显示解析。</span>";
+			el.innerHTML = "<span class='desc'>上に入力した式はここに解析されます。</span>";
 			return;
 		}
-		el.innerHTML = "<span class='desc'>滚动鼠标来高亮上方的正则表达式。通过点击来显示用法。</span>";
+		el.innerHTML = "<span class='desc'>カーソルを式に当ててハイライトし、クリックして使い方を表示する。</span>";
 		while ((token = token.next) && (token.type !== "close")) {
 			
 			if (token.proxy || (token.open && token.open.proxy)) { continue; }
